@@ -1,15 +1,15 @@
 {
-  "manifest_version": 2,
+    "manifest_version": 2,
 
-  "name": "9GAG Lookup",
-  "description": "Totally different app from other 9GAG extensions.",
-  "version": "0.1",
+    "name": "9GAG 字典",
+    "description": "方便的 9GAG 字典 讓您不用輸入就可以查字典",
+    "version": "0.1",
 
-  "browser_action": {
-    "default_icon": "icon.png",
-    "default_popup": "popup.html"
-  },
-  "permissions": [
-    "http://9gag.com/"
-  ]
+    "browser_action": {
+        "default_icon": "icon.png",
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "http://9gag.com/"
+    ]
 }
