@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+
+  "name": "9GAG Lookup",
+  "description": "Totally different app from other 9GAG extensions.",
+  "version": "0.1",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "http://9gag.com/"
+  ]
+}
