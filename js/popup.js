@@ -1,9 +1,12 @@
 function is9gag(url) {
-    return true;
+    return (url.match(/https?:\/\/9gag.com/) != null);
 }
 
 function getGagId(url) {
-    return '6729049';
+    var mo = url.match(/https?:\/\/9gag.com\/gag\/(\d+)/);
+    if(mo == null || mo.length != 2)
+        return null;
+    return mo[1];
 }
 
 function putPrompt(msg) {
@@ -19,7 +22,7 @@ function putSingleRecomm(word) {
     $('#recomm-words p').append(' ');
 }
 
-function putAllRecomm() {
+function putAllRecomm(gid) {
     var recommWords = ['Infantiles', 'Equipment', 'Juegos', 'Equipes', 'Para'];
     for(var i in recommWords)
         putSingleRecomm(recommWords[i]);
