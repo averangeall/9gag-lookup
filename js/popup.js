@@ -117,6 +117,13 @@ function putAllRecomm(gid) {
     });
 }
 
+function setInputListener(gid) {
+    $('#input').keypress(function(evt) {
+        if(evt.which == 13)
+            putAllDefi(gid, $('#input').val());
+    });
+}
+
 $(function() {
     chrome.windows.getCurrent(function(w) {
         chrome.tabs.getSelected(w.id, function (response){
@@ -129,6 +136,7 @@ $(function() {
                 else {
                     putPrompt('或是您想要查的字在這裡呢？');
                     putAllRecomm(gid);
+                    setInputListener(gid);
                 }
             }
         });
