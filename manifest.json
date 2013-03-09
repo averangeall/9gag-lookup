@@ -11,6 +11,8 @@
     },
     "permissions": [
         "tabs",
-        "http://9gag.com/"
-    ]
+        "http://9gag.com/",
+        "http://captain.csie.org/"
+    ],
+    "content_security_policy": "script-src 'self'; object-src 'self' https://www.youtube.com/"
 }
