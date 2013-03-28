@@ -1,10 +1,10 @@
+var baseUrl = 'http://daisy.csie.org:2266';
+
 function is9gag(url) {
-    return true;
     return (url.match(/https?:\/\/9gag\.com/) != null);
 }
 
 function getGagId(url) {
-    return '12345';
     var mo = url.match(/https?:\/\/9gag\.com\/gag\/(\d+)/);
     if(mo == null || mo.length != 2)
         return null;
@@ -23,7 +23,7 @@ function reliableGet(name, url, success) {
     }
     reliableTimeId[name] = setInterval(function() {
         todo();
-    }, 500);
+    }, 2000);
     todo();
 }
 
@@ -61,8 +61,7 @@ function putSingleDefi(defi) {
     var pDefi = $('<p/>');
     $('#definitions').append(pDefi);
     if(defi.type == 'text') {
-        pDefi.append($('<h3/>').html(defi.content))
-             .append($('<span/>').html(' - ' + defi.src));
+        pDefi.append($('<h4/>').html(defi.content));
     } else if(defi.type == 'image') {
         var image = $('<img/>').attr('src', defi.content)
                                .css('max-width', '80%');
@@ -84,13 +83,13 @@ function putSingleDefi(defi) {
 
 function putAllDefi(word, gid) {
     putLoading();
-    var url = 'http://captain.csie.org/lookup/query/?word=' + word + '&gag_id=' + gid;
-    reliableGet('query-' + word, url, function(definitions) {
+    var url = baseUrl + '/lookup/query/?word=' + word + '&gag_id=' + gid;
+    reliableGet('query-' + word, url, function(defis) {
         removeLoading();
         removeAllDefi();
-        for(var i in definitions) {
+        for(var i in defis) {
             putHLine($('#definitions'));
-            putSingleDefi(definitions[i]);
+            putSingleDefi(defis[i]);
         }
         putHLine($('#definitions'));
     });
@@ -109,7 +108,7 @@ function putSingleRecomm(word, gid) {
 
 function putAllRecomm(gid) {
     putLoading();
-    reliableGet('recomm', 'http://captain.csie.org/lookup/recomm/' + gid, function(recommWords) {
+    reliableGet('recomm', baseUrl + '/lookup/recomm/' + gid, function(recommWords) {
         removeLoading();
         removeAllRecomm();
         for(var i in recommWords)
@@ -134,7 +133,6 @@ $(function() {
                 if(gid == null)
                     putPrompt('請點進 9GAG 的頁面再進行查詢!');
                 else {
-                    putPrompt('或是您想要查的字在這裡呢？');
                     putAllRecomm(gid);
                     setInputListener(gid);
                 }
