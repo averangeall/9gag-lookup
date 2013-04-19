@@ -1,11 +1,14 @@
 var baseUrl = 'http://daisy.csie.org:2266';
+var gid;
+var input = '';
+var allRecomms = [];
 
 function is9gag(url) {
     return (url.match(/https?:\/\/9gag\.com/) != null);
 }
 
 function getGagId(url) {
-    var mo = url.match(/https?:\/\/9gag\.com\/gag\/(\d+)/);
+    var mo = url.match(/https?:\/\/9gag\.com\/gag\/(\w+)/);
     if(mo == null || mo.length != 2)
         return null;
     return mo[1];
@@ -81,12 +84,12 @@ function putSingleDefi(defi) {
     }
 }
 
-function putAllDefi(word, gid) {
+function putAllDefi(word) {
+    removeAllDefi();
     putLoading();
     var url = baseUrl + '/lookup/query/?word=' + word + '&gag_id=' + gid;
     reliableGet('query-' + word, url, function(defis) {
         removeLoading();
-        removeAllDefi();
         for(var i in defis) {
             putHLine($('#definitions'));
             putSingleDefi(defis[i]);
@@ -95,31 +98,62 @@ function putAllDefi(word, gid) {
     });
 }
 
-function putSingleRecomm(word, gid) {
+function putSingleRecomm(word) {
     var button = $('<a/>').html(word)
                           .attr('href', '#')
                           .attr('class', 'btn btn-large btn-primary')
                           .click(function() {
-                              putAllDefi(word, gid);
+                              putAllDefi(word);
                           });
     $('#recomm-words p').append(button)
                         .append(' ');
 }
 
-function putAllRecomm(gid) {
-    putLoading();
-    reliableGet('recomm', baseUrl + '/lookup/recomm/' + gid, function(recommWords) {
-        removeLoading();
-        removeAllRecomm();
-        for(var i in recommWords)
-            putSingleRecomm(recommWords[i], gid);
+function filterRecomm() {
+    removeAllRecomm();
+    for(var i in allRecomms) {
+        var lowerRecomm = allRecomms[i].toLowerCase();
+        var lowerInput = input.toLowerCase()
+        if(input == '' || lowerRecomm.indexOf(lowerInput) != -1)
+            putSingleRecomm(allRecomms[i]);
+    }
+}
+
+function userRecomm() {
+    if($.trim(input) != '')
+        putSingleRecomm(input);
+}
+
+function setRecommBtnClass() {
+    $.each($('#recomm-words p a'), function(idx) {
+        if(idx == 0)
+            $(this).attr('class', 'btn btn-large btn-info')
     });
 }
 
-function setInputListener(gid) {
-    $('#input').keypress(function(evt) {
-        if(evt.which == 13)
-            putAllDefi(gid, $('#input').val());
+function putAllRecomm() {
+    putLoading();
+    reliableGet('recomm', baseUrl + '/lookup/recomm/' + gid, function(recommWords) {
+        removeLoading();
+        allRecomms = recommWords;
+        filterRecomm();
+        userRecomm();
+    });
+}
+
+function setInputListener() {
+    $('#input').keyup(function(evt) {
+        input = $('#input').val();
+        if(evt.which != 13) {
+            filterRecomm();
+            userRecomm();
+            setRecommBtnClass();
+        } else {
+            $.each($('#recomm-words p a'), function(idx) {
+                if(idx == 0)
+                    putAllDefi($(this).html());
+            });
+        }
     });
 }
 
@@ -129,7 +163,7 @@ $(function() {
             if(!is9gag(response.url)) {
                 putPrompt('請到 9GAG 的頁面查詢!');
             } else {
-                var gid = getGagId(response.url);
+                gid = getGagId(response.url);
                 if(gid == null)
                     putPrompt('請點進 9GAG 的頁面再進行查詢!');
                 else {
@@ -140,3 +174,4 @@ $(function() {
         });
     });
 });
+
