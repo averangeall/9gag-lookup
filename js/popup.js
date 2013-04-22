@@ -1,5 +1,5 @@
 var baseUrl = 'http://daisy.csie.org:2266';
-var gid;
+var gag_id;
 var input = '';
 var allRecomms = [];
 
@@ -15,6 +15,7 @@ function getGagId(url) {
 }
 
 var reliableTimeId = {};
+var reliableCnt = {};
 function reliableGet(name, url, success) {
     var todo = function() {
         if(reliableTimeId[name] == null)
@@ -25,7 +26,14 @@ function reliableGet(name, url, success) {
         }, 'json');
     }
     reliableTimeId[name] = setInterval(function() {
-        todo();
+        if(name in reliableCnt)
+            ++ reliableCnt[name];
+        else
+            reliableCnt[name] = 1;
+        if(reliableCnt[name] <= 3)
+            todo();
+        else
+            clearInterval(reliableTimeId[name]);
     }, 2000);
     todo();
 }
@@ -87,7 +95,7 @@ function putSingleDefi(defi) {
 function putAllDefi(word) {
     removeAllDefi();
     putLoading();
-    var url = baseUrl + '/lookup/query/?word=' + word + '&gag_id=' + gid;
+    var url = baseUrl + '/lookup/query/?word=' + word + '&gag_id=' + gag_id;
     reliableGet('query-' + word, url, function(defis) {
         removeLoading();
         for(var i in defis) {
@@ -133,7 +141,7 @@ function setRecommBtnClass() {
 
 function putAllRecomm() {
     putLoading();
-    reliableGet('recomm', baseUrl + '/lookup/recomm/' + gid, function(recommWords) {
+    reliableGet('recomm', baseUrl + '/lookup/recomm/' + gag_id, function(recommWords) {
         removeLoading();
         allRecomms = recommWords;
         filterRecomm();
@@ -163,12 +171,12 @@ $(function() {
             if(!is9gag(response.url)) {
                 putPrompt('請到 9GAG 的頁面查詢!');
             } else {
-                gid = getGagId(response.url);
-                if(gid == null)
+                gag_id = getGagId(response.url);
+                if(gag_id == null)
                     putPrompt('請點進 9GAG 的頁面再進行查詢!');
                 else {
-                    putAllRecomm(gid);
-                    setInputListener(gid);
+                    putAllRecomm(gag_id);
+                    setInputListener(gag_id);
                 }
             }
         });
