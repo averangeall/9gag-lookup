@@ -1,0 +1,23 @@
+body {
+    background-color: white;
+    min-width: 357px;
+    overflow-x: hidden;
+}
+
+#header {
+    height: 15px;
+    background-color: #1ABC9C;
+}
+
+#footer {
+    height: 15px;
+    background-color: #1ABC9C;
+}
+
+div.blank {
+    height: 20px;
+}
+
+#recomm-words p {
+    line-height: 49px;
+}

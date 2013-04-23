@@ -1,15 +1,24 @@
 {
-  "manifest_version": 2,
+    "manifest_version": 2,
 
-  "name": "9GAG Lookup",
-  "description": "Totally different app from other 9GAG extensions.",
-  "version": "0.1",
+    "name": "9GAG 字典",
+    "description": "方便的 9GAG 字典 讓您不用輸入就可以查字典",
+    "version": "0.1",
 
-  "browser_action": {
-    "default_icon": "icon.png",
-    "default_popup": "popup.html"
-  },
-  "permissions": [
-    "http://9gag.com/"
-  ]
+    "icons": {
+        "16": "images/icon-16.png",
+        "48": "images/icon-48.png",
+        "128": "images/icon-128.png"
+    },
+
+    "browser_action": {
+        "default_icon": "images/icon-16.png",
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "tabs",
+        "http://9gag.com/",
+        "http://daisy.csie.org:2266/"
+    ],
+    "content_security_policy": "script-src 'self'; object-src 'self' https://www.youtube.com/"
 }
