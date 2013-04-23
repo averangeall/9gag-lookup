@@ -41,7 +41,7 @@ function reliableGet(name, url, success) {
 function putHLine(to) {
     var line = $('<p/>');
     for(var i = 0; i < 80; ++ i) {
-        var slice = $('<img/>').attr('src', 'fig/hline-slice.png');
+        var slice = $('<img/>').attr('src', 'images/hline-slice.png');
         line.append(slice);
     }
     to.append(line);
@@ -52,7 +52,7 @@ function removeLoading() {
 }
 
 function putLoading() {
-    var loadingImg = $('<img/>').attr('src', 'fig/loading.gif');
+    var loadingImg = $('<img/>').attr('src', 'images/loading.gif');
     $('#loading').empty().append(loadingImg);
 }
 
