@@ -10,10 +10,12 @@
         "48": "images/icon-48.png",
         "128": "images/icon-128.png"
     },
-
+    "background": {
+        "persistent": false,
+        "page": "background.html"
+    },
     "browser_action": {
-        "default_icon": "images/icon-16.png",
-        "default_popup": "popup.html"
+        "default_icon": "images/icon-16.png"
     },
     "permissions": [
         "tabs",
