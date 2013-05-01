@@ -9,13 +9,12 @@ function updateGotoGag() {
 }
 
 function decideAction(tabId, changeInfo, tab) {
-    if(is9gag(tab.url) && getGagId(tab.url) != null)
+    if(is9gag(tab.url) && getGagId(tab.url) != null) {
         chrome.browserAction.setPopup({tabId: tab.id, popup: 'popup.html'});
-    else
+        chrome.browserAction.setIcon({path: 'images/icon-19.png', tabId: tabId});
+    } else
         updateGotoGag();
 }
 
-$(function() {
-    chrome.tabs.onUpdated.removeListener(decideAction);
-    chrome.tabs.onUpdated.addListener(decideAction);
-});
+chrome.tabs.onUpdated.removeListener(decideAction);
+chrome.tabs.onUpdated.addListener(decideAction);
