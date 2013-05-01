@@ -2,30 +2,6 @@ var gag_id;
 var input = '';
 var allRecomms = [];
 
-var reliableTimeId = {};
-var reliableCnt = {};
-function reliableGet(name, url, success) {
-    var todo = function() {
-        if(reliableTimeId[name] == null)
-            return;
-        $.get(url, function(data) {
-            success(data);
-            reliableTimeId[name] = null;
-        }, 'json');
-    }
-    reliableTimeId[name] = setInterval(function() {
-        if(name in reliableCnt)
-            ++ reliableCnt[name];
-        else
-            reliableCnt[name] = 1;
-        if(reliableCnt[name] <= 3)
-            todo();
-        else
-            clearInterval(reliableTimeId[name]);
-    }, 2000);
-    todo();
-}
-
 function putHLine(to) {
     var line = $('<p/>');
     for(var i = 0; i < 80; ++ i) {
@@ -83,7 +59,7 @@ function putSingleDefi(defi) {
 function putAllDefi(word) {
     removeAllDefi();
     putLoading();
-    var url = baseUrl + '/lookup/query/?word=' + word + '&gag_id=' + gag_id;
+    var url = '/lookup/query/?word=' + word + '&gag_id=' + gag_id;
     reliableGet('query-' + word, url, function(defis) {
         removeLoading();
         for(var i in defis) {
@@ -129,7 +105,7 @@ function setRecommBtnClass() {
 
 function putAllRecomm() {
     putLoading();
-    reliableGet('recomm', baseUrl + '/lookup/recomm/' + gag_id, function(recommWords) {
+    reliableGet('recomm', '/lookup/recomm/' + gag_id, function(recommWords) {
         removeLoading();
         allRecomms = recommWords;
         filterRecomm();

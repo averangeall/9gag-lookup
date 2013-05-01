@@ -9,3 +9,17 @@ function getGagId(url) {
     return mo[1];
 }
 
+var reliableTasks = {};
+function reliableGet(name, extraUrl, success) {
+    reliableTasks[name] = false;
+    for(var i in baseUrls) {
+        var url = baseUrls[i] + extraUrl;
+        $.get(url, function(data) {
+            if(reliableTasks[name])
+                return;
+            success(data);
+            reliableTasks[name] = true;
+        }, 'json');
+    }
+}
+
