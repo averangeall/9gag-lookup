@@ -11,7 +11,6 @@
         "128": "images/icon-128.png"
     },
     "background": {
-        "persistent": false,
         "page": "background.html"
     },
     "browser_action": {
