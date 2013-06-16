@@ -2,6 +2,10 @@ var gag_id;
 var input = '';
 var allRecomms = [];
 
+function putTitle(title) {
+    $('#title').html(title);
+}
+
 function putHLine(to) {
     var line = $('<p/>');
     for(var i = 0; i < 80; ++ i) {
@@ -132,18 +136,14 @@ function setInputListener() {
 $(function() {
     chrome.windows.getCurrent(function(w) {
         chrome.tabs.getSelected(w.id, function (response){
-            if(!is9gag(response.url)) {
-                putPrompt('請到 9GAG 的頁面查詢!');
-            } else {
-                gag_id = getGagId(response.url);
-                if(gag_id == null)
-                    putPrompt('請點進 9GAG 的頁面再進行查詢!');
-                else {
-                    putAllRecomm(gag_id);
-                    setInputListener(gag_id);
-                }
-            }
+            chrome.tabs.executeScript(null, {file: "js/gag-info.js"});
         });
     });
 });
 
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    gag_id = request.gag_id;
+    putTitle(request.title);
+    //putAllRecomm(gag_id);
+    //setInputListener(gag_id);
+});
