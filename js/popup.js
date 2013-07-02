@@ -99,7 +99,7 @@ $(function() {
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     gagId = request.gag_id;
     putTitle(request.title);
-    putAllRecomm(gag_id);
+    putAllRecomms(gagId);
     //setInputListener(gag_id);
 });
 

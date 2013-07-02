@@ -1,36 +1,37 @@
-function removeAllRecomm() {
+function removeAllRecomms() {
     $('#recomm-words p').empty();
 }
 
-function putSingleRecomm(word) {
-    var button = $('<a/>').html(word)
+function putSingleRecomm(recomm) {
+    var button = $('<a/>').html(recomm.content)
                           .attr('href', '#')
                           .attr('class', 'btn btn-large btn-primary')
+                          .attr('data-id', recomm.id)
                           .click(function() {
-                              putAllDefi(word);
+                              putAllExpls(this);
                           });
     $('#recomm-words p').append(button)
                         .append(' ');
 }
 
 function filterRecomm() {
-    removeAllRecomm();
+    removeAllRecomms();
     for(var i in allRecomms) {
-        var lowerRecomm = allRecomms[i].toLowerCase();
+        var lowerRecomm = allRecomms[i].content.toLowerCase();
         var lowerInput = inputRecomm.toLowerCase();
-        if(input == '' || lowerRecomm.indexOf(lowerInput) != -1)
+        if(lowerInput == '' || lowerRecomm.indexOf(lowerInput) != -1)
             putSingleRecomm(allRecomms[i]);
     }
 }
 
-function putAllRecomm() {
+function putAllRecomms() {
     putLoading();
     reliableGet(makeExtraUrl('recomm', 'get'), function(recommWords) {
         removeLoading();
         if(recommWords.status == 'OKAY')
             allRecomms = recommWords.respond;
         filterRecomm();
-        userRecomm();
+        //userRecomm();
     });
 }
 
