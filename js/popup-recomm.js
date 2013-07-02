@@ -8,7 +8,7 @@ function putSingleRecomm(recomm) {
                           .attr('class', 'btn btn-large btn-primary')
                           .attr('data-id', recomm.id)
                           .click(function() {
-                              putAllExpls(this);
+                              putAllExpls(recomm);
                           });
     $('#recomm-words p').append(button)
                         .append(' ');
@@ -26,7 +26,7 @@ function filterRecomm() {
 
 function putAllRecomms() {
     putLoading();
-    reliableGet(makeExtraUrl('recomm', 'get'), function(recommWords) {
+    reliableGet(makeExtraUrl('recomm', 'get', {}), function(recommWords) {
         removeLoading();
         if(recommWords.status == 'OKAY')
             allRecomms = recommWords.respond;

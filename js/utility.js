@@ -2,8 +2,21 @@ function is9gag(url) {
     return (url.match(/https?:\/\/9gag\.com/) != null);
 }
 
-function makeExtraUrl(stuff, action) {
-    return '/lookup/' + stuff + '/' + action + '/?gag_id=' + gagId + '&user_id=' + userId + '&valid_key=' + userKey;
+function makeExtraUrl(stuff, action, args) {
+    var front = '/lookup/' + stuff + '/' + action + '/';
+    var back = '';
+    if(args !== undefined) {
+        args['gag_id'] = gagId;
+        args['user_id'] = userId;
+        args['valid_key'] = userKey;
+        for(var key in args) {
+            if(back != '')
+                back += '&';
+            back += key + '=' + args[key];
+        }
+        back = '?' + back;
+    }
+    return front + back;
 }
 
 var reliableTasks = {};
