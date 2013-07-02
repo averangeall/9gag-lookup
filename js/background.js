@@ -15,3 +15,4 @@ function decideAction(tabId, changeInfo, tab) {
 if(!chrome.tabs.onUpdated.hasListener(decideAction))
     chrome.tabs.onUpdated.addListener(decideAction);
 
+setUserInfo();

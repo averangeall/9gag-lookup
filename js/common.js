@@ -10,8 +10,7 @@ function getGagId(url) {
 }
 
 function makeExtraUrl(stuff, action) {
-    gag_id = 'ajYbzzx';
-    return '/lookup/' + stuff + '/' + action + '/?gag_id=' + gag_id + '&user_id=84920&valid_key=hello';
+    return '/lookup/' + stuff + '/' + action + '/?gag_id=' + gagId + '&user_id=' + userId + '&valid_key=' + userKey;
 }
 
 function putLoading() {
@@ -24,16 +23,15 @@ function removeLoading() {
 }
 
 var reliableTasks = {};
-function reliableGet(name, extraUrl, success) {
-    reliableTasks[name] = false;
+function reliableGet(extraUrl, success) {
+    reliableTasks[extraUrl] = false;
     for(var i in baseUrls) {
         var url = baseUrls[i] + extraUrl;
-        alert(url);
         $.get(url, function(data) {
-            if(reliableTasks[name])
+            if(reliableTasks[extraUrl])
                 return;
+            reliableTasks[extraUrl] = true;
             success(data);
-            reliableTasks[name] = true;
         }, 'json');
     }
 }

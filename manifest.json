@@ -17,9 +17,10 @@
         "default_icon": "images/grey-19.png"
     },
     "permissions": [
+        "storage",
         "tabs",
         "http://9gag.com/",
-        "http://daisy.csie.org:5566/",
+        "http://disa.csie.org:5566/",
         "http://nine-gag-wrapper.herokuapp.com/"
     ],
     "content_security_policy": "script-src 'self'; object-src 'self' https://www.youtube.com/"

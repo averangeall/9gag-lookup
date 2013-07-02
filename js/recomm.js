@@ -1,6 +1,3 @@
-var allRecomms = [];
-var inputRecomm = '';
-
 function removeAllRecomm() {
     $('#recomm-words p').empty();
 }
@@ -28,7 +25,7 @@ function filterRecomm() {
 
 function putAllRecomm() {
     putLoading();
-    reliableGet('recomm', makeExtraUrl('recomm', 'get'), function(recommWords) {
+    reliableGet(makeExtraUrl('recomm', 'get'), function(recommWords) {
         removeLoading();
         if(recommWords.status == 'OKAY')
             allRecomms = recommWords.respond;
