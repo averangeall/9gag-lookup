@@ -10,7 +10,7 @@ function putSingleExpl(expl) {
     } else if(expl.type == 'image') {
         var image = $('<img/>').attr('src', expl.content)
                                .css('max-width', '80%');
-        whole.append(image);
+        whole.append($('<p/>').append(image));
     } else if(expl.type == 'video') {
         if(expl.src == 'youtube.com') {
             var mo = expl.content.match(/https?:\/\/www\.youtube\.com\/watch\?v=(.+)/);
@@ -24,6 +24,8 @@ function putSingleExpl(expl) {
                                'youtube-' + videoId, "300", "200", "8", null, null, null, null);
         }
     }
+    whole.append($('<span/>').html(' from '));
+    whole.append($('<a/>').attr('href', expl.link).attr('target', '_blank').html(expl.source));
 }
 
 function putAllExpls(recomm) {
