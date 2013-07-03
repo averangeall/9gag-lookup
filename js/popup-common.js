@@ -1,3 +1,7 @@
+function putTitle(title) {
+    $('#title').html(title);
+}
+
 function putHLine(to) {
     var line = $('<p/>');
     for(var i = 0; i < 80; ++ i) {

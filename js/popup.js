@@ -1,13 +1,3 @@
-function putTitle(title) {
-    $('#title').html(title);
-}
-
-//function putPrompt(msg) {
-//    $('#prompt').html(msg);
-//}
-//
-
-
 //
 //function userRecomm() {
 //    if($.trim(input) != '')
@@ -52,5 +42,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     putTitle(request.title);
     putAllRecomms(gagId);
     //setInputListener(gag_id);
+    focusInput();
 });
 
