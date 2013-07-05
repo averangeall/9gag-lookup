@@ -4,12 +4,7 @@ body {
     overflow-x: hidden;
 }
 
-#header {
-    height: 15px;
-    background-color: #1ABC9C;
-}
-
-#footer {
+#header, #footer {
     height: 15px;
     background-color: #1ABC9C;
 }
@@ -20,4 +15,20 @@ div.blank {
 
 #recomm-words p {
     line-height: 49px;
+}
+
+.hate .mood-icon.off {
+    content: url(../images/black-hate.png);
+}
+
+.hate .mood-icon.on {
+    content: url(../images/color-hate.png);
+}
+
+.like .mood-icon.off {
+    content: url(../images/black-like.png);
+}
+
+.like .mood-icon.on {
+    content: url(../images/color-like.png);
 }
