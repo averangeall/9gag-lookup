@@ -2,34 +2,37 @@ function removeAllDefi() {
     $('#explains').empty();
 }
 
-function genMoodIcon(name) {
+function genMoodIcon(name, explId) {
     var mood = $('<a/>').attr('href', '#')
                         .css('float', 'right')
                         .attr('class', name)
+                        .attr('data-expl-id', explId)
                         .append($('<img/>').attr('class', 'mood-icon off'))
                         .append($('<img/>').attr('src', 'images/blank.png'));
-    mood.mouseover(function() {
-    });
     return mood;
 }
 
 function setMoodIconClick(one, other) {
     one.click(function() {
+        var explId = one.attr('data-expl-id');
+        var action = one.attr('class');
         var here = one.children('.mood-icon');
         var there = other.children('.mood-icon');
-        if(here.hasClass('on'))
+        if(here.hasClass('on')) {
             here.removeClass('on').addClass('off');
-        else if(here.hasClass('off')) {
+            reliableGet(makeExtraUrl('explain', 'plain', {expl_id: explId}), function() { });
+        } else if(here.hasClass('off')) {
             here.removeClass('off').addClass('on');
             there.removeClass('on').addClass('off');
+            reliableGet(makeExtraUrl('explain', action, {expl_id: explId}), function() { });
         }
     });
 }
 
 function putSingleExpl(expl) {
     var whole = $('<p/>');
-    var hate = genMoodIcon('hate');
-    var like = genMoodIcon('like');
+    var hate = genMoodIcon('hate', expl.id);
+    var like = genMoodIcon('like', expl.id);
     setMoodIconClick(hate, like);
     setMoodIconClick(like, hate);
     whole.append(hate);
