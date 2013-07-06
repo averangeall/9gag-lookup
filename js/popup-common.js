@@ -3,12 +3,7 @@ function putTitle(title) {
 }
 
 function putHLine(to) {
-    var line = $('<span/>');
-    for(var i = 0; i < 110; ++ i) {
-        var slice = $('<img/>').attr('src', 'images/hline-slice.png');
-        line.append(slice);
-    }
-    line.append($('<br/>'));
+    var line = $('<div/>').addClass('hline');
     to.append(line);
 }
 

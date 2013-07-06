@@ -17,6 +17,13 @@ div.blank {
     line-height: 49px;
 }
 
+.hline {
+    width: 70%;
+    height: 30px;
+    background-image: url(../images/hline-slice.png);
+    background-repeat: repeat-x;
+}
+
 .hate .mood-icon.off {
     content: url(../images/black-hate.png);
 }
