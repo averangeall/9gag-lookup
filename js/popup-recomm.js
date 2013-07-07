@@ -8,7 +8,6 @@ function putSingleRecomm(recomm) {
                           .attr('class', 'btn btn-large btn-primary')
                           .attr('data-id', recomm.id)
                           .click(function() {
-                              console.log(recomm);
                               putAllExpls(recomm);
                           });
     $('#recomm-words p').append(button)
