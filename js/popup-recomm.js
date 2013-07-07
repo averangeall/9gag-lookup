@@ -4,10 +4,11 @@ function removeAllRecomms() {
 
 function putSingleRecomm(recomm) {
     var button = $('<a/>').html(recomm.content)
-                          .attr('href', '#')
+                          .attr('href', 'javascript: void(0);')
                           .attr('class', 'btn btn-large btn-primary')
                           .attr('data-id', recomm.id)
                           .click(function() {
+                              wordId = recomm.id;
                               putAllExpls(recomm);
                           });
     $('#recomm-words p').append(button)

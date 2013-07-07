@@ -1,5 +1,6 @@
 function removeAllDefi() {
-    $('#explains').empty();
+    $('#explain-content').empty();
+    $('#explain-more').empty();
 }
 
 function genMoodIcon(name, explId) {
@@ -43,7 +44,6 @@ function setMoodIconClick(one, other) {
 }
 
 function putSingleExpl(expl) {
-    console.log(expl);
     var whole = $('<div/>').attr('id', 'expl-' + expl.id);
     var hate = genMoodIcon('hate', expl.id);
     var like = genMoodIcon('like', expl.id);
@@ -80,7 +80,14 @@ function putSingleExpl(expl) {
                             .append($('<a/>').attr('href', expl.link).attr('target', '_blank').html(expl.source))
     explPart.append(source);
     whole.append(explPart);
-    $('#explains').append(whole);
+    $('#explain-content').append(whole);
+}
+
+function putExplContent(expls) {
+    $.each(expls, function(idx, expl) {
+        putHLine($('#explain-content'));
+        putSingleExpl(expl);
+    });
 }
 
 function putAllExpls(recomm) {
@@ -96,12 +103,42 @@ function putAllExpls(recomm) {
     reliableGet(makeExtraUrl('explain', 'query', args), function(res) {
         removeLoading();
         if(res.status == 'OKAY') {
-            expls = res.respond;
-            $.each(expls, function(idx, expl) {
-                putHLine($('#explains'));
-                putSingleExpl(expl);
-            });
-            putHLine($('#explains'));
+            putExplContent(res.respond);
+            putMoreExpl();
+            putHLine($('#explain-hline'));
         }
     });
+}
+
+function makeProvideExpl() {
+    var input = $('<textarea/>').attr('id', 'provide-expl-input')
+                                .attr('type', 'text')
+                                .attr('placeholder', '或是您可以輸入您的解釋!!!')
+                                .addClass('span4');
+    var submit = $('<a/>').html('送出吧')
+                          .attr('href', 'javascript: void(0);')
+                          .attr('class', 'btn btn-large btn-primary')
+                          .click(function() {
+                              putLoading();
+                              var args = {
+                                  expl_str: $('#provide-expl-input').val(),
+                                  word_id: wordId
+                              };
+                              reliableGet(makeExtraUrl('explain', 'provide', args), function(res) {
+                                  removeLoading();
+                                  if(res.status == 'OKAY') {
+                                      putExplContent(res.respond);
+                                  }
+                                  $('#provide-expl-input').val('');
+                              });
+                          });
+    var provide = $('<div/>').append(input)
+                             .append(submit);
+    return provide;
+}
+
+function putMoreExpl() {
+    var more = $('<div/>').append($('<h3/>').html('以上的解釋都不滿意嗎？'))
+                          .append(makeProvideExpl());
+    $('#explain-more').append(more);
 }
