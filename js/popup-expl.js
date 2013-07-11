@@ -4,12 +4,15 @@ function removeAllDefi() {
 }
 
 function genMoodIcon(name, explId) {
-    var mood = $('<a/>').attr('href', 'javascript: void(0);')
-                        .attr('class', name)
-                        .attr('data-expl-id', explId)
-                        .attr('data-toggle', 'tooltip')
-                        .append($('<img/>').attr('class', 'mood-icon off'))
-                        .append($('<img/>').attr('src', 'images/blank.png'));
+    var icons = {
+        'hate': 'fui-cross',
+        'like': 'fui-check',
+    };
+    mood = $('<a/>').attr('href', 'javascript: void(0);')
+                    .addClass('btn btn-mini btn-inverse')
+                    .addClass(icons[name])
+                    .css('text-align', 'center')
+                    .css('width', '30px');
     var titles = {
         'hate': '這個解釋得爛透了!',
         'like': '這個解釋還OK!',
