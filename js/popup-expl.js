@@ -3,26 +3,38 @@ function removeAllDefi() {
     $('#explain-more').empty();
 }
 
-function genMoodIcon(name, explId) {
+function genMoodIcon(name, explId, toggle) {
     var icons = {
         'hate': 'fui-cross',
         'like': 'fui-check',
     };
-    mood = $('<a/>').attr('href', 'javascript: void(0);')
-                    .addClass('btn btn-mini btn-inverse')
-                    .addClass(icons[name])
-                    .css('text-align', 'center')
-                    .css('width', '30px');
+    var toggles = {
+        'on': {
+            'hate': 'btn-danger',
+            'like': 'btn-success',
+        }[name],
+        'off': 'btn-default',
+    };
+    var button = $('<a/>').attr('href', 'javascript: void(0);')
+                          .attr('data-expl-id', explId)
+                          .attr('data-action', name)
+                          .addClass('btn btn-mini')
+                          .addClass(icons[name])
+                          .addClass(toggles[toggle])
+                          .attr('data-toggle-on', toggles['on'])
+                          .attr('data-toggle-off', toggles['off'])
+                          .css('text-align', 'center')
+                          .css('width', '30px');
     var titles = {
         'hate': '這個解釋得爛透了!',
         'like': '這個解釋還OK!',
     };
-    mood.tooltip({
+    button.tooltip({
         animation: true,
         placement: 'left',
         title: titles[name]
     });
-    return mood;
+    return button;
 }
 
 function showAction(explId, action, direction) {
@@ -40,17 +52,19 @@ function showAction(explId, action, direction) {
 function setMoodIconClick(one, other) {
     one.click(function() {
         var explId = one.attr('data-expl-id');
-        var action = one.attr('class');
-        var here = one.children('.mood-icon');
-        var there = other.children('.mood-icon');
-        if(here.hasClass('on')) {
-            showAction(one.attr('data-expl-id'), action, 'backward');
-            here.removeClass('on').addClass('off');
+        var action = one.attr('data-action');
+        console.log(one.attr('data-toggle-on'));
+        console.log(one.attr('class'));
+        if(one.hasClass(one.attr('data-toggle-on'))) {
+            console.log('on -> off');
+            showAction(explId, action, 'backward');
+            one.removeClass(one.attr('data-toggle-on')).addClass(one.attr('data-toggle-off'));
             reliableGet(makeExtraUrl('explain', 'plain', {expl_id: explId}), function() { });
-        } else if(here.hasClass('off')) {
-            showAction(one.attr('data-expl-id'), action, 'forward');
-            here.removeClass('off').addClass('on');
-            there.removeClass('on').addClass('off');
+        } else if(one.hasClass(one.attr('data-toggle-off'))) {
+            console.log('off -> on');
+            showAction(explId, action, 'forward');
+            one.removeClass(one.attr('data-toggle-off')).addClass(one.attr('data-toggle-on'));
+            other.removeClass(other.attr('data-toggle-on')).addClass(other.attr('data-toggle-off'));
             reliableGet(makeExtraUrl('explain', action, {expl_id: explId}), function() { });
         }
     });
@@ -58,8 +72,8 @@ function setMoodIconClick(one, other) {
 
 function putSingleExpl(expl) {
     var whole = $('<div/>').attr('id', 'expl-' + expl.id);
-    var hate = genMoodIcon('hate', expl.id);
-    var like = genMoodIcon('like', expl.id);
+    var hate = genMoodIcon('hate', expl.id, 'off');
+    var like = genMoodIcon('like', expl.id, 'off');
     var moods = $('<div/>').attr('align', 'right')
                            .css('height', '30px')
                            .append(like)
