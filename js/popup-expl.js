@@ -1,6 +1,7 @@
 function removeAllDefi() {
     $('#explain-content').empty();
     $('#explain-more').empty();
+    $('#explain-hline').empty();
 }
 
 function genMoodIcon(name, explId, toggle) {
