@@ -120,8 +120,14 @@ function putExplRecomm(recomm) {
     button.click(function() {
         if(button.hasClass(button.attr('data-toggle-on'))) {
             button.removeClass(button.attr('data-toggle-on')).addClass(button.attr('data-toggle-off'));
+            $('#explain-content').show('fast');
+            $('#explain-more').show('fast');
+            reliableGet(makeExtraUrl('explain', 'query', {word_id: button.attr('data-word-id')}), function() { });
         } else if(button.hasClass(button.attr('data-toggle-off'))) {
             button.removeClass(button.attr('data-toggle-off')).addClass(button.attr('data-toggle-on'));
+            $('#explain-content').hide('fast');
+            $('#explain-more').hide('fast');
+            reliableGet(makeExtraUrl('recomm', 'hate', {word_id: button.attr('data-word-id')}), function() { });
         }
     });
     button.tooltip({
@@ -130,8 +136,13 @@ function putExplRecomm(recomm) {
         title: '這關鍵字和圖根本無關啊!!'
     });
     if('id' in recomm) {
-        button.attr('data-expl-id', recomm.id);
+        button.attr('data-word-id', recomm.id);
     } else {
+        reliableGet(makeExtraUrl('recomm', 'id', {word_str: recomm.content}), function(res) {
+            if(res.status == 'OKAY') {
+                button.attr('data-word-id', res.respond.id);
+            }
+        });
     }
     var inner = $('<div/>').addClass('expl-recomm')
                            .append(button)
