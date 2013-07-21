@@ -22,9 +22,7 @@ function genMoodIcon(name, explId, toggle) {
                           .addClass(icons[name])
                           .addClass(toggles[toggle])
                           .attr('data-toggle-on', toggles['on'])
-                          .attr('data-toggle-off', toggles['off'])
-                          .css('text-align', 'center')
-                          .css('width', '30px');
+                          .attr('data-toggle-off', toggles['off']);
     var titles = {
         'hate': '這個解釋得爛透了!',
         'like': '這個解釋還OK!',
@@ -74,9 +72,9 @@ function putSingleExpl(expl) {
     var whole = $('<div/>').attr('id', 'expl-' + expl.id);
     var hate = genMoodIcon('hate', expl.id, 'off');
     var like = genMoodIcon('like', expl.id, 'off');
-    var moods = $('<div/>').attr('align', 'right')
-                           .css('height', '30px')
+    var moods = $('<div/>').attr('id', 'moods-' + expl.id)
                            .append(like)
+                           .append($('<span/>').addClass('space'))
                            .append(hate);
     setMoodIconClick(hate, like);
     setMoodIconClick(like, hate);

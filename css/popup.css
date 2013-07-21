@@ -13,6 +13,11 @@ div.blank {
     height: 20px;
 }
 
+span.space {
+    display: inline-block;
+    width: 10px;
+}
+
 #recomm-words p {
     line-height: 49px;
 }
@@ -24,3 +29,8 @@ div.blank {
     background-repeat: repeat-x;
 }
 
+div[id|=moods] {
+    min-height: 56px;
+    text-align: right;
+    margin-right: 10px;
+}
