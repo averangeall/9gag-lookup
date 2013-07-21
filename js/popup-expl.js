@@ -1,4 +1,5 @@
 function removeAllDefi() {
+    $('#explain-recomm').empty();
     $('#explain-content').empty();
     $('#explain-more').empty();
     $('#explain-hline').empty();
@@ -6,15 +7,15 @@ function removeAllDefi() {
 
 function genMoodIcon(name, explId, toggle) {
     var icons = {
-        'hate': 'fui-cross',
-        'like': 'fui-check',
+        hate: 'fui-cross',
+        like: 'fui-check',
     };
     var toggles = {
-        'on': {
+        on: {
             'hate': 'btn-danger',
             'like': 'btn-success',
         }[name],
-        'off': 'btn-default',
+        off: 'btn-default',
     };
     var button = $('<a/>').attr('href', 'javascript: void(0);')
                           .attr('data-expl-id', explId)
@@ -22,8 +23,8 @@ function genMoodIcon(name, explId, toggle) {
                           .addClass('btn btn-mini')
                           .addClass(icons[name])
                           .addClass(toggles[toggle])
-                          .attr('data-toggle-on', toggles['on'])
-                          .attr('data-toggle-off', toggles['off']);
+                          .attr('data-toggle-on', toggles.on)
+                          .attr('data-toggle-off', toggles.off);
     var titles = {
         'hate': '這個解釋得爛透了!',
         'like': '這個解釋還OK!',
@@ -109,6 +110,36 @@ function putSingleExpl(expl) {
     $('#explain-content').append(whole);
 }
 
+function putExplRecomm(recomm) {
+    putHLine($('#explain-recomm'));
+    var title = $('<span/>').html(recomm.content);
+    var button = $('<a/>').attr('href', 'javascript: void(0);')
+                          .addClass('btn btn-mini btn-default fui-cross')
+                          .attr('data-toggle-on', 'btn-danger')
+                          .attr('data-toggle-off', 'btn-default');
+    button.click(function() {
+        if(button.hasClass(button.attr('data-toggle-on'))) {
+            button.removeClass(button.attr('data-toggle-on')).addClass(button.attr('data-toggle-off'));
+        } else if(button.hasClass(button.attr('data-toggle-off'))) {
+            button.removeClass(button.attr('data-toggle-off')).addClass(button.attr('data-toggle-on'));
+        }
+    });
+    button.tooltip({
+        animation: true,
+        placement: 'right',
+        title: '這關鍵字和圖根本無關啊!!'
+    });
+    if('id' in recomm) {
+        button.attr('data-expl-id', recomm.id);
+    } else {
+    }
+    var inner = $('<div/>').addClass('expl-recomm')
+                           .append(button)
+                           .append($('<span/>').addClass('space'))
+                           .append(title);
+    $('#explain-recomm').append(inner);
+}
+
 function putExplContent(expls) {
     $.each(expls, function(idx, expl) {
         putHLine($('#explain-content'));
@@ -121,14 +152,15 @@ function putAllExpls(recomm) {
     putLoading();
     var args = {};
     if('id' in recomm)
-        args['word_id'] = recomm.id;
+        args.word_id = recomm.id;
     else if('content' in recomm)
-        args['word_str'] = recomm.content;
+        args.word_str = recomm.content;
     else
         return;
     reliableGet(makeExtraUrl('explain', 'query', args), function(res) {
         removeLoading();
         if(res.status == 'OKAY') {
+            putExplRecomm(recomm);
             putExplContent(res.respond);
             putMoreExpl();
             putHLine($('#explain-hline'));
