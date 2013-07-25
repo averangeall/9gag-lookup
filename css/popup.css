@@ -4,12 +4,7 @@ body {
     overflow-x: hidden;
 }
 
-#header {
-    height: 15px;
-    background-color: #1ABC9C;
-}
-
-#footer {
+#header, #footer {
     height: 15px;
     background-color: #1ABC9C;
 }
@@ -18,6 +13,34 @@ div.blank {
     height: 20px;
 }
 
+span.space {
+    display: inline-block;
+    width: 10px;
+}
+
 #recomm-words p {
     line-height: 49px;
 }
+
+.hline {
+    width: 70%;
+    height: 30px;
+    background-image: url(../images/hline-slice.png);
+    background-repeat: repeat-x;
+}
+
+div[id|=moods] {
+    min-height: 56px;
+    text-align: right;
+    margin-right: 10px;
+}
+
+div.expl-recomm {
+    text-align: left;
+    margin-left: 30px;
+}
+
+div.expl-recomm span {
+    font-size: x-large;
+}
+
