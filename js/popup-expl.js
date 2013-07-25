@@ -84,23 +84,28 @@ function putSingleExpl(expl) {
     var explPart = $('<div/>').attr('class', 'expl-part');
     
     if(expl.type == 'text') {
-        explPart.append($('<h4/>').html(expl.content));
+        if(expl.content.length < 10)
+            explPart.append($('<h2/>').html(expl.content));
+        else
+            explPart.append($('<h4/>').html(expl.content));
     } else if(expl.type == 'image') {
         var image = $('<img/>').attr('src', expl.content)
                                .attr('alt', '圖片壞掉了 : (')
                                .css('max-width', '80%');
         explPart.append($('<div/>').append(image));
     } else if(expl.type == 'video') {
-        if(expl.src == 'Youtube') {
+        if(expl.source == 'YouTube') {
             var mo = expl.content.match(/https?:\/\/www\.youtube\.com\/watch\?v=(.+)/);
-            if(mo == null || mo.length != 2)
+            if(mo == null)
                 return;
             var videoId = mo[1];
-            var divYoutube = $('<div/>').attr('id', 'youtube-' + videoId)
-                                        .html('You need Flash player 8+ and JavaScript enabled to view this video.');
+            console.log(videoId);
+            var divYoutube = $('<div/>').attr('id', 'youtube-' + videoId);
             explPart.append(divYoutube);
-            swfobject.embedSWF("https://www.youtube.com/v/" + videoId,
-                               'youtube-' + videoId, "300", "200", "8", null, null, null, null);
+            setTimeout(function() {
+                swfobject.embedSWF("https://www.youtube.com/v/" + videoId,
+                                   'youtube-' + videoId, "300", "200", "8", null, null, null, null);
+            }, 500);
         }
     }
     var source;
