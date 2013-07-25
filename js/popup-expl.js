@@ -151,10 +151,30 @@ function putExplRecomm(recomm) {
     $('#explain-recomm').append(inner);
 }
 
+function isOldExplain(expl) {
+    var found = false;
+    $.each(allExplains, function(i, oldExpl) {
+        if(oldExpl.id == expl.id) {
+            found = true;
+            return false;
+        }
+    });
+    return found;
+}
+
 function putExplContent(expls) {
     $.each(expls, function(idx, expl) {
-        putHLine($('#explain-content'));
-        putSingleExpl(expl);
+        if(!isOldExplain(expl)) {
+            putHLine($('#explain-content'));
+            putSingleExpl(expl);
+        }
+    });
+}
+
+function storeExplCache(expls) {
+    $.each(expls, function(i, newExpl) {
+        if(!isOldExplain(newExpl))
+            allExplains.push(newExpl);
     });
 }
 
@@ -173,8 +193,9 @@ function putAllExpls(recomm) {
         if(res.status == 'OKAY') {
             putExplRecomm(recomm);
             putExplContent(res.respond);
-            putMoreExpl();
+            notEnoughExpls();
             putHLine($('#explain-hline'));
+            storeExplCache(res.respond);
         }
     });
 }
@@ -182,7 +203,7 @@ function putAllExpls(recomm) {
 function makeProvideExpl() {
     var input = $('<textarea/>').attr('id', 'provide-expl-input')
                                 .attr('type', 'text')
-                                .attr('placeholder', '或是您可以輸入您的解釋!!!')
+                                .attr('placeholder', '您可以加上您的解釋!!!')
                                 .addClass('span4');
     var submit = $('<a/>').html('送出吧')
                           .attr('href', 'javascript: void(0);')
@@ -199,6 +220,7 @@ function makeProvideExpl() {
                                       putExplContent(res.respond);
                                   }
                                   $('#provide-expl-input').val('');
+                                  storeExplCache(res.respond);
                               });
                           });
     var provide = $('<div/>').append(input)
@@ -206,8 +228,39 @@ function makeProvideExpl() {
     return provide;
 }
 
-function putMoreExpl() {
+function makeMoreExpl() {
+    var button = $('<a/>').html('取得更多的解釋!')
+                          .attr('href', 'javascript: void(0);')
+                          .attr('class', 'btn btn-large btn-primary')
+                          .click(function() {
+                              putLoading();
+                              var excl_expl_ids = [];
+                              $.each(allExplains, function(i, expl) {
+                                  excl_expl_ids.push(expl.id);
+                              });
+                              var args = {
+                                  excl_expl_ids: excl_expl_ids.join(','),
+                                  word_id: wordId
+                              };
+                              args.excl_expl_ids = excl_expl_ids.join(',');
+                              reliableGet(makeExtraUrl('explain', 'query', args), function(res) {
+                                  removeLoading();
+                                  if(res.status == 'OKAY') {
+                                      putExplContent(res.respond);
+                                  }
+                                  storeExplCache(res.respond);
+                              });
+                          });
+    var more = $('<div/>').append(button);
+    return more;
+}
+
+function notEnoughExpls() {
     var more = $('<div/>').append($('<h3/>').html('以上的解釋都不滿意嗎？'))
+                          .append(makeMoreExpl())
+                          .append($('<div/>').addClass('blank'))
+                          .append($('<h3/>').html('或是…'))
                           .append(makeProvideExpl());
     $('#explain-more').append(more);
 }
+
