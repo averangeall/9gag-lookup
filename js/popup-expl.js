@@ -104,8 +104,8 @@ function putSingleExpl(expl) {
         }
     }
     var source;
-    var src_user_id = expl.source.match(/^U(\d+)$/);
-    if(src_user_id != null)
+    var srcUserId = expl.source.match(/^U(\d+)$/);
+    if(srcUserId != null)
         source = $('<span/>').html('隱姓埋名的人');
     else {
         source = $('<a/>').attr('href', expl.link)
@@ -213,14 +213,23 @@ function makeProvideExpl() {
     var input = $('<textarea/>').attr('id', 'provide-expl-input')
                                 .attr('type', 'text')
                                 .attr('placeholder', '您可以加上您的解釋!!!')
-                                .addClass('span4');
+                                .addClass('span4')
+                                .keyup(function() {
+                                    var val = $('#provide-expl-input').val();
+                                    if($.trim(val) == '')
+                                        submit.removeClass('btn-primary').addClass('btn-default');
+                                    else
+                                        submit.removeClass('btn-default').addClass('btn-primary');
+                                });
     var submit = $('<a/>').html('送出吧')
                           .attr('href', 'javascript: void(0);')
-                          .attr('class', 'btn btn-large btn-primary')
+                          .attr('class', 'btn btn-large btn-default')
                           .click(function() {
+                              if(submit.hasClass('btn-default'))
+                                  return;
                               putLoading();
                               var args = {
-                                  expl_str: $('#provide-expl-input').val(),
+                                  expl_str: input.val(),
                                   word_id: wordId
                               };
                               reliableGet(makeExtraUrl('explain', 'provide', args), function(res) {
@@ -228,9 +237,10 @@ function makeProvideExpl() {
                                   if(res.status == 'OKAY') {
                                       putExplContent(res.respond);
                                   }
-                                  $('#provide-expl-input').val('');
+                                  input.val('');
                                   storeExplCache(res.respond);
                               });
+                              submit.removeClass('btn-primary').addClass('btn-default');
                           });
     var provide = $('<div/>').append(input)
                              .append(submit);
@@ -243,15 +253,14 @@ function makeMoreExpl() {
                           .attr('class', 'btn btn-large btn-primary')
                           .click(function() {
                               putLoading();
-                              var excl_expl_ids = [];
+                              var exclExplIds = [];
                               $.each(allExplains, function(i, expl) {
-                                  excl_expl_ids.push(expl.id);
+                                  exclExplIds.push(expl.id);
                               });
                               var args = {
-                                  excl_expl_ids: excl_expl_ids.join(','),
+                                  excl_expl_ids: exclExplIds.join(','),
                                   word_id: wordId
                               };
-                              args.excl_expl_ids = excl_expl_ids.join(',');
                               reliableGet(makeExtraUrl('explain', 'query', args), function(res) {
                                   removeLoading();
                                   if(res.status == 'OKAY') {
