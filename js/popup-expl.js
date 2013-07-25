@@ -73,7 +73,7 @@ function setMoodIconClick(one, other) {
 function putSingleExpl(expl) {
     var whole = $('<div/>').attr('id', 'expl-' + expl.id);
     var hate = genMoodIcon('hate', expl.id, 'off');
-    var like = genMoodIcon('like', expl.id, 'off');
+    var like = genMoodIcon('like', expl.id, expl.liked ? 'on' : 'off');
     var moods = $('<div/>').attr('id', 'moods-' + expl.id)
                            .append(like)
                            .append($('<span/>').addClass('space'))
