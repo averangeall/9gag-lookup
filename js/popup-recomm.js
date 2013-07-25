@@ -8,6 +8,7 @@ function putSingleRecomm(recomm) {
                           .attr('class', 'btn btn-large btn-primary')
                           .attr('data-id', recomm.id)
                           .click(function() {
+                              allExplains.length = 0;
                               wordId = recomm.id;
                               putAllExpls(recomm);
                           });
