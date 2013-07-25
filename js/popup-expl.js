@@ -103,9 +103,18 @@ function putSingleExpl(expl) {
                                'youtube-' + videoId, "300", "200", "8", null, null, null, null);
         }
     }
-    var source = $('<div/>').append($('<span/>').html(' from '))
-                            .append($('<a/>').attr('href', expl.link).attr('target', '_blank').html(expl.source))
-    explPart.append(source);
+    var source;
+    var src_user_id = expl.source.match(/^U(\d+)$/);
+    if(src_user_id != null)
+        source = $('<span/>').html('隱姓埋名的人');
+    else {
+        source = $('<a/>').attr('href', expl.link)
+                          .attr('target', '_blank')
+                          .html(expl.source);
+    }
+    var from = $('<div/>').append(source)
+                          .append(' 提供的');
+    explPart.append(from);
     whole.append(explPart);
     $('#explain-content').append(whole);
 }
