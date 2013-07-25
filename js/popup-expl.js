@@ -59,7 +59,7 @@ function setMoodIconClick(one, other) {
             console.log('on -> off');
             showAction(explId, action, 'backward');
             one.removeClass(one.attr('data-toggle-on')).addClass(one.attr('data-toggle-off'));
-            reliableGet(makeExtraUrl('explain', 'plain', {expl_id: explId}), function() { });
+            reliableGet(makeExtraUrl('explain', 'neutral', {expl_id: explId}), function() { });
         } else if(one.hasClass(one.attr('data-toggle-off'))) {
             console.log('off -> on');
             showAction(explId, action, 'forward');
