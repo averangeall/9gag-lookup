@@ -10,3 +10,8 @@ containTriangle.append(triangle);
 $('.badge-page').append(containMain)
                 .append(containTriangle);
 
+pointTriangle(triangle);
+$(window).scroll(function() {
+    pointTriangle(triangle);
+});
+
