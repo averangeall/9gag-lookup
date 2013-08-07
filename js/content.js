@@ -1,17 +1,9 @@
-var containMain = $('<div/>').addClass('lookup-popup-contain-main');
-var containTriangle = $('<div/>').addClass('lookup-popup-contain-triangle');
+var main = buildMain();
+var triangle = buildTriangle();
 
-var main = $('<div/>').addClass('lookup-popup-main');
-var triangle = $('<div/>').addClass('lookup-popup-triangle');
+$('.badge-page').append(main)
+                .append(triangle);
 
-containMain.append(main);
-containTriangle.append(triangle);
+setPoint();
 
-$('.badge-page').append(containMain)
-                .append(containTriangle);
-
-pointTriangle(triangle);
-$(window).scroll(function() {
-    pointTriangle(triangle);
-});
 

@@ -4,9 +4,11 @@ body {
     overflow-x: hidden;
 }
 
-#header, #footer {
-    height: 15px;
+#header {
+    height: 50px;
     background-color: #1ABC9C;
+    -webkit-border-top-left-radius: 25px;
+    -webkit-border-top-right-radius: 25px;
 }
 
 div.blank {
@@ -73,5 +75,25 @@ div.lookup-popup-triangle {
     border-top: 20px solid transparent;
     border-bottom: 20px solid transparent; 
     border-right: 30px solid LightGray;
+}
+
+.lookup-nav {
+    padding: 10px 20px 0 0;
+    font-size: 26px;
+    float: right;
+}
+
+.lookup-nav a {
+    color: #0e6c59;
+    -webkit-transition: 0.25s;
+    -moz-transition: 0.25s;
+    -o-transition: 0.25s;
+    transition: 0.25s;
+    -webkit-backface-visibility: hidden;
+}
+
+a:hover {
+  color: white;
+  text-decoration: none;
 }
 
