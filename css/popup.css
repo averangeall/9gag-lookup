@@ -44,3 +44,17 @@ div.expl-recomm span {
     font-size: x-large;
 }
 
+div.lookup-popup-contain {
+    float: left;
+    padding: 20px 0 0 630px;
+    width: 700px;
+}
+
+div.lookup-popup-main {
+    position: fixed;
+    top: 64px;
+    bottom: 64px;
+    width: 400px;
+    background-color: gray;
+}
+
