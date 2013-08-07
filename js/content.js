@@ -1,6 +1,12 @@
-var contain = $('<div/>').addClass('lookup-popup-contain');
-var main = $('<div/>').addClass('lookup-popup-main');
+var containMain = $('<div/>').addClass('lookup-popup-contain-main');
+var containTriangle = $('<div/>').addClass('lookup-popup-contain-triangle');
 
-contain.append(main);
-$('.badge-page').append(contain);
+var main = $('<div/>').addClass('lookup-popup-main');
+var triangle = $('<div/>').addClass('lookup-popup-triangle');
+
+containMain.append(main);
+containTriangle.append(triangle);
+
+$('.badge-page').append(containMain)
+                .append(containTriangle);
 

@@ -44,9 +44,15 @@ div.expl-recomm span {
     font-size: x-large;
 }
 
-div.lookup-popup-contain {
+div.lookup-popup-contain-main {
     float: left;
     padding: 20px 0 0 630px;
+    width: 700px;
+}
+
+div.lookup-popup-contain-triangle {
+    float: left;
+    padding: 20px 0 0 600px;
     width: 700px;
 }
 
@@ -56,5 +62,15 @@ div.lookup-popup-main {
     bottom: 64px;
     width: 400px;
     background-color: gray;
+}
+
+div.lookup-popup-triangle {
+    position: fixed;
+    top: 300px;
+    width: 0;
+    height: 0;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent; 
+    border-right: 30px solid gray;
 }
 
