@@ -61,7 +61,8 @@ div.lookup-popup-main {
     top: 64px;
     bottom: 64px;
     width: 400px;
-    background-color: gray;
+    background-color: LightGray;
+    border-radius: 25px;
 }
 
 div.lookup-popup-triangle {
@@ -71,6 +72,6 @@ div.lookup-popup-triangle {
     height: 0;
     border-top: 20px solid transparent;
     border-bottom: 20px solid transparent; 
-    border-right: 30px solid gray;
+    border-right: 30px solid LightGray;
 }
 
