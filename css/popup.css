@@ -1,27 +1,8 @@
-body {
-    background-color: white;
-    min-width: 357px;
-    overflow-x: hidden;
-}
-
-#header {
+#lookup-popup-header {
     height: 50px;
     background-color: #1ABC9C;
     -webkit-border-top-left-radius: 25px;
     -webkit-border-top-right-radius: 25px;
-}
-
-div.blank {
-    height: 20px;
-}
-
-span.space {
-    display: inline-block;
-    width: 10px;
-}
-
-#recomm-words p {
-    line-height: 49px;
 }
 
 .hline {
@@ -29,21 +10,6 @@ span.space {
     height: 30px;
     background-image: url(../images/hline-slice.png);
     background-repeat: repeat-x;
-}
-
-div[id|=moods] {
-    min-height: 56px;
-    text-align: right;
-    margin-right: 10px;
-}
-
-div.expl-recomm {
-    text-align: left;
-    margin-left: 30px;
-}
-
-div.expl-recomm span {
-    font-size: x-large;
 }
 
 div.lookup-popup-contain-main {
@@ -54,7 +20,7 @@ div.lookup-popup-contain-main {
 
 div.lookup-popup-contain-triangle {
     float: left;
-    padding: 20px 0 0 600px;
+    padding: 20px 0 0 610px;
     width: 700px;
 }
 
