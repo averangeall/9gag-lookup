@@ -8,19 +8,37 @@ function buildDict() {
                            .append($('<a/>').addClass('btnn btnn-large btnn-primary').attr('href', 'javascript: void(0);').html('ConfessionBear'))
                            .append(' ')
                            .append($('<a/>').addClass('btnn btnn-large btnn-primary').attr('href', 'javascript: void(0);').html('Pretending'));
-    var keywords = $('<div/>').append($('<span/>').addClass('lookup-heading').html('關於這篇有這些關鍵字喔'))
+    var keywords = $('<div/>').append($('<span/>').addClass('lookup-heading-left').html('關於這篇有這些關鍵字喔'))
                               .append(recomms);
     dict.append(keywords);
     return dict;
 }
 
-function buildNavBtn(name) {
+function buildNotify() {
+    var notify = $('<div/>');
+    notify.append($('<span/>').addClass('lookup-heading-left').html('通知通知'));
+    return notify;
+}
+
+function buildPersonal() {
+    var personal = $('<div/>');
+    var avatarFname = 'images/mario-big-man.png';
+    
+    personal.append($('<div/>').addClass('lookup-avatar').css('background-image', 'url(' + chrome.extension.getURL(avatarFname) + ')'));
+    personal.append($('<span/>').addClass('lookup-heading-center').html('林蔭寶'));
+    return personal;
+}
+
+function buildNavBtn(name, builder) {
     var nav = $('<a/>').attr('href', 'javascript: void(0);')
                        .html(name)
                        .click(function() {
-                           $('#lookup-popup-content').fadeOut(200);
+                           var content = $('#lookup-popup-content');
+                           content.fadeOut(200);
                            setTimeout(function() {
-                               $('#lookup-popup-content').fadeIn(200);
+                               content.empty();
+                               content.append(builder());
+                               content.fadeIn(200);
                             }, 200);
                        });
     return nav;
@@ -28,11 +46,11 @@ function buildNavBtn(name) {
 
 function buildNavBar() {
     var navs = $('<div>').addClass('lookup-nav')
-                         .append(buildNavBtn('字典'))
+                         .append(buildNavBtn('字典', buildDict))
                          .append(' ')
-                         .append(buildNavBtn('通知'))
+                         .append(buildNavBtn('通知', buildNotify))
                          .append(' ')
-                         .append(buildNavBtn('個人'));
+                         .append(buildNavBtn('個人', buildPersonal));
     return navs;
 }
 

@@ -63,14 +63,29 @@ a:hover {
     text-decoration: none;
 }
 
-span.lookup-heading {
+span.lookup-heading-left {
     display: block;
     padding: 20px 20px 10px;
+    font-size: 30px;
+}
+
+span.lookup-heading-center {
+    display: block;
+    text-align: center;
+    padding: 20px 0 10px;
     font-size: 30px;
 }
 
 .lookup-recomm {
     padding: 0 20px;
     line-height: 60px;
+}
+
+.lookup-avatar {
+    padding: 20px 0 20px;
+    width: 100%;
+    height: 90px;
+    background-repeat: no-repeat; 
+    background-position: center center;
 }
 

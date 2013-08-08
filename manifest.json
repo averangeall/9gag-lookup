@@ -35,5 +35,8 @@
         "http://disa.csie.org:5566/",
         "http://nine-gag-wrapper.herokuapp.com/"
     ],
+    "web_accessible_resources": [
+        "images/*"
+    ],
     "content_security_policy": "script-src 'self'; object-src 'self' https://www.youtube.com/"
 }
