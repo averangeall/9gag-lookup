@@ -93,7 +93,18 @@ div.lookup-popup-triangle {
 }
 
 a:hover {
-  color: white;
-  text-decoration: none;
+    color: white;
+    text-decoration: none;
+}
+
+span.lookup-heading {
+    display: block;
+    padding: 20px 20px 10px;
+    font-size: 30px;
+}
+
+.lookup-recomm {
+    padding: 0 20px;
+    line-height: 60px;
 }
 
