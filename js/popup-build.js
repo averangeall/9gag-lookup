@@ -1,6 +1,6 @@
 function buildDict() {
     var dict = $('<div/>');
-    var recomms = $('<p/>').addClass('lookup-recomm')
+    var recomms = $('<p/>').attr('id', 'lookup-recomm')
                            .append($('<a/>').addClass('btnn btnn-large btnn-primary').attr('href', 'javascript: void(0);').html('Immature'))
                            .append(' ')
                            .append($('<a/>').addClass('btnn btnn-large btnn-primary').attr('href', 'javascript: void(0);').html('Please'))
@@ -23,8 +23,9 @@ function buildNotify() {
 function buildPersonal() {
     var personal = $('<div/>');
     var avatarFname = 'images/mario-big-man.png';
-    
-    personal.append($('<div/>').addClass('lookup-avatar').css('background-image', 'url(' + chrome.extension.getURL(avatarFname) + ')'));
+    var avatar = $('<div/>').attr('id', 'lookup-avatar')
+                            .css('background-image', 'url(' + chrome.extension.getURL(avatarFname) + ')');
+    personal.append(avatar);
     personal.append($('<span/>').addClass('lookup-heading-center').html('林蔭寶'));
     return personal;
 }
@@ -33,7 +34,7 @@ function buildNavBtn(name, builder) {
     var nav = $('<a/>').attr('href', 'javascript: void(0);')
                        .html(name)
                        .click(function() {
-                           var content = $('#lookup-popup-content');
+                           var content = $('#lookup-content');
                            content.fadeOut(200);
                            setTimeout(function() {
                                content.empty();
@@ -45,7 +46,7 @@ function buildNavBtn(name, builder) {
 }
 
 function buildNavBar() {
-    var navs = $('<div>').addClass('lookup-nav')
+    var navs = $('<div>').attr('id', 'lookup-nav')
                          .append(buildNavBtn('字典', buildDict))
                          .append(' ')
                          .append(buildNavBtn('通知', buildNotify))
@@ -55,10 +56,10 @@ function buildNavBar() {
 }
 
 function buildMain() {
-    var contain = $('<div/>').addClass('lookup-popup-contain-main');
-    var main = $('<div/>').addClass('lookup-popup-main');
-    var header = $('<div/>').attr('id', 'lookup-popup-header');
-    var content = $('<div/>').attr('id', 'lookup-popup-content');
+    var contain = $('<div/>').attr('id', 'lookup-contain-main');
+    var main = $('<div/>').attr('id', 'lookup-main');
+    var header = $('<div/>').attr('id', 'lookup-header');
+    var content = $('<div/>').attr('id', 'lookup-content');
     header.append(buildNavBar());
     content.append(buildDict());
     main.append(header);
@@ -68,9 +69,16 @@ function buildMain() {
 }
 
 function buildTriangle() {
-    var contain = $('<div/>').addClass('lookup-popup-contain-triangle');
-    var triangle = $('<div/>').addClass('lookup-popup-triangle');
+    var contain = $('<div/>').attr('id', 'lookup-contain-triangle');
+    var triangle = $('<div/>').attr('id', 'lookup-triangle');
     contain.append(triangle);
+    return contain;
+}
+
+function buildSmall() {
+    var contain = $('<div/>').attr('id', 'lookup-contain-main');
+    var small = $('<div/>').attr('id', 'lookup-small');
+    contain.append(small);
     return contain;
 }
 

@@ -1,4 +1,4 @@
-#lookup-popup-header {
+#lookup-header {
     height: 50px;
     background-color: #1ABC9C;
     -webkit-border-top-left-radius: 25px;
@@ -12,19 +12,19 @@
     background-repeat: repeat-x;
 }
 
-div.lookup-popup-contain-main {
+#lookup-contain-main {
     float: left;
     padding: 20px 0 0 630px;
     width: 700px;
 }
 
-div.lookup-popup-contain-triangle {
+#lookup-contain-triangle {
     float: left;
     padding: 20px 0 0 610px;
     width: 700px;
 }
 
-div.lookup-popup-main {
+#lookup-main {
     position: fixed;
     top: 64px;
     bottom: 64px;
@@ -33,7 +33,16 @@ div.lookup-popup-main {
     border-radius: 25px;
 }
 
-div.lookup-popup-triangle {
+#lookup-small {
+    position: fixed;
+    top: 64px;
+    height: 100px;
+    width: 100px;
+    background-color: LightGray;
+    border-radius: 25px;
+}
+
+#lookup-triangle {
     position: fixed;
     top: 300px;
     width: 0;
@@ -43,13 +52,13 @@ div.lookup-popup-triangle {
     border-right: 30px solid LightGray;
 }
 
-.lookup-nav {
+#lookup-nav {
     padding: 10px 20px 0 0;
     font-size: 26px;
     float: right;
 }
 
-.lookup-nav a {
+#lookup-nav a {
     color: #0e6c59;
     -webkit-transition: 0.25s;
     -moz-transition: 0.25s;
@@ -58,7 +67,7 @@ div.lookup-popup-triangle {
     -webkit-backface-visibility: hidden;
 }
 
-a:hover {
+#lookup-nav a:hover {
     color: white;
     text-decoration: none;
 }
@@ -76,12 +85,12 @@ span.lookup-heading-center {
     font-size: 30px;
 }
 
-.lookup-recomm {
+#lookup-recomm {
     padding: 0 20px;
     line-height: 60px;
 }
 
-.lookup-avatar {
+#lookup-avatar {
     padding: 20px 0 20px;
     width: 100%;
     height: 90px;

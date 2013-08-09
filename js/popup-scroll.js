@@ -1,5 +1,5 @@
 function pointTriangle(triangle) {
-    var triangle = $('.lookup-popup-triangle');
+    var triangle = $('#lookup-triangle');
     var curTitle = $('.badge-in-view-focus header');
     if(curTitle.length == 0)
         return;
@@ -12,7 +12,7 @@ function pointTriangle(triangle) {
 }
 
 function adjustMainTop() {
-    var main = $('.lookup-popup-main');
+    var main = $('#lookup-main');
     var subnav = $('.badge-sticky-subnav-static');
     subnav = (subnav.length == 0) ? $('.badge-sticky-post-page-sticky') : subnav;
     var subnavTop = subnav.offset().top;
