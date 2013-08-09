@@ -1,14 +1,21 @@
-function pointTriangle(triangle) {
+function pointSmall() {
+    var small = $('#lookup-small');
+    pointObj(small, 60.0, 117.0);
+}
+
+function pointTriangle() {
     var triangle = $('#lookup-triangle');
+    pointObj(triangle, 80.0, 137.0);
+}
+
+function pointObj(obj, magicOffset, minOffset) {
     var curTitle = $('.badge-in-view-focus header');
     if(curTitle.length == 0)
         return;
     var curTitleTop = curTitle.offset().top;
-    var magicOffset = 80.0;
-    var triangleOffset = curTitleTop - pageYOffset + magicOffset;
-    var minOffset = 137.0;
-    triangleOffset = (triangleOffset < minOffset) ? minOffset : triangleOffset;
-    triangle.css('top', triangleOffset);
+    var objOffset = curTitleTop - pageYOffset + magicOffset;
+    objOffset = (objOffset < minOffset) ? minOffset : objOffset;
+    obj.css('top', objOffset);
 }
 
 function adjustMainTop() {
@@ -25,9 +32,11 @@ function adjustMainTop() {
 }
 
 function setScroll() {
+    pointSmall();
     pointTriangle();
     adjustMainTop();
     $(window).scroll(function() {
+        pointSmall();
         pointTriangle();
         adjustMainTop();
     });
