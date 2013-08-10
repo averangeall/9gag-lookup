@@ -86,6 +86,10 @@ a.lookup-close-btn:hover {
     color: #052b23;
 }
 
+#lookup-logo {
+    padding-left: 20px;
+}
+
 .lookup-heading-left {
     display: block;
     padding: 20px 0 10px;
