@@ -9,7 +9,10 @@ function putSingleRecomm(recomm, color) {
                           .addClass(color)
                           .attr('data-id', recomm.id)
                           .click(function() {
+                              $('#lookup-recomms .btnn-inverse').removeClass('btnn-inverse').addClass('btnn-primary');
+                              $(this).removeClass('btnn-primary').addClass('btnn-inverse');
                               curWordId = recomm.id;
+                              clearOtherRecomms();
                               //putAllExpls(recomm);
                           });
     $('#lookup-recomms').append(button)

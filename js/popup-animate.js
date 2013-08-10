@@ -41,3 +41,17 @@ function setShrinkSmall(close) {
     });
 }
 
+function clearOtherRecomms() {
+    setTimeout(function() {
+        $('#lookup-input').fadeOut(200);
+    }, 0);
+    setTimeout(function() {
+        $('#lookup-dict .lookup-more-input').fadeOut(200);
+        $('#lookup-dict .lookup-please-input').fadeOut(200);
+    }, 200);
+    setTimeout(function() {
+        $('#lookup-dict .lookup-has-recomms').fadeOut(200);
+        $('#lookup-dict .lookup-no-recomms').fadeOut(200);
+    }, 400);
+}
+

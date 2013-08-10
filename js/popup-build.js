@@ -1,9 +1,10 @@
 function buildDict(dst) {
-    var dict = $('<div/>');
+    var dict = $('<div/>').attr('id', 'lookup-dict');
     dst.append(dict);
 
     var recomms = $('<p/>').attr('id', 'lookup-recomms');
     var keywords = $('<div/>').append($('<span/>').addClass('lookup-heading-left lookup-has-recomms'))
+                              .append($('<span/>').addClass('lookup-heading-left lookup-grey-word').html('l'))
                               .append(recomms);
     var input = $('<input/>').attr('id', 'lookup-input')
                              .attr('type', 'text')
