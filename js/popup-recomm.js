@@ -1,37 +1,41 @@
 function removeAllRecomms() {
-    $('#recomm-words p').empty();
+    $('#lookup-recomms').empty();
 }
 
 function putSingleRecomm(recomm) {
     var button = $('<a/>').html(recomm.content)
                           .attr('href', 'javascript: void(0);')
-                          .attr('class', 'btn btn-large btn-primary')
+                          .addClass('btnn btnn-large btnn-primary')
                           .attr('data-id', recomm.id)
                           .click(function() {
-                              allExplains.length = 0;
-                              wordId = recomm.id;
-                              putAllExpls(recomm);
+                              //allExplains.length = 0;
+                              //wordId = recomm.id;
+                              //putAllExpls(recomm);
                           });
-    $('#recomm-words p').append(button)
+    $('#lookup-recomms').append(button)
                         .append(' ');
 }
 
 function filterRecomm() {
     removeAllRecomms();
-    for(var i in allRecomms) {
-        var lowerRecomm = allRecomms[i].content.toLowerCase();
-        var lowerInput = inputRecomm.toLowerCase();
-        if(lowerInput == '' || lowerRecomm.indexOf(lowerInput) != -1)
-            putSingleRecomm(allRecomms[i]);
-    }
+    $.each(allGagInfo[curGagId].recomms, function(i, recomm) {
+        putSingleRecomm(recomm);
+    });
+    //for(var i in allRecomms) {
+    //    var lowerRecomm = allRecomms[i].content.toLowerCase();
+    //    var lowerInput = inputRecomm.toLowerCase();
+    //    if(lowerInput == '' || lowerRecomm.indexOf(lowerInput) != -1)
+    //        putSingleRecomm(allRecomms[i]);
+    //}
 }
 
 function putAllRecomms() {
-    putLoading();
-    reliableGet(makeExtraUrl('recomm', 'get', {}), function(recommWords) {
-        removeLoading();
-        if(recommWords.status == 'OKAY')
-            allRecomms = recommWords.respond;
+    //putLoading();
+    reliableGet(makeExtraUrl('recomm', 'get', {}), function(res) {
+        //removeLoading();
+        allGagInfo[curGagId] = {}
+        if(res.status == 'OKAY')
+            allGagInfo[curGagId].recomms = res.respond;
         filterRecomm();
         //userRecomm();
     });

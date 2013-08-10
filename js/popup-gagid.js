@@ -6,7 +6,8 @@ function updateGagId() {
     var mo = url.match(/https?:\/\/9gag\.com\/gag\/(\w+)/);
     var article = document.getElementsByClassName('badge-in-view-focus')[0];
     if(mo != null)
-        gagId = mo[1];
+        curGagId = mo[1];
     else
-        gagId = article.getAttribute('data-entry-id');
+        curGagId = article.getAttribute('data-entry-id');
+    console.log(curGagId);
 }

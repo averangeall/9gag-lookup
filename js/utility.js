@@ -1,12 +1,8 @@
-function is9gag(url) {
-    return (url.match(/https?:\/\/9gag\.com/) != null);
-}
-
 function makeExtraUrl(stuff, action, args) {
     var front = '/lookup/' + stuff + '/' + action + '/';
     var back = '';
     if(args !== undefined) {
-        args['gag_id'] = gagId;
+        args['gag_id'] = curGagId;
         args['user_id'] = userId;
         args['valid_key'] = userKey;
         for(var key in args) {

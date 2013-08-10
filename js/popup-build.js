@@ -1,19 +1,15 @@
 function buildDict() {
     var dict = $('<div/>');
-    var recomms = $('<p/>').attr('id', 'lookup-recomm')
-                           .append($('<a/>').addClass('btnn btnn-large btnn-primary').attr('href', 'javascript: void(0);').html('Immature'))
-                           .append(' ')
-                           .append($('<a/>').addClass('btnn btnn-large btnn-primary').attr('href', 'javascript: void(0);').html('Please'))
-                           .append(' ')
-                           .append($('<a/>').addClass('btnn btnn-large btnn-primary').attr('href', 'javascript: void(0);').html('ConfessionBear'))
-                           .append(' ')
-                           .append($('<a/>').addClass('btnn btnn-large btnn-primary').attr('href', 'javascript: void(0);').html('Pretending'));
+    var recomms = $('<p/>').attr('id', 'lookup-recomms');
     var keywords = $('<div/>').append($('<span/>').addClass('lookup-heading-left').html('關於這篇有這些關鍵字喔'))
                               .append(recomms);
     var input = $('<input/>').attr('type', 'text')
                              .attr('placeholder', '請在這裡輸入');
     var enter = $('<div/>').append($('<span/>').addClass('lookup-heading-left').html('或是您想查什麼關鍵字呢'))
                            .append(input);
+    setTimeout(function() {
+        putAllRecomms();
+    }, 0);
     dict.append(keywords)
         .append(enter);
     return dict;
