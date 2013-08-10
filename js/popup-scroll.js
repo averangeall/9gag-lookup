@@ -37,7 +37,11 @@ function updateScroll() {
     pointSmall();
     pointTriangle();
     adjustMainTop();
-    updateGagId();
+    var gagId = getGagId();
+    if(gagId != curGagId) {
+        curGagId = gagId;
+        putAllRecomms();
+    }
 }
 
 function setScroll() {

@@ -1,11 +1,11 @@
 function buildDict() {
     var dict = $('<div/>');
     var recomms = $('<p/>').attr('id', 'lookup-recomms');
-    var keywords = $('<div/>').append($('<span/>').addClass('lookup-heading-left').html('關於這篇有這些關鍵字喔'))
+    var keywords = $('<div/>').append($('<span/>').addClass('lookup-heading-left lookup-has-recomms'))
                               .append(recomms);
     var input = $('<input/>').attr('type', 'text')
                              .attr('placeholder', '請在這裡輸入');
-    var enter = $('<div/>').append($('<span/>').addClass('lookup-heading-left').html('或是您想查什麼關鍵字呢'))
+    var enter = $('<div/>').append($('<span/>').addClass('lookup-heading-left lookup-more-input'))
                            .append(input);
     setTimeout(function() {
         putAllRecomms();

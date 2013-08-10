@@ -115,6 +115,22 @@ a.lookup-close-btn:hover {
     background-position: center center;
 }
 
+.lookup-has-recomms:after {
+    content: "關於這篇有這些關鍵字喔";
+}
+
+.lookup-no-recomms:after {
+    content: "這一篇好像還沒有關鍵字耶";
+}
+
+.lookup-more-input:after {
+    content: "或是您想查什麼關鍵字呢";
+}
+
+.lookup-please-input:after {
+    content: "請幫這篇增加關鍵字 好嗎";
+}
+
 /* copied from flat-ui */
 
 @font-face {

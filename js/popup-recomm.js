@@ -18,6 +18,13 @@ function putSingleRecomm(recomm) {
 
 function filterRecomm() {
     removeAllRecomms();
+    if(allGagInfo[curGagId].recomms == 0) {
+        $('.lookup-has-recomms').removeClass('lookup-has-recomms').addClass('lookup-no-recomms');
+        $('.lookup-more-input').removeClass('lookup-more-input').addClass('lookup-please-input');
+    } else {
+        $('.lookup-no-recomms').removeClass('lookup-no-recomms').addClass('lookup-has-recomms');
+        $('.lookup-please-input').removeClass('lookup-please-input').addClass('lookup-more-input');
+    }
     $.each(allGagInfo[curGagId].recomms, function(i, recomm) {
         putSingleRecomm(recomm);
     });
@@ -30,6 +37,8 @@ function filterRecomm() {
 }
 
 function putAllRecomms() {
+    if($('#lookup-recomms').length == 0)
+        return;
     //putLoading();
     reliableGet(makeExtraUrl('recomm', 'get', {}), function(res) {
         //removeLoading();
