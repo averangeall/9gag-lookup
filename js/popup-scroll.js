@@ -1,5 +1,5 @@
 function pointSmall() {
-    var small = $('#lookup-small');
+    var small = $('.lookup-small-main');
     pointObj(small, 60.0, 117.0);
 }
 
@@ -19,7 +19,7 @@ function pointObj(obj, magicOffset, minOffset) {
 }
 
 function adjustMainTop() {
-    var main = $('#lookup-main');
+    var main = $('.lookup-big-main');
     var subnav = $('.badge-sticky-subnav-static');
     subnav = (subnav.length == 0) ? $('.badge-sticky-post-page-sticky') : subnav;
     var subnavTop = subnav.offset().top;

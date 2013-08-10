@@ -32,6 +32,7 @@ function buildPersonal() {
 
 function buildNavBtn(name, builder) {
     var nav = $('<a/>').attr('href', 'javascript: void(0);')
+                       .addClass('lookup-anchor')
                        .html(name)
                        .click(function() {
                            var content = $('#lookup-content');
@@ -55,16 +56,39 @@ function buildNavBar() {
     return navs;
 }
 
-function buildMain() {
-    var contain = $('<div/>').attr('id', 'lookup-contain-main');
-    var main = $('<div/>').attr('id', 'lookup-main');
+function buildHeader() {
     var header = $('<div/>').attr('id', 'lookup-header');
-    var content = $('<div/>').attr('id', 'lookup-content');
     header.append(buildNavBar());
+    return header;
+}
+
+function buildContent() {
+    var content = $('<div/>').attr('id', 'lookup-content');
     content.append(buildDict());
-    main.append(header);
-    main.append(content);
-    contain.append(main);
+    return content;
+}
+
+function buildLogo() {
+    var logo = $('<a/>').attr('id', 'lookup-logo')
+                        .addClass('lookup-anchor lookup-heading-left')
+                        .html('9GAG 字典');
+    return logo;
+}
+
+function buildMain(which) {
+    var main = $('<div/>');
+    if(which == 'big') {
+        main.addClass('lookup-big-main');
+        main.append(buildHeader());
+        main.append(buildContent());
+    } else if(which == 'small') {
+        main.addClass('lookup-small-main')
+            .css('height', '110px');
+        main.append(buildLogo());
+        setGrowBig(main);
+    }
+    var contain = $('<div/>').attr('id', 'lookup-contain-main')
+                             .append(main);
     return contain;
 }
 
@@ -72,13 +96,6 @@ function buildTriangle() {
     var contain = $('<div/>').attr('id', 'lookup-contain-triangle');
     var triangle = $('<div/>').attr('id', 'lookup-triangle');
     contain.append(triangle);
-    return contain;
-}
-
-function buildSmall() {
-    var contain = $('<div/>').attr('id', 'lookup-contain-main');
-    var small = $('<div/>').attr('id', 'lookup-small');
-    contain.append(small);
     return contain;
 }
 

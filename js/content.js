@@ -1,8 +1,7 @@
-var main = buildMain();
+var main = buildMain('small');
 var triangle = buildTriangle();
-var small = buildSmall();
 
-$('.badge-page').append(small)
+$('.badge-page').append(main)
                 .append(triangle);
 
 setScroll();

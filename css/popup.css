@@ -1,3 +1,7 @@
+body {
+    color: #34495E;
+}
+
 #lookup-header {
     height: 50px;
     background-color: #1ABC9C;
@@ -24,7 +28,7 @@
     width: 700px;
 }
 
-#lookup-main {
+.lookup-big-main {
     position: fixed;
     top: 64px;
     bottom: 64px;
@@ -33,13 +37,12 @@
     border-radius: 25px;
 }
 
-#lookup-small {
+.lookup-small-main {
     position: fixed;
-    top: 64px;
-    height: 100px;
-    width: 100px;
+    width: 130px;
     background-color: LightGray;
     border-radius: 25px;
+    cursor: pointer;
 }
 
 #lookup-triangle {
@@ -58,13 +61,16 @@
     float: right;
 }
 
+a.lookup-anchor {
+    color: #34495E;
+}
+
+a.lookup-anchor:hover {
+    color: black;
+}
+
 #lookup-nav a {
-    color: #0e6c59;
-    -webkit-transition: 0.25s;
-    -moz-transition: 0.25s;
-    -o-transition: 0.25s;
-    transition: 0.25s;
-    -webkit-backface-visibility: hidden;
+    color: #0E6C59;
 }
 
 #lookup-nav a:hover {
@@ -72,13 +78,13 @@
     text-decoration: none;
 }
 
-span.lookup-heading-left {
+.lookup-heading-left {
     display: block;
     padding: 20px 20px 10px;
     font-size: 30px;
 }
 
-span.lookup-heading-center {
+.lookup-heading-center {
     display: block;
     text-align: center;
     padding: 20px 0 10px;
@@ -96,5 +102,72 @@ span.lookup-heading-center {
     height: 90px;
     background-repeat: no-repeat; 
     background-position: center center;
+}
+
+/* copied from flat-ui */
+
+.btnn {
+  border: none;
+  background: #bdc3c7;
+  color: #ffffff;
+  padding: 9px 12px 10px;
+  line-height: 22px;
+  text-decoration: none;
+  text-shadow: none;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+  -webkit-backface-visibility: hidden;
+}
+
+.btnn:hover,
+.btnn:focus,
+.btnn-group:focus .btnn.dropdown-toggle {
+  background-color: #cacfd2;
+  color: #ffffff;
+  outline: none;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+  -webkit-backface-visibility: hidden;
+}
+.btnn:active,
+.btnn-group.open .btnn.dropdown-toggle,
+.btnn.active {
+  background-color: #a1a6a9;
+  color: rgba(255, 255, 255, 0.75);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.btnn.btnn-large {
+  font-size: 16.996px;
+  /* 17px */
+
+  line-height: 20px;
+  padding: 12px 18px 13px;
+}
+
+.btnn.btnn-primary {
+  background-color: #1abc9c;
+}
+.btnn.btnn-primary:hover,
+.btnn.btnn-primary:focus,
+.btnn-group:focus .btnn.btnn-primary.dropdown-toggle {
+  background-color: #48c9b0;
+}
+.btnn.btnn-primary:active,
+.btnn-group.open .btnn.btnn-primary.dropdown-toggle,
+.btnn.btnn-primary.active {
+  background-color: #16a085;
 }
 
