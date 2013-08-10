@@ -206,6 +206,20 @@ a.lookup-close-btn:hover {
   background-color: #16a085;
 }
 
+.btnn.btnn-inverse {
+  background-color: #34495e;
+}
+.btnn.btnn-inverse:hover,
+.btnn.btnn-inverse:focus,
+.btnn-group:focus .btnn.btnn-inverse.dropdown-toggle {
+  background-color: #415b76;
+}
+.btnn.btnn-inverse:active,
+.btnn-group.open .btnn.btnn-inverse.dropdown-toggle,
+.btnn.btnn-inverse.active {
+  background-color: #2c3e50;
+}
+
 .fui-arrow-left,
 .fui-cross {
   display: inline-block;

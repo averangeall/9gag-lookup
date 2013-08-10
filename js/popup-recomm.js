@@ -2,14 +2,14 @@ function removeAllRecomms() {
     $('#lookup-recomms').empty();
 }
 
-function putSingleRecomm(recomm) {
+function putSingleRecomm(recomm, color) {
     var button = $('<a/>').html(recomm.content)
                           .attr('href', 'javascript: void(0);')
-                          .addClass('btnn btnn-large btnn-primary')
+                          .addClass('btnn btnn-large')
+                          .addClass(color)
                           .attr('data-id', recomm.id)
                           .click(function() {
-                              //allExplains.length = 0;
-                              //wordId = recomm.id;
+                              curWordId = recomm.id;
                               //putAllExpls(recomm);
                           });
     $('#lookup-recomms').append(button)
@@ -25,15 +25,23 @@ function filterRecomm() {
         $('.lookup-no-recomms').removeClass('lookup-no-recomms').addClass('lookup-has-recomms');
         $('.lookup-please-input').removeClass('lookup-please-input').addClass('lookup-more-input');
     }
+
+    var query = getInputQuery();
+    var chosen = false;
+    var color;
     $.each(allGagInfo[curGagId].recomms, function(i, recomm) {
-        putSingleRecomm(recomm);
+        color = 'btnn-primary';
+        if(!chosen && query != '' && recomm.content.match('^' + query)) {
+            color = 'btnn-inverse';
+            chosen = true;
+        }
+        putSingleRecomm(recomm, color);
     });
-    //for(var i in allRecomms) {
-    //    var lowerRecomm = allRecomms[i].content.toLowerCase();
-    //    var lowerInput = inputRecomm.toLowerCase();
-    //    if(lowerInput == '' || lowerRecomm.indexOf(lowerInput) != -1)
-    //        putSingleRecomm(allRecomms[i]);
-    //}
+
+    if(query != '') {
+        color = chosen ? 'btnn-primary' : 'btnn-inverse';
+        putSingleRecomm({content: query}, color);
+    }
 }
 
 function putAllRecomms() {
