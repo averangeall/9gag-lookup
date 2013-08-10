@@ -61,6 +61,10 @@ body {
     float: right;
 }
 
+#lookup-content {
+    padding: 0 20px;
+}
+
 a.lookup-anchor {
     color: #34495E;
 }
@@ -84,7 +88,7 @@ a.lookup-close-btn:hover {
 
 .lookup-heading-left {
     display: block;
-    padding: 20px 20px 10px;
+    padding: 20px 0 10px;
     font-size: 30px;
 }
 
@@ -96,7 +100,6 @@ a.lookup-close-btn:hover {
 }
 
 #lookup-recomm {
-    padding: 0 20px;
     line-height: 60px;
 }
 
@@ -198,4 +201,41 @@ a.lookup-close-btn:hover {
 }
 .fui-cross:before {
   content: "\e00b";
+}
+
+input,
+button,
+select,
+textarea {
+  font-family: "Lato", sans-serif;
+  font-size: 14px;
+}
+textarea,
+input[type="text"],
+.uneditable-input {
+  border: 2px solid #bdc3c7 ! important;
+  color: #34495e;
+  font-family: "Lato", sans-serif;
+  font-size: 14px ! important;
+  padding: 8px 5px;
+  height: 21px ! important;
+  width: 260px ! important;
+  text-indent: 6px;
+  border-radius: 6px ! important;
+  -webkit-box-shadow: none;
+  -webkit-transition: border .25s linear, color .25s linear ! important;
+  -webkit-backface-visibility: hidden ! important;
+}
+textarea.placeholder,
+input[type="text"].placeholder,
+.uneditable-input.placeholder {
+  color: #b2bcc5;
+}
+textarea:focus,
+input[type="text"]:focus,
+.uneditable-input:focus {
+  border-color: #1abc9c ! important;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }

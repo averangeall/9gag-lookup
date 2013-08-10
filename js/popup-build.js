@@ -10,7 +10,12 @@ function buildDict() {
                            .append($('<a/>').addClass('btnn btnn-large btnn-primary').attr('href', 'javascript: void(0);').html('Pretending'));
     var keywords = $('<div/>').append($('<span/>').addClass('lookup-heading-left').html('關於這篇有這些關鍵字喔'))
                               .append(recomms);
-    dict.append(keywords);
+    var input = $('<input/>').attr('type', 'text')
+                             .attr('placeholder', '請在這裡輸入');
+    var enter = $('<div/>').append($('<span/>').addClass('lookup-heading-left').html('或是您想查什麼關鍵字呢'))
+                           .append(input);
+    dict.append(keywords)
+        .append(enter);
     return dict;
 }
 
@@ -80,7 +85,7 @@ function buildContent() {
 function buildLogo() {
     var logo = $('<a/>').attr('id', 'lookup-logo')
                         .addClass('lookup-anchor lookup-heading-left')
-                        .html('9GAG 字典');
+                        .html('9GAG<br/>字典');
     return logo;
 }
 
