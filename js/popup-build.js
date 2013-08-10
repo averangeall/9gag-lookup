@@ -32,7 +32,7 @@ function buildPersonal() {
 
 function buildNavBtn(name, builder) {
     var nav = $('<a/>').attr('href', 'javascript: void(0);')
-                       .addClass('lookup-anchor')
+                       .addClass('lookup-nav-btn')
                        .html(name)
                        .click(function() {
                            var content = $('#lookup-content');
@@ -46,13 +46,22 @@ function buildNavBtn(name, builder) {
     return nav;
 }
 
+function buildCloseBtn() {
+    var close = $('<a/>').attr('href', 'javascript: void(0);')
+                       .addClass('lookup-close-btn fui-cross');
+    setShrinkSmall(close);
+    return close;
+}
+
 function buildNavBar() {
-    var navs = $('<div>').attr('id', 'lookup-nav')
+    var navs = $('<div>').attr('id', 'lookup-nav-bar')
                          .append(buildNavBtn('字典', buildDict))
                          .append(' ')
                          .append(buildNavBtn('通知', buildNotify))
                          .append(' ')
-                         .append(buildNavBtn('個人', buildPersonal));
+                         .append(buildNavBtn('個人', buildPersonal))
+                         .append(' ')
+                         .append(buildCloseBtn());
     return navs;
 }
 

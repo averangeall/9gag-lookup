@@ -1,34 +1,36 @@
 function pointSmall() {
-    var small = $('.lookup-small-main');
-    pointObj(small, 60.0, 117.0);
+    var offset = pointOffset(60.0, 117.0);
+    $('.lookup-small-main').css('top', offset);
 }
 
 function pointTriangle() {
-    var triangle = $('#lookup-triangle');
-    pointObj(triangle, 80.0, 137.0);
+    var offset = pointOffset(80.0, 137.0);
+    $('#lookup-triangle').css('top', offset);
 }
 
-function pointObj(obj, magicOffset, minOffset) {
+function pointOffset(magicOffset, minOffset) {
     var curTitle = $('.badge-in-view-focus header');
     if(curTitle.length == 0)
         return;
     var curTitleTop = curTitle.offset().top;
     var objOffset = curTitleTop - pageYOffset + magicOffset;
-    objOffset = (objOffset < minOffset) ? minOffset : objOffset;
-    obj.css('top', objOffset);
+    return (objOffset < minOffset) ? minOffset : objOffset;
 }
 
 function adjustMainTop() {
-    var main = $('.lookup-big-main');
+    var offset = topOffset();
+    $('.lookup-big-main').css('top', offset);
+}
+
+function topOffset() {
     var subnav = $('.badge-sticky-subnav-static');
     subnav = (subnav.length == 0) ? $('.badge-sticky-post-page-sticky') : subnav;
     var subnavTop = subnav.offset().top;
     var subnavHeight = subnav.height();
     var magicOffset = 30.0;
-    var mainTopOffset = subnavTop - pageYOffset + subnavHeight + magicOffset;
+    var objTopOffset = subnavTop - pageYOffset + subnavHeight + magicOffset;
     var minOffset = 64.0;
-    mainTopOffset = (mainTopOffset < minOffset) ? minOffset : mainTopOffset;
-    main.css('top', mainTopOffset);
+    return (objTopOffset < minOffset) ? minOffset : objTopOffset;
 }
 
 function setScroll() {

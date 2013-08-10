@@ -36,6 +36,7 @@
         "http://nine-gag-wrapper.herokuapp.com/"
     ],
     "web_accessible_resources": [
+        "fonts/*",
         "images/*"
     ],
     "content_security_policy": "script-src 'self'; object-src 'self' https://www.youtube.com/"

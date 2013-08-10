@@ -55,7 +55,7 @@ body {
     border-right: 30px solid LightGray;
 }
 
-#lookup-nav {
+#lookup-nav-bar {
     padding: 10px 20px 0 0;
     font-size: 26px;
     float: right;
@@ -64,18 +64,22 @@ body {
 a.lookup-anchor {
     color: #34495E;
 }
-
 a.lookup-anchor:hover {
     color: black;
 }
 
-#lookup-nav a {
+a.lookup-nav-btn {
     color: #0E6C59;
 }
+a.lookup-nav-btn:hover {
+    color: #3e897a;
+}
 
-#lookup-nav a:hover {
-    color: white;
-    text-decoration: none;
+a.lookup-close-btn {
+    color: #094b3e;
+}
+a.lookup-close-btn:hover {
+    color: #052b23;
 }
 
 .lookup-heading-left {
@@ -105,6 +109,13 @@ a.lookup-anchor:hover {
 }
 
 /* copied from flat-ui */
+
+@font-face {
+  font-family: 'Flat-UI-Icons';
+  src: url('chrome-extension://__MSG_@@extension_id__/fonts/Flat-UI-Icons.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 
 .btnn {
   border: none;
@@ -171,3 +182,20 @@ a.lookup-anchor:hover {
   background-color: #16a085;
 }
 
+.fui-arrow-left,
+.fui-cross {
+  display: inline-block;
+  font-family: 'Flat-UI-Icons';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+}
+.fui-arrow-left:before {
+  content: "\e02d";
+}
+.fui-cross:before {
+  content: "\e00b";
+}
