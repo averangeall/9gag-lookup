@@ -33,14 +33,17 @@ function topOffset() {
     return (objTopOffset < minOffset) ? minOffset : objTopOffset;
 }
 
-function setScroll() {
+function updateScroll() {
     pointSmall();
     pointTriangle();
     adjustMainTop();
+    updateGagId();
+}
+
+function setScroll() {
+    updateScroll();
     $(window).scroll(function() {
-        pointSmall();
-        pointTriangle();
-        adjustMainTop();
+        updateScroll();
     });
 }
 

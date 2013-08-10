@@ -1,5 +1,3 @@
-var gagId, wordId;
-var userId, userKey;
-var allRecomms = [];
-var inputRecomm = '';
-var allExplains = [];
+var curGagId, curWordId;
+var userId, userKey, userName;
+var allGagInfo = {};
