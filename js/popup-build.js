@@ -1,28 +1,39 @@
-function buildDict() {
+function buildDict(dst) {
     var dict = $('<div/>');
+    dst.append(dict);
+
     var recomms = $('<p/>').attr('id', 'lookup-recomms');
     var keywords = $('<div/>').append($('<span/>').addClass('lookup-heading-left lookup-has-recomms'))
                               .append(recomms);
-    var input = $('<input/>').attr('type', 'text')
+    var input = $('<input/>').attr('id', 'lookup-input')
+                             .attr('type', 'text')
                              .attr('placeholder', '請在這裡輸入');
     var enter = $('<div/>').append($('<span/>').addClass('lookup-heading-left lookup-more-input'))
                            .append(input);
-    setTimeout(function() {
-        putAllRecomms();
-    }, 0);
     dict.append(keywords)
         .append(enter);
-    return dict;
 }
 
-function buildNotify() {
+function afterDict() {
+    putAllRecomms();
+    setInputListener();
+}
+
+function buildNotify(dst) {
     var notify = $('<div/>');
+    dst.append(notify);
+
     notify.append($('<span/>').addClass('lookup-heading-left').html('通知通知'));
     return notify;
 }
 
-function buildPersonal() {
+function afterNotify() {
+}
+
+function buildPersonal(dst) {
     var personal = $('<div/>');
+    dst.append(personal);
+
     var avatarFname = 'images/mario-big-man.png';
     var avatar = $('<div/>').attr('id', 'lookup-avatar')
                             .css('background-image', 'url(' + chrome.extension.getURL(avatarFname) + ')');
@@ -31,7 +42,10 @@ function buildPersonal() {
     return personal;
 }
 
-function buildNavBtn(name, builder) {
+function afterPersonal() {
+}
+
+function buildNavBtn(dst, name, builder, after) {
     var nav = $('<a/>').attr('href', 'javascript: void(0);')
                        .addClass('lookup-nav-btn')
                        .html(name)
@@ -40,72 +54,77 @@ function buildNavBtn(name, builder) {
                            content.fadeOut(200);
                            setTimeout(function() {
                                content.empty();
-                               content.append(builder());
+                               builder(content);
+                               after();
                                content.fadeIn(200);
                             }, 200);
                        });
-    return nav;
+    dst.append(nav);
 }
 
-function buildCloseBtn() {
+function buildCloseBtn(dst) {
     var close = $('<a/>').attr('href', 'javascript: void(0);')
                        .addClass('lookup-close-btn fui-cross');
+    dst.append(close);
     setShrinkSmall(close);
-    return close;
 }
 
-function buildNavBar() {
-    var navs = $('<div>').attr('id', 'lookup-nav-bar')
-                         .append(buildNavBtn('字典', buildDict))
-                         .append(' ')
-                         .append(buildNavBtn('通知', buildNotify))
-                         .append(' ')
-                         .append(buildNavBtn('個人', buildPersonal))
-                         .append(' ')
-                         .append(buildCloseBtn());
-    return navs;
+function buildNavBar(dst) {
+    var navs = $('<div>').attr('id', 'lookup-nav-bar');
+    dst.append(navs);
+
+    buildNavBtn(navs, '字典', buildDict, afterDict);
+    navs.append(' ');
+    buildNavBtn(navs, '通知', buildNotify, afterNotify);
+    navs.append(' ');
+    buildNavBtn(navs, '個人', buildPersonal, afterPersonal);
+    navs.append(' ');
+    buildCloseBtn(navs);
 }
 
-function buildHeader() {
+function buildHeader(dst) {
     var header = $('<div/>').attr('id', 'lookup-header');
-    header.append(buildNavBar());
-    return header;
+    dst.append(header);
+    buildNavBar(header);
 }
 
-function buildContent() {
+function buildContent(dst) {
     var content = $('<div/>').attr('id', 'lookup-content');
-    content.append(buildDict());
-    return content;
+    dst.append(content);
+    buildDict(content);
+    afterDict();
 }
 
-function buildLogo() {
+function buildLogo(dst) {
     var logo = $('<a/>').attr('id', 'lookup-logo')
                         .addClass('lookup-anchor lookup-heading-left')
                         .html('9GAG<br/>字典');
-    return logo;
+    dst.append(logo);
 }
 
-function buildMain(which) {
+function buildMain(dst, which) {
+    var contain = $('<div/>').attr('id', 'lookup-contain-main');
+    dst.append(contain);
+
     var main = $('<div/>');
     if(which == 'big') {
         main.addClass('lookup-big-main');
-        main.append(buildHeader());
-        main.append(buildContent());
+        buildHeader(main);
+        buildContent(main);
     } else if(which == 'small') {
         main.addClass('lookup-small-main')
             .css('height', '110px');
-        main.append(buildLogo());
+        buildLogo(main);
         setGrowBig(main);
     }
-    var contain = $('<div/>').attr('id', 'lookup-contain-main')
-                             .append(main);
-    return contain;
+    contain.append(main);
 }
 
-function buildTriangle() {
+function buildTriangle(dst) {
     var contain = $('<div/>').attr('id', 'lookup-contain-triangle');
+    dst.append(contain);
+
     var triangle = $('<div/>').attr('id', 'lookup-triangle');
     contain.append(triangle);
-    return contain;
 }
 

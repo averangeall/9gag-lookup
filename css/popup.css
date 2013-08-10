@@ -121,6 +121,7 @@ a.lookup-close-btn:hover {
 
 .lookup-no-recomms:after {
     content: "這一篇好像還沒有關鍵字耶";
+    font-size: 20px;
 }
 
 .lookup-more-input:after {

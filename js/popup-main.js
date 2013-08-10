@@ -1,8 +1,6 @@
 loadUserInfo(function() {
-    var main = buildMain('small');
-    var triangle = buildTriangle();
-    $('.badge-page').append(main)
-                    .append(triangle);
+    buildMain($('.badge-page'), 'small');
+    buildTriangle($('.badge-page'));
 
     setScroll();
 });

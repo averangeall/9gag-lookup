@@ -10,8 +10,8 @@ function setGrowBig(main) {
         }, 200, function() {
             main.empty();
             main.removeClass('lookup-small-main').addClass('lookup-big-main');
-            main.append(buildHeader());
-            main.append(buildContent());
+            buildHeader(main);
+            buildContent(main);
             $('#lookup-header').css('display', 'none');
             $('#lookup-content').css('display', 'none');
             $('#lookup-header').fadeIn(200);
@@ -33,10 +33,11 @@ function setShrinkSmall(close) {
         }, 200, function() {
             main.empty();
             main.removeClass('lookup-big-main').addClass('lookup-small-main');
-            main.append(buildLogo());
+            buildLogo(main);
             $('#lookup-logo').css('display', 'none');
             $('#lookup-logo').fadeIn(200);
             setGrowBig(main);
         });
     });
 }
+

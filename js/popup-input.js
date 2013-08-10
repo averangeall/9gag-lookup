@@ -15,8 +15,10 @@ function focusInput() {
 }
 
 function setInputListener() {
-    $('#input').keyup(function(evt) {
-        inputRecomm = $('#input').val();
+    if($('#lookup-input').length == 0)
+        return;
+    $('#lookup-input').keyup(function(evt) {
+        inputRecomm = $('#lookup-input').val();
         if(evt.which == 13) {
             $.each($('#recomm-words p a'), function(idx) {
                 if(idx == 0)
