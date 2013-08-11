@@ -1,5 +1,10 @@
 function removeAllDefi() {
     $('#lookup-expl-content').empty();
+    $('#lookup-expl-prev').empty();
+    $('#lookup-expl-next').empty();
+    $('#lookup-expl-like').empty();
+    $('#lookup-expl-hate').empty();
+    $('#lookup-expl-provide').empty();
 }
 
 function genMoodIcon(name, explId, toggle) {
@@ -172,10 +177,27 @@ function putExplContent(idx) {
     }
 }
 
+function putExplNav(dst, arrow) {
+    var button = $('<a/>').attr('id', 'lookup-expl-prev')
+                          .attr('href', 'javascript: void(0);')
+                          .addClass('btnn btnn-large btnn-default')
+                          .addClass(arrow);
+    dst.append(button);
+}
+
+function putExplButtons() {
+    putExplNav($('#lookup-expl-prev'), 'fui-arrow-left');
+    putExplNav($('#lookup-expl-next'), 'fui-arrow-right');
+    //putExplNext();
+    //putExplLike();
+    //putExplHate();
+    //putExplProvide();
+}
+
 function putExplStuff() {
     removeAllDefi();
     putExplContent(0);
-    notEnoughExpls();
+    putExplButtons();
 }
 
 function makeProvideExpl() {
@@ -240,15 +262,6 @@ function makeMoreExpl() {
                           });
     var more = $('<div/>').append(button);
     return more;
-}
-
-function notEnoughExpls() {
-    var more = $('<div/>').append($('<h3/>').html('以上的解釋都不滿意嗎？'))
-                          .append(makeMoreExpl())
-                          .append($('<div/>').addClass('blank'))
-                          .append($('<h3/>').html('或是…'))
-                          .append(makeProvideExpl());
-    $('#explain-more').append(more);
 }
 
 function loadExpls(gagId, recomm) {
