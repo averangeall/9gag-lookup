@@ -3,13 +3,12 @@ function buildDict(dst) {
     dst.append(dict);
 
     var recomms = $('<p/>').attr('id', 'lookup-recomms');
-    var keywords = $('<div/>').append($('<span/>').addClass('lookup-heading-left lookup-has-recomms'))
-                              .append($('<span/>').addClass('lookup-heading-left lookup-grey-word').html('l'))
+    var keywords = $('<div/>').append($('<span/>').addClass('lookup-heading-left lookup-pre-recomms lookup-has-recomms'))
                               .append(recomms);
     var input = $('<input/>').attr('id', 'lookup-input')
                              .attr('type', 'text')
                              .attr('placeholder', '請在這裡輸入');
-    var enter = $('<div/>').append($('<span/>').addClass('lookup-heading-left lookup-more-input'))
+    var enter = $('<div/>').append($('<span/>').addClass('lookup-heading-left lookup-pre-input lookup-more-input'))
                            .append(input);
     dict.append(keywords)
         .append(enter);

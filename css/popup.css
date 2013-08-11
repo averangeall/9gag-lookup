@@ -129,18 +129,22 @@ a.lookup-close-btn:hover {
 .lookup-has-recomms:after {
     content: "關於這篇有這些關鍵字喔";
 }
-
 .lookup-no-recomms:after {
     content: "這一篇好像還沒有關鍵字耶";
     font-size: 20px;
+}
+.lookup-from-dict:after {
+    content: "我們從 9GAG 字典裡查到";
 }
 
 .lookup-more-input:after {
     content: "或是您想查什麼關鍵字呢";
 }
-
 .lookup-please-input:after {
     content: "請幫這篇增加關鍵字 好嗎";
+}
+.lookup-has-explains:after {
+    content: "有這個解釋";
 }
 
 /* copied from flat-ui */

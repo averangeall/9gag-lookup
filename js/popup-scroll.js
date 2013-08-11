@@ -40,7 +40,11 @@ function updateScroll() {
     var gagId = getGagId();
     if(gagId != curGagId) {
         curGagId = gagId;
-        putAllRecomms();
+        if($('#lookup-dict').length != 0) {
+            $('#lookup-content').empty();
+            buildDict($('#lookup-content'));
+            afterDict();
+        }
     }
 }
 

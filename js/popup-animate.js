@@ -16,6 +16,7 @@ function setGrowBig(main) {
             $('#lookup-content').css('display', 'none');
             $('#lookup-header').fadeIn(200);
             $('#lookup-content').fadeIn(200);
+            focusInput();
         });
     });
 }
@@ -42,16 +43,27 @@ function setShrinkSmall(close) {
 }
 
 function clearOtherRecomms() {
+    if($('#lookup-input').length != 0 && $('#lookup-input').hasClass('lookup-input-invisible'))
+        return;
+    $('#lookup-input').addClass('lookup-input-invisible');
     setTimeout(function() {
         $('#lookup-input').fadeOut(200);
     }, 0);
     setTimeout(function() {
-        $('#lookup-dict .lookup-more-input').fadeOut(200);
-        $('#lookup-dict .lookup-please-input').fadeOut(200);
+        $('#lookup-dict .lookup-pre-input').animate({opacity: 0}, 200);
     }, 200);
     setTimeout(function() {
-        $('#lookup-dict .lookup-has-recomms').fadeOut(200);
-        $('#lookup-dict .lookup-no-recomms').fadeOut(200);
+        $('#lookup-dict .lookup-pre-recomms').animate({opacity: 0}, 200);
     }, 400);
+    setTimeout(function() {
+        $('#lookup-dict .lookup-pre-recomms').removeClass('lookup-has-recomms lookup-no-recomms')
+                                             .addClass('lookup-from-dict')
+                                             .animate({opacity: 1}, 200);
+    }, 600);
+    setTimeout(function() {
+        $('#lookup-dict .lookup-pre-input').removeClass('lookup-more-input lookup-please-input')
+                                           .addClass('lookup-has-explains')
+                                           .animate({opacity: 1}, 200);
+    }, 800);
 }
 
