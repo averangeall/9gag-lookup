@@ -79,6 +79,13 @@ a.lookup-nav-btn:hover {
     color: #3e897a;
 }
 
+a.lookup-nav-chosen {
+    color: #05211b;
+}
+a.lookup-nav-chosen:hover {
+    color: #255249;
+}
+
 a.lookup-close-btn {
     color: #094b3e;
 }

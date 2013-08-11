@@ -46,11 +46,13 @@ function buildPersonal(dst) {
 function afterPersonal() {
 }
 
-function buildNavBtn(dst, name, builder, after) {
+function buildNavBtn(dst, name, chosen, builder, after) {
     var nav = $('<a/>').attr('href', 'javascript: void(0);')
                        .addClass('lookup-nav-btn')
                        .html(name)
                        .click(function() {
+                           $('.lookup-nav-chosen').removeClass('lookup-nav-chosen');
+                           $(this).addClass('lookup-nav-chosen');
                            var content = $('#lookup-content');
                            content.fadeOut(200);
                            setTimeout(function() {
@@ -60,6 +62,8 @@ function buildNavBtn(dst, name, builder, after) {
                                content.fadeIn(200);
                             }, 200);
                        });
+    if(chosen)
+        nav.addClass('lookup-nav-chosen');
     dst.append(nav);
 }
 
@@ -74,11 +78,11 @@ function buildNavBar(dst) {
     var navs = $('<div>').attr('id', 'lookup-nav-bar');
     dst.append(navs);
 
-    buildNavBtn(navs, '字典', buildDict, afterDict);
+    buildNavBtn(navs, '字典', true, buildDict, afterDict);
     navs.append(' ');
-    buildNavBtn(navs, '通知', buildNotify, afterNotify);
+    buildNavBtn(navs, '通知', false, buildNotify, afterNotify);
     navs.append(' ');
-    buildNavBtn(navs, '個人', buildPersonal, afterPersonal);
+    buildNavBtn(navs, '個人', false, buildPersonal, afterPersonal);
     navs.append(' ');
     buildCloseBtn(navs);
 }
