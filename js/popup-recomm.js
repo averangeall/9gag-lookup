@@ -12,8 +12,8 @@ function putSingleRecomm(recomm, color, fade) {
                               $('#lookup-recomms .btnn-inverse').removeClass('btnn-inverse').addClass('btnn-primary');
                               $(this).removeClass('btnn-primary').addClass('btnn-inverse');
                               curWordId = recomm.id;
-                              clearOtherRecomms();
-                              //putAllExpls(recomm);
+                              prepareExpl();
+                              loadExpls(curGagId, recomm);
                           });
     $('#lookup-recomms').append(button)
                         .append(' ');
@@ -55,9 +55,10 @@ function putAllRecomms() {
     if($('#lookup-recomms').length == 0)
         return;
     reliableGet(makeExtraUrl('recomm', 'get', {}), function(res) {
-        allGagInfo[curGagId] = {}
+        if(!(curGagId in allGagInfo))
+            allGagInfo[curGagId] = {};
         if(res.status == 'OKAY')
-            allGagInfo[curGagId].recomms = res.respond;
+            allGagInfo[curGagId].recomms = res.respond.recomms;
         filterRecomm(true);
     });
 }

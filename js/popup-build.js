@@ -5,13 +5,20 @@ function buildDict(dst) {
     var recomms = $('<p/>').attr('id', 'lookup-recomms');
     var keywords = $('<div/>').append($('<span/>').addClass('lookup-heading-left lookup-pre-recomms lookup-has-recomms'))
                               .append(recomms);
+
     var input = $('<input/>').attr('id', 'lookup-input')
                              .attr('type', 'text')
                              .attr('placeholder', '請在這裡輸入');
     var enter = $('<div/>').append($('<span/>').addClass('lookup-heading-left lookup-pre-input lookup-more-input'))
                            .append(input);
+
+    var explContent = $('<div/>').attr('id', 'lookup-expl-content');
+    var expls = $('<div/>').attr('id', 'lookup-expls')
+                           .append(explContent);
+
     dict.append(keywords)
-        .append(enter);
+        .append(enter)
+        .append(expls);
 }
 
 function afterDict() {

@@ -1,8 +1,5 @@
 function removeAllDefi() {
-    $('#explain-recomm').empty();
-    $('#explain-content').empty();
-    $('#explain-more').empty();
-    $('#explain-hline').empty();
+    $('#lookup-expl-content').empty();
 }
 
 function genMoodIcon(name, explId, toggle) {
@@ -72,22 +69,25 @@ function setMoodIconClick(one, other) {
 
 function putSingleExpl(expl) {
     var whole = $('<div/>').attr('id', 'expl-' + expl.id);
-    var hate = genMoodIcon('hate', expl.id, 'off');
-    var like = genMoodIcon('like', expl.id, expl.liked ? 'on' : 'off');
-    var moods = $('<div/>').attr('id', 'moods-' + expl.id)
-                           .append(like)
-                           .append($('<span/>').addClass('space'))
-                           .append(hate);
-    setMoodIconClick(hate, like);
-    setMoodIconClick(like, hate);
-    whole.append(moods);
+    //var hate = genMoodIcon('hate', expl.id, 'off');
+    //var like = genMoodIcon('like', expl.id, expl.liked ? 'on' : 'off');
+    //var moods = $('<div/>').attr('id', 'moods-' + expl.id)
+    //                       .append(like)
+    //                       .append($('<span/>').addClass('space'))
+    //                       .append(hate);
+    //setMoodIconClick(hate, like);
+    //setMoodIconClick(like, hate);
+    //whole.append(moods);
+
     var explPart = $('<div/>').attr('class', 'expl-part');
     
     if(expl.type == 'text') {
+        var text = $('<div/>').html(expl.content);
         if(expl.content.length < 10)
-            explPart.append($('<h2/>').html(expl.content));
+            text.addClass('lookup-expl-text-big');
         else
-            explPart.append($('<h4/>').html(expl.content));
+            text.addClass('lookup-expl-text-small');
+        explPart.append(text);
     } else if(expl.type == 'image') {
         var image = $('<img/>').attr('src', expl.content)
                                .attr('alt', '圖片壞掉了 : (')
@@ -108,24 +108,23 @@ function putSingleExpl(expl) {
             }, 500);
         }
     }
-    var source;
-    var srcUserId = expl.source.match(/^U(\d+)$/);
-    if(srcUserId != null)
-        source = $('<span/>').html('隱姓埋名的人');
-    else {
-        source = $('<a/>').attr('href', expl.link)
-                          .attr('target', '_blank')
-                          .html(expl.source);
-    }
-    var from = $('<div/>').append(source)
-                          .append(' 提供的');
-    explPart.append(from);
+    //var source;
+    //var srcUserId = expl.source.match(/^U(\d+)$/);
+    //if(srcUserId != null)
+    //    source = $('<span/>').html('隱姓埋名的人');
+    //else {
+    //    source = $('<a/>').attr('href', expl.link)
+    //                      .attr('target', '_blank')
+    //                      .html(expl.source);
+    //}
+    //var from = $('<div/>').append(source)
+    //                      .append(' 提供的');
+    //explPart.append(from);
     whole.append(explPart);
-    $('#explain-content').append(whole);
+    $('#lookup-expl-content').append(whole);
 }
 
 function putExplRecomm(recomm) {
-    putHLine($('#explain-recomm'));
     var title = $('<span/>').html(recomm.content);
     var button = $('<a/>').attr('href', 'javascript: void(0);')
                           .addClass('btn btn-mini btn-default fui-cross')
@@ -165,53 +164,18 @@ function putExplRecomm(recomm) {
     $('#explain-recomm').append(inner);
 }
 
-function isOldExplain(expl) {
-    var found = false;
-    $.each(allExplains, function(i, oldExpl) {
-        if(oldExpl.id == expl.id) {
-            found = true;
-            return false;
-        }
-    });
-    return found;
+function putExplContent(idx) {
+    if(curWordId != undefined && curWordId in allGagInfo[curGagId].explains) {
+        var expls = allGagInfo[curGagId].explains[curWordId];
+        if(expls.length > idx)
+            putSingleExpl(expls[idx]);
+    }
 }
 
-function putExplContent(expls) {
-    $.each(expls, function(idx, expl) {
-        if(!isOldExplain(expl)) {
-            putHLine($('#explain-content'));
-            putSingleExpl(expl);
-        }
-    });
-}
-
-function storeExplCache(expls) {
-    $.each(expls, function(i, newExpl) {
-        if(!isOldExplain(newExpl))
-            allExplains.push(newExpl);
-    });
-}
-
-function putAllExpls(recomm) {
+function putExplStuff() {
     removeAllDefi();
-    putLoading();
-    var args = {};
-    if('id' in recomm)
-        args.word_id = recomm.id;
-    else if('content' in recomm)
-        args.word_str = recomm.content;
-    else
-        return;
-    reliableGet(makeExtraUrl('explain', 'query', args), function(res) {
-        removeLoading();
-        if(res.status == 'OKAY') {
-            putExplRecomm(recomm);
-            putExplContent(res.respond);
-            notEnoughExpls();
-            putHLine($('#explain-hline'));
-            storeExplCache(res.respond);
-        }
-    });
+    putExplContent(0);
+    notEnoughExpls();
 }
 
 function makeProvideExpl() {
@@ -286,4 +250,26 @@ function notEnoughExpls() {
                           .append(makeProvideExpl());
     $('#explain-more').append(more);
 }
+
+function loadExpls(gagId, recomm) {
+    if(!('explains' in allGagInfo[gagId]))
+        allGagInfo[gagId].explains = {};
+    var args = {};
+    if('id' in recomm)
+        args.word_id = recomm.id;
+    else if('content' in recomm)
+        args.word_str = recomm.content;
+    else
+        return;
+    reliableGet(makeExtraUrl('explain', 'query', args), function(res) {
+        if(res.status == 'OKAY') {
+            var wordId = res.respond.word_id;
+            allGagInfo[gagId].explains[wordId] = res.respond.expls;
+            curWordId = wordId;
+            if($('.lookup-has-explains').length > 0)
+                putExplStuff();
+        }
+    });
+}
+
 

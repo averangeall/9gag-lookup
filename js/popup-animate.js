@@ -42,9 +42,13 @@ function setShrinkSmall(close) {
     });
 }
 
-function clearOtherRecomms() {
-    if($('#lookup-input').length != 0 && $('#lookup-input').hasClass('lookup-input-invisible'))
+function prepareExpl() {
+    if($('.lookup-has-explains').length > 0)
+        putExplStuff();
+
+    if($('#lookup-input').hasClass('lookup-input-invisible'))
         return;
+
     $('#lookup-input').addClass('lookup-input-invisible');
     setTimeout(function() {
         $('#lookup-input').fadeOut(200);
@@ -65,5 +69,8 @@ function clearOtherRecomms() {
                                            .addClass('lookup-has-explains')
                                            .animate({opacity: 1}, 200);
     }, 800);
+    setTimeout(function() {
+        putExplStuff();
+    }, 1000);
 }
 
