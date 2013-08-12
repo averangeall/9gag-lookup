@@ -1,77 +1,22 @@
-function removeAllDefi() {
+function resetExplSpace() {
     $('#lookup-expl-content').empty();
     $('#lookup-expl-provide').animate({opacity: 0}, 200);
 }
 
-function genMoodIcon(name, explId, toggle) {
-    var icons = {
-        hate: 'fui-cross',
-        like: 'fui-check',
-    };
-    var toggles = {
-        on: {
-            'hate': 'btn-danger',
-            'like': 'btn-success',
-        }[name],
-        off: 'btn-default',
-    };
-    var button = $('<a/>').attr('href', 'javascript: void(0);')
-                          .attr('data-expl-id', explId)
-                          .attr('data-action', name)
-                          .addClass('btn btn-mini')
-                          .addClass(icons[name])
-                          .addClass(toggles[toggle])
-                          .attr('data-toggle-on', toggles.on)
-                          .attr('data-toggle-off', toggles.off);
-    var titles = {
-        'hate': '這個解釋得爛透了!',
-        'like': '這個解釋還OK!',
-    };
-    button.tooltip({
-        animation: true,
-        placement: 'left',
-        title: titles[name]
+function getCurExplIdx() {
+    var expls = allGagInfo[curGagId].explains[curWordId];
+    var idx = -1;
+    $.each(expls, function(i, expl) {
+        if(expl.id == curExplId) {
+            idx = i;
+            return false;
+        }
     });
-    return button;
-}
-
-function showAction(explId, action, direction) {
-    if(action == 'hate') {
-        if(direction == 'forward')
-            $('#expl-' + explId).children('.expl-part').hide('fast');
-        else if(direction == 'backward')
-            $('#expl-' + explId).children('.expl-part').show('fast');
-    } else if (action == 'like') {
-        if(direction == 'forward')
-            $('#expl-' + explId).children('.expl-part').show('fast');
-    }
-}
-
-function setMoodIconClick(one, other) {
-    if(one.hasClass(one.attr('data-toggle-on'))) {
-        showAction(explId, action, 'backward');
-        one.removeClass(one.attr('data-toggle-on')).addClass(one.attr('data-toggle-off'));
-        reliableGet(makeExtraUrl('explain', 'neutral', {expl_id: explId}), function() { });
-    } else if(one.hasClass(one.attr('data-toggle-off'))) {
-        showAction(explId, action, 'forward');
-        one.removeClass(one.attr('data-toggle-off')).addClass(one.attr('data-toggle-on'));
-        other.removeClass(other.attr('data-toggle-on')).addClass(other.attr('data-toggle-off'));
-        reliableGet(makeExtraUrl('explain', action, {expl_id: explId}), function() { });
-    }
+    return idx;
 }
 
 function putSingleExpl(expl) {
     var whole = $('<div/>').attr('id', 'expl-' + expl.id);
-    //var hate = genMoodIcon('hate', expl.id, 'off');
-    //var like = genMoodIcon('like', expl.id, expl.liked ? 'on' : 'off');
-    //var moods = $('<div/>').attr('id', 'moods-' + expl.id)
-    //                       .append(like)
-    //                       .append($('<span/>').addClass('space'))
-    //                       .append(hate);
-    //setMoodIconClick(hate, like);
-    //setMoodIconClick(like, hate);
-    //whole.append(moods);
-
     var explPart = $('<div/>').attr('class', 'expl-part');
     
     if(expl.type == 'text') {
@@ -101,63 +46,12 @@ function putSingleExpl(expl) {
             }, 500);
         }
     }
-    //var source;
-    //var srcUserId = expl.source.match(/^U(\d+)$/);
-    //if(srcUserId != null)
-    //    source = $('<span/>').html('隱姓埋名的人');
-    //else {
-    //    source = $('<a/>').attr('href', expl.link)
-    //                      .attr('target', '_blank')
-    //                      .html(expl.source);
-    //}
-    //var from = $('<div/>').append(source)
-    //                      .append(' 提供的');
-    //explPart.append(from);
     whole.append(explPart);
     $('#lookup-expl-content').append(whole);
 }
 
-function putExplRecomm(recomm) {
-    var title = $('<span/>').html(recomm.content);
-    var button = $('<a/>').attr('href', 'javascript: void(0);')
-                          .addClass('btn btn-mini btn-default fui-cross')
-                          .attr('data-toggle-on', 'btn-danger')
-                          .attr('data-toggle-off', 'btn-default');
-    button.click(function() {
-        if(button.hasClass(button.attr('data-toggle-on'))) {
-            button.removeClass(button.attr('data-toggle-on')).addClass(button.attr('data-toggle-off'));
-            $('#explain-content').show('fast');
-            $('#explain-more').show('fast');
-            reliableGet(makeExtraUrl('explain', 'query', {word_id: button.attr('data-word-id')}), function() { });
-        } else if(button.hasClass(button.attr('data-toggle-off'))) {
-            button.removeClass(button.attr('data-toggle-off')).addClass(button.attr('data-toggle-on'));
-            $('#explain-content').hide('fast');
-            $('#explain-more').hide('fast');
-            reliableGet(makeExtraUrl('recomm', 'hate', {word_id: button.attr('data-word-id')}), function() { });
-        }
-    });
-    button.tooltip({
-        animation: true,
-        placement: 'right',
-        title: '這關鍵字和圖根本無關啊!!'
-    });
-    if('id' in recomm) {
-        button.attr('data-word-id', recomm.id);
-    } else {
-        reliableGet(makeExtraUrl('recomm', 'id', {word_str: recomm.content}), function(res) {
-            if(res.status == 'OKAY') {
-                button.attr('data-word-id', res.respond.id);
-            }
-        });
-    }
-    var inner = $('<div/>').addClass('expl-recomm')
-                           .append(button)
-                           .append($('<span/>').addClass('space'))
-                           .append(title);
-    $('#explain-recomm').append(inner);
-}
-
 function putExplContent(idx) {
+    resetExplSpace();
     if(curWordId != undefined && curWordId in allGagInfo[curGagId].explains) {
         var expls = allGagInfo[curGagId].explains[curWordId];
         if(expls.length > idx) {
@@ -171,13 +65,9 @@ function putExplContent(idx) {
 
 function setExplMood(which, value) {
     var expls = allGagInfo[curGagId].explains[curWordId];
-    $.each(expls, function(i, expl) {
-        if(expl.id == curExplId) {
-            expls[i].liked = expls[i].hated = false;
-            expls[i][which] = value;
-            return false;
-        }
-    });
+    var idx = getCurExplIdx();
+    expls[idx].liked = expls[idx].hated = false;
+    expls[idx][which] = value;
 }
 
 function clickLike(toggle) {
@@ -222,11 +112,32 @@ function clickMood(evt) {
     }
 }
 
+function clickExplNav(evt) {
+    var button = $(evt.target);
+    if(!button.hasClass('lookup-expl-nav-active'))
+        return;
+
+    var idx = getCurExplIdx();
+    if(button.attr('id') == 'lookup-expl-prev')
+        -- idx;
+    else if(button.attr('id') == 'lookup-expl-next')
+        ++ idx;
+
+    if(idx < 0)
+        return;
+    else if(idx == 0)
+        $('#lookup-expl-prev').removeClass('lookup-expl-nav-active');
+    else
+        $('#lookup-expl-prev').addClass('lookup-expl-nav-active');
+
+    putExplContent(idx);
+}
+
 function putExplNav(button, arrow) {
     button.attr('href', 'javascript: void(0);')
           .addClass('btnn btnn-large')
-          .addClass('lookup-expl-nav-active')
-          .addClass(arrow);
+          .addClass(arrow)
+          .click(clickExplNav);
 }
 
 function putExplMood(button, words, on) {
@@ -253,10 +164,10 @@ function putExplProvide(button, words) {
 }
 
 function putExplStuff() {
-    removeAllDefi();
     putExplContent(0);
-    putExplNav($('#lookup-expl-prev'), 'fui-arrow-left');
-    putExplNav($('#lookup-expl-next'), 'fui-arrow-right');
+    putExplNav($('#lookup-expl-prev'), 'fui-arrow-left', clickExplNav);
+    putExplNav($('#lookup-expl-next'), 'fui-arrow-right', clickExplNav);
+    $('#lookup-expl-next').addClass('lookup-expl-nav-active')
 }
 
 function makeProvideExpl() {
@@ -295,32 +206,6 @@ function makeProvideExpl() {
     var provide = $('<div/>').append(input)
                              .append(submit);
     return provide;
-}
-
-function makeMoreExpl() {
-    var button = $('<a/>').html('取得更多的解釋!')
-                          .attr('href', 'javascript: void(0);')
-                          .attr('class', 'btn btn-large btn-primary')
-                          .click(function() {
-                              putLoading();
-                              var exclExplIds = [];
-                              $.each(allExplains, function(i, expl) {
-                                  exclExplIds.push(expl.id);
-                              });
-                              var args = {
-                                  excl_expl_ids: exclExplIds.join(','),
-                                  word_id: wordId
-                              };
-                              reliableGet(makeExtraUrl('explain', 'query', args), function(res) {
-                                  removeLoading();
-                                  if(res.status == 'OKAY') {
-                                      putExplContent(res.respond);
-                                  }
-                                  storeExplCache(res.respond);
-                              });
-                          });
-    var more = $('<div/>').append(button);
-    return more;
 }
 
 function loadExpls(gagId, recomm) {

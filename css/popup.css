@@ -159,10 +159,6 @@ a.lookup-close-btn:hover {
     width: 249px;
 }
 
-#lookup-expl-prev, #lookup-expl-next {
-    vertical-align: middle;
-}
-
 .lookup-expl-button-row {
     height: 59px;
     text-align: center;
