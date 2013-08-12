@@ -1,10 +1,5 @@
 function removeAllDefi() {
     $('#lookup-expl-content').empty();
-    $('#lookup-expl-prev').empty();
-    $('#lookup-expl-next').empty();
-    $('#lookup-expl-like').empty();
-    $('#lookup-expl-hate').empty();
-    $('#lookup-expl-provide').empty();
 }
 
 function genMoodIcon(name, explId, toggle) {
@@ -172,32 +167,57 @@ function putExplRecomm(recomm) {
 function putExplContent(idx) {
     if(curWordId != undefined && curWordId in allGagInfo[curGagId].explains) {
         var expls = allGagInfo[curGagId].explains[curWordId];
-        if(expls.length > idx)
+        if(expls.length > idx) {
             putSingleExpl(expls[idx]);
+            putExplMood($('#lookup-expl-like'), '這個解釋好', clickLike);
+            putExplMood($('#lookup-expl-hate'), '這個解釋爛', clickHate);
+        }
     }
 }
 
-function putExplNav(dst, arrow) {
-    var button = $('<a/>').attr('id', 'lookup-expl-prev')
-                          .attr('href', 'javascript: void(0);')
-                          .addClass('btnn btnn-large btnn-default')
-                          .addClass(arrow);
-    dst.append(button);
+function hoverLike() {
 }
 
-function putExplButtons() {
-    putExplNav($('#lookup-expl-prev'), 'fui-arrow-left');
-    putExplNav($('#lookup-expl-next'), 'fui-arrow-right');
-    //putExplNext();
-    //putExplLike();
-    //putExplHate();
-    //putExplProvide();
+function hoverHate() {
+}
+
+function clickLike() {
+}
+
+function clickHate() {
+    putExplProvide($('#lookup-expl-provide'), '提供新的解釋給大家看');
+}
+
+function putExplNav(button, arrow) {
+    button.attr('href', 'javascript: void(0);')
+          .addClass('btnn btnn-large')
+          .addClass(arrow);
+}
+
+function putExplMood(button, words, click) {
+    if(button.html() == '') {
+        button.attr('href', 'javascript: void(0);')
+              .addClass('btnn btnn-large')
+              .html(words)
+              .click(click);
+        button.animate({opacity: 1}, 200);
+    }
+}
+
+function putExplProvide(button, words) {
+    if(button.html() == '') {
+        button.attr('href', 'javascript: void(0);')
+              .addClass('btnn btnn-large')
+              .html(words);
+        button.animate({opacity: 1}, 200);
+    }
 }
 
 function putExplStuff() {
     removeAllDefi();
     putExplContent(0);
-    putExplButtons();
+    putExplNav($('#lookup-expl-prev'), 'fui-arrow-left');
+    putExplNav($('#lookup-expl-next'), 'fui-arrow-right');
 }
 
 function makeProvideExpl() {

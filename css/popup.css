@@ -163,6 +163,11 @@ a.lookup-close-btn:hover {
     vertical-align: middle;
 }
 
+.lookup-expl-button-row {
+    height: 59px;
+    text-align: center;
+}
+
 /* copied from flat-ui */
 
 @font-face {

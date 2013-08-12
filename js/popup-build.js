@@ -12,12 +12,19 @@ function buildDict(dst) {
     var enter = $('<div/>').append($('<span/>').addClass('lookup-heading-left lookup-pre-input lookup-more-input'))
                            .append(input);
 
-    var explRow1 = $('<tr>').append($('<td/>').append($('<div/>').attr('id', 'lookup-expl-prev')))
+    var explRow1 = $('<tr>').append($('<td/>').append($('<a/>').attr('id', 'lookup-expl-prev')))
                             .append($('<td/>').append($('<div/>').attr('id', 'lookup-expl-content')))
-                            .append($('<td/>').append($('<div/>').attr('id', 'lookup-expl-next')));
-    var explRow2 = $('<tr>').append($('<td/>').append($('<div/>').attr('id', 'lookup-expl-like')))
-                            .append($('<td/>').append($('<div/>').attr('id', 'lookup-expl-hate')));
-    var explRow3 = $('<tr>').append($('<td/>').append($('<div/>').attr('id', 'lookup-expl-provide')));
+                            .append($('<td/>').append($('<a/>').attr('id', 'lookup-expl-next')));
+    var explRow2 = $('<tr>').append($('<td/>').attr('colspan', 3)
+                                              .addClass('lookup-expl-button-row')
+                                              .append($('<a/>').css('opacity', 0).attr('id', 'lookup-expl-like'))
+                                              .append(' ')
+                                              .append($('<a/>').css('opacity', 0).attr('id', 'lookup-expl-hate'))
+                                   );
+    var explRow3 = $('<tr>').append($('<td/>').attr('colspan', 3)
+                                              .addClass('lookup-expl-button-row')
+                                              .append($('<a/>').css('opacity', 0).attr('id', 'lookup-expl-provide'))
+                                   );
     var expls = $('<table/>').attr('id', 'lookup-expls')
                              .append(explRow1)
                              .append(explRow2)
