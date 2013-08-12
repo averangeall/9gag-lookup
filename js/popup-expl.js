@@ -29,7 +29,7 @@ function putSingleExpl(expl) {
     } else if(expl.type == 'image') {
         var image = $('<img/>').attr('src', expl.content)
                                .attr('alt', '圖片壞掉了 : (')
-                               .css('max-width', '80%');
+                               .addClass('lookup-expl-image');
         explPart.append($('<div/>').append(image));
     } else if(expl.type == 'video') {
         if(expl.source == 'YouTube') {
@@ -42,7 +42,7 @@ function putSingleExpl(expl) {
             explPart.append(divYoutube);
             setTimeout(function() {
                 swfobject.embedSWF("https://www.youtube.com/v/" + videoId,
-                                   'youtube-' + videoId, "300", "200", "8", null, null, null, null);
+                                   'youtube-' + videoId, "249", "180", "8", null, null, null, null);
             }, 500);
         }
     }
@@ -59,6 +59,8 @@ function putExplContent(idx) {
             putSingleExpl(expls[idx]);
             putExplMood($('#lookup-expl-like'), '這個解釋好', expls[idx].liked);
             putExplMood($('#lookup-expl-hate'), '這個解釋爛', expls[idx].hated);
+            if(expls[idx].hated)
+                putExplProvide($('#lookup-expl-provide'));
         }
     }
 }
@@ -83,7 +85,7 @@ function clickLike(toggle) {
 
 function clickHate(toggle) {
     if(toggle == 'on') {
-        putExplProvide($('#lookup-expl-provide'), '提供新的解釋給大家看');
+        putExplProvide($('#lookup-expl-provide'));
         reliableGet(makeExtraUrl('explain', 'hate', {expl_id: curExplId}), function() { });
         setExplMood('hated', true);
     } else if(toggle == 'off') {
@@ -154,11 +156,11 @@ function putExplMood(button, words, on) {
         button.removeClass('lookup-mood-on');
 }
 
-function putExplProvide(button, words) {
+function putExplProvide(button) {
     if(button.html() == '') {
         button.attr('href', 'javascript: void(0);')
               .addClass('btnn btnn-large btnn-primary')
-              .html(words);
+              .html('提供新的解釋給大家看');
     }
     button.animate({opacity: 1}, 200);
 }

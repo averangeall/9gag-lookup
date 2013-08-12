@@ -9,13 +9,6 @@ body {
     -webkit-border-top-right-radius: 25px;
 }
 
-.hline {
-    width: 70%;
-    height: 30px;
-    background-image: url(../images/hline-slice.png);
-    background-repeat: repeat-x;
-}
-
 #lookup-contain-main {
     float: left;
     padding: 20px 0 0 630px;
@@ -185,6 +178,14 @@ a.lookup-close-btn:hover {
 }
 #lookup-expl-hate:active {
     background-color: #c44133;
+}
+
+.lookup-expl-image {
+    max-width: 100%;
+    max-height: 170px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* copied from flat-ui */
