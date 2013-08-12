@@ -33,9 +33,7 @@ function buildDict(dst) {
     dict.append(keywords)
         .append(enter)
         .append(expls);
-}
 
-function afterDict() {
     putAllRecomms();
     setInputListener();
 }
@@ -46,9 +44,6 @@ function buildNotify(dst) {
 
     notify.append($('<span/>').addClass('lookup-heading-left').html('通知通知'));
     return notify;
-}
-
-function afterNotify() {
 }
 
 function buildPersonal(dst) {
@@ -63,10 +58,7 @@ function buildPersonal(dst) {
     return personal;
 }
 
-function afterPersonal() {
-}
-
-function buildNavBtn(dst, name, chosen, builder, after) {
+function buildNavBtn(dst, name, chosen, builder) {
     var nav = $('<a/>').attr('href', 'javascript: void(0);')
                        .addClass('lookup-nav-btn')
                        .html(name)
@@ -78,7 +70,6 @@ function buildNavBtn(dst, name, chosen, builder, after) {
                            setTimeout(function() {
                                content.empty();
                                builder(content);
-                               after();
                                content.fadeIn(200);
                             }, 200);
                        });
@@ -98,11 +89,11 @@ function buildNavBar(dst) {
     var navs = $('<div>').attr('id', 'lookup-nav-bar');
     dst.append(navs);
 
-    buildNavBtn(navs, '字典', true, buildDict, afterDict);
+    buildNavBtn(navs, '字典', true, buildDict);
     navs.append(' ');
-    buildNavBtn(navs, '通知', false, buildNotify, afterNotify);
+    buildNavBtn(navs, '通知', false, buildNotify);
     navs.append(' ');
-    buildNavBtn(navs, '個人', false, buildPersonal, afterPersonal);
+    buildNavBtn(navs, '個人', false, buildPersonal);
     navs.append(' ');
     buildCloseBtn(navs);
 }
@@ -117,7 +108,6 @@ function buildContent(dst) {
     var content = $('<div/>').attr('id', 'lookup-content');
     dst.append(content);
     buildDict(content);
-    afterDict();
 }
 
 function buildLogo(dst) {
