@@ -169,37 +169,59 @@ function putExplContent(idx) {
         var expls = allGagInfo[curGagId].explains[curWordId];
         if(expls.length > idx) {
             putSingleExpl(expls[idx]);
-            putExplMood($('#lookup-expl-like'), '這個解釋好', clickLike);
-            putExplMood($('#lookup-expl-hate'), '這個解釋爛', clickHate);
+            putExplMood($('#lookup-expl-like'), '這個解釋好');
+            putExplMood($('#lookup-expl-hate'), '這個解釋爛');
         }
     }
 }
 
-function hoverLike() {
+function clickLike(toggle) {
+    if(toggle == 'on') {
+        $('#lookup-expl-provide').animate({opacity: 0}, 200);
+    } else if(toggle == 'off') {
+    }
 }
 
-function hoverHate() {
+function clickHate(toggle) {
+    if(toggle == 'on') {
+        putExplProvide($('#lookup-expl-provide'), '提供新的解釋給大家看');
+    } else if(toggle == 'off') {
+        $('#lookup-expl-provide').animate({opacity: 0}, 200);
+    }
 }
 
-function clickLike() {
-}
+function clickMood(evt) {
+    var button = $(evt.target);
+    var todo;
+    if(button.attr('id') == 'lookup-expl-like')
+        todo = clickLike;
+    else if(button.attr('id') == 'lookup-expl-hate')
+        todo = clickHate;
 
-function clickHate() {
-    putExplProvide($('#lookup-expl-provide'), '提供新的解釋給大家看');
+    if(button.hasClass('lookup-mood-on')) {
+        button.removeClass('lookup-mood-on');
+        todo('off');
+    } else {
+        $('#lookup-expl-like').removeClass('lookup-mood-on');
+        $('#lookup-expl-hate').removeClass('lookup-mood-on');
+        button.addClass('lookup-mood-on');
+        todo('on');
+    }
 }
 
 function putExplNav(button, arrow) {
     button.attr('href', 'javascript: void(0);')
           .addClass('btnn btnn-large')
+          .addClass('lookup-expl-nav-active')
           .addClass(arrow);
 }
 
-function putExplMood(button, words, click) {
+function putExplMood(button, words) {
     if(button.html() == '') {
         button.attr('href', 'javascript: void(0);')
               .addClass('btnn btnn-large')
               .html(words)
-              .click(click);
+              .click(clickMood);
         button.animate({opacity: 1}, 200);
     }
 }
@@ -207,10 +229,10 @@ function putExplMood(button, words, click) {
 function putExplProvide(button, words) {
     if(button.html() == '') {
         button.attr('href', 'javascript: void(0);')
-              .addClass('btnn btnn-large')
+              .addClass('btnn btnn-large btnn-primary')
               .html(words);
-        button.animate({opacity: 1}, 200);
     }
+    button.animate({opacity: 1}, 200);
 }
 
 function putExplStuff() {
