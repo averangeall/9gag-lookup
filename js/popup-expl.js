@@ -1,5 +1,6 @@
 function removeAllDefi() {
     $('#lookup-expl-content').empty();
+    $('#lookup-expl-provide').animate({opacity: 0}, 200);
 }
 
 function genMoodIcon(name, explId, toggle) {
@@ -47,24 +48,16 @@ function showAction(explId, action, direction) {
 }
 
 function setMoodIconClick(one, other) {
-    one.click(function() {
-        var explId = one.attr('data-expl-id');
-        var action = one.attr('data-action');
-        console.log(one.attr('data-toggle-on'));
-        console.log(one.attr('class'));
-        if(one.hasClass(one.attr('data-toggle-on'))) {
-            console.log('on -> off');
-            showAction(explId, action, 'backward');
-            one.removeClass(one.attr('data-toggle-on')).addClass(one.attr('data-toggle-off'));
-            reliableGet(makeExtraUrl('explain', 'neutral', {expl_id: explId}), function() { });
-        } else if(one.hasClass(one.attr('data-toggle-off'))) {
-            console.log('off -> on');
-            showAction(explId, action, 'forward');
-            one.removeClass(one.attr('data-toggle-off')).addClass(one.attr('data-toggle-on'));
-            other.removeClass(other.attr('data-toggle-on')).addClass(other.attr('data-toggle-off'));
-            reliableGet(makeExtraUrl('explain', action, {expl_id: explId}), function() { });
-        }
-    });
+    if(one.hasClass(one.attr('data-toggle-on'))) {
+        showAction(explId, action, 'backward');
+        one.removeClass(one.attr('data-toggle-on')).addClass(one.attr('data-toggle-off'));
+        reliableGet(makeExtraUrl('explain', 'neutral', {expl_id: explId}), function() { });
+    } else if(one.hasClass(one.attr('data-toggle-off'))) {
+        showAction(explId, action, 'forward');
+        one.removeClass(one.attr('data-toggle-off')).addClass(one.attr('data-toggle-on'));
+        other.removeClass(other.attr('data-toggle-on')).addClass(other.attr('data-toggle-off'));
+        reliableGet(makeExtraUrl('explain', action, {expl_id: explId}), function() { });
+    }
 }
 
 function putSingleExpl(expl) {
@@ -168,25 +161,45 @@ function putExplContent(idx) {
     if(curWordId != undefined && curWordId in allGagInfo[curGagId].explains) {
         var expls = allGagInfo[curGagId].explains[curWordId];
         if(expls.length > idx) {
+            curExplId = expls[idx].id;
             putSingleExpl(expls[idx]);
-            putExplMood($('#lookup-expl-like'), '這個解釋好');
-            putExplMood($('#lookup-expl-hate'), '這個解釋爛');
+            putExplMood($('#lookup-expl-like'), '這個解釋好', expls[idx].liked);
+            putExplMood($('#lookup-expl-hate'), '這個解釋爛', expls[idx].hated);
         }
     }
+}
+
+function setExplMood(which, value) {
+    var expls = allGagInfo[curGagId].explains[curWordId];
+    $.each(expls, function(i, expl) {
+        if(expl.id == curExplId) {
+            expls[i].liked = expls[i].hated = false;
+            expls[i][which] = value;
+            return false;
+        }
+    });
 }
 
 function clickLike(toggle) {
     if(toggle == 'on') {
         $('#lookup-expl-provide').animate({opacity: 0}, 200);
+        reliableGet(makeExtraUrl('explain', 'like', {expl_id: curExplId}), function() { });
+        setExplMood('liked', true);
     } else if(toggle == 'off') {
+        reliableGet(makeExtraUrl('explain', 'neutral', {expl_id: curExplId}), function() { });
+        setExplMood('liked', false);
     }
 }
 
 function clickHate(toggle) {
     if(toggle == 'on') {
         putExplProvide($('#lookup-expl-provide'), '提供新的解釋給大家看');
+        reliableGet(makeExtraUrl('explain', 'hate', {expl_id: curExplId}), function() { });
+        setExplMood('hated', true);
     } else if(toggle == 'off') {
         $('#lookup-expl-provide').animate({opacity: 0}, 200);
+        reliableGet(makeExtraUrl('explain', 'neutral', {expl_id: curExplId}), function() { });
+        setExplMood('hated', false);
     }
 }
 
@@ -216,7 +229,7 @@ function putExplNav(button, arrow) {
           .addClass(arrow);
 }
 
-function putExplMood(button, words) {
+function putExplMood(button, words, on) {
     if(button.html() == '') {
         button.attr('href', 'javascript: void(0);')
               .addClass('btnn btnn-large')
@@ -224,6 +237,10 @@ function putExplMood(button, words) {
               .click(clickMood);
         button.animate({opacity: 1}, 200);
     }
+    if(on)
+        button.addClass('lookup-mood-on');
+    else
+        button.removeClass('lookup-mood-on');
 }
 
 function putExplProvide(button, words) {
