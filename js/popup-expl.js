@@ -160,7 +160,11 @@ function putExplProvide(button) {
     if(button.html() == '') {
         button.attr('href', 'javascript: void(0);')
               .addClass('btnn btnn-large btnn-primary')
-              .html('提供新的解釋給大家看');
+              .html('提供新的解釋給大家看')
+              .click(function() {
+                  prepareExplNew();
+                  makeNewExplSpace();
+              });
     }
     button.animate({opacity: 1}, 200);
 }
@@ -172,13 +176,13 @@ function putExplStuff() {
     $('#lookup-expl-next').addClass('lookup-expl-nav-active')
 }
 
-function makeProvideExpl() {
-    var input = $('<textarea/>').attr('id', 'provide-expl-input')
+function makeNewExplSpace() {
+    var input = $('<textarea/>').attr('id', 'lookup-expl-new-input')
                                 .attr('type', 'text')
                                 .attr('placeholder', '您可以加上您的解釋!!!')
                                 .addClass('span4')
                                 .keyup(function() {
-                                    var val = $('#provide-expl-input').val();
+                                    var val = $('#lookup-expl-new-input').val();
                                     if($.trim(val) == '')
                                         submit.removeClass('btn-primary').addClass('btn-default');
                                     else
@@ -207,7 +211,7 @@ function makeProvideExpl() {
                           });
     var provide = $('<div/>').append(input)
                              .append(submit);
-    return provide;
+    $('#lookup-expl-new').append(provide);
 }
 
 function loadExpls(gagId, recomm) {

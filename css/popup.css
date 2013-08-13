@@ -149,14 +149,32 @@ a.lookup-close-btn:hover {
 }
 
 #lookup-expl-content {
+    display: inline-block;
     width: 249px;
+    min-height: 71px;
+}
+
+.lookup-expl-space-row-small {
+    height: 23px;
+}
+.lookup-expl-space-row-big {
+    height: 37px;
 }
 
 .lookup-expl-button-row {
-    height: 59px;
     text-align: center;
 }
 
+.hahaha {
+    display: inline-block;
+    vertical-align: top;
+}
+#lookup-expl-content-row {
+}
+#lookup-expl-prev {
+}
+#lookup-expl-next {
+}
 #lookup-expl-prev.lookup-expl-nav-active:hover,
 #lookup-expl-next.lookup-expl-nav-active:hover {
     background-color: #415b76;

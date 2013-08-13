@@ -12,7 +12,7 @@ function putSingleRecomm(recomm, color, fade) {
                               $('#lookup-recomms .btnn-inverse').removeClass('btnn-inverse').addClass('btnn-primary');
                               $(this).removeClass('btnn-primary').addClass('btnn-inverse');
                               curWordId = recomm.id;
-                              prepareExpl();
+                              prepareExplContent();
                               loadExpls(curGagId, recomm);
                           });
     $('#lookup-recomms').append(button)

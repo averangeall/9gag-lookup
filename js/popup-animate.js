@@ -42,7 +42,7 @@ function setShrinkSmall(close) {
     });
 }
 
-function prepareExpl() {
+function prepareExplContent() {
     if($('.lookup-has-explains').length > 0)
         putExplStuff();
 
@@ -72,5 +72,8 @@ function prepareExpl() {
     setTimeout(function() {
         putExplStuff();
     }, 1000);
+}
+
+function prepareExplNew() {
 }
 
