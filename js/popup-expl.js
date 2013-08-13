@@ -184,13 +184,14 @@ function makeNewExplSpace() {
                                 .keyup(function() {
                                     var val = $('#lookup-expl-new-input').val();
                                     if($.trim(val) == '')
-                                        submit.removeClass('btn-primary').addClass('btn-default');
+                                        submit.removeClass('btnn-primary');
                                     else
-                                        submit.removeClass('btn-default').addClass('btn-primary');
+                                        submit.addClass('btnn-primary');
                                 });
-    var submit = $('<a/>').html('送出吧')
+    var submit = $('<a/>').attr('id', 'lookup-expl-new-submit')
+                          .html('送出吧')
                           .attr('href', 'javascript: void(0);')
-                          .attr('class', 'btn btn-large btn-default')
+                          .attr('class', 'btnn btnn-large')
                           .click(function() {
                               if(submit.hasClass('btn-default'))
                                   return;
@@ -207,11 +208,9 @@ function makeNewExplSpace() {
                                   input.val('');
                                   storeExplCache(res.respond);
                               });
-                              submit.removeClass('btn-primary').addClass('btn-default');
                           });
-    var provide = $('<div/>').append(input)
-                             .append(submit);
-    $('#lookup-expl-new').append(provide);
+    $('#lookup-expl-new-input-contain').append(input);
+    $('#lookup-expl-new-submit-contain').append(submit);
 }
 
 function loadExpls(gagId, recomm) {

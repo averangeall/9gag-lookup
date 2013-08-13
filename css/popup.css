@@ -165,15 +165,9 @@ a.lookup-close-btn:hover {
     text-align: center;
 }
 
-.hahaha {
+.lookup-expl-nav-button {
     display: inline-block;
     vertical-align: top;
-}
-#lookup-expl-content-row {
-}
-#lookup-expl-prev {
-}
-#lookup-expl-next {
 }
 #lookup-expl-prev.lookup-expl-nav-active:hover,
 #lookup-expl-next.lookup-expl-nav-active:hover {

@@ -13,24 +13,31 @@ function buildDict(dst) {
                            .append(input);
 
     var explRow1 = $('<div/>').attr('id', 'lookup-expl-content-row')
-                              .append($('<div/>').addClass('hahaha').append($('<a/>').attr('id', 'lookup-expl-prev')))
+                              .append($('<div/>').addClass('lookup-expl-nav-button').append($('<a/>').attr('id', 'lookup-expl-prev')))
                               .append($('<span/>').attr('id', 'lookup-expl-content'))
-                              .append($('<div/>').addClass('hahaha').append($('<a/>').attr('id', 'lookup-expl-next')));
+                              .append($('<div/>').addClass('lookup-expl-nav-button').append($('<a/>').attr('id', 'lookup-expl-next')));
     var explRow2 = $('<div/>').addClass('lookup-expl-button-row')
                               .append($('<a/>').css('opacity', 0).attr('id', 'lookup-expl-like'))
                               .append(' ')
                               .append($('<a/>').css('opacity', 0).attr('id', 'lookup-expl-hate'));
     var explRow3 = $('<div/>').addClass('lookup-expl-button-row')
                               .append($('<a/>').css('opacity', 0).attr('id', 'lookup-expl-provide'));
-    var explRow4 = $('<div/>').append($('<div/>').attr('id', 'lookup-expl-new'));
+    var explRow4 = $('<div/>').append($('<div/>').attr('id', 'lookup-expl-new-input-contain'));
+    var explRow5 = $('<div/>').append($('<div/>').attr('id', 'lookup-expl-new-submit-contain'));
+    var explPart1 = $('<div/>').attr('id', 'lookup-expl-upper-part')
+                               .append(explRow1)
+                               .append($('<div/>').addClass('lookup-expl-space-row-small'))
+                               .append(explRow2);
+    var explPart2 = $('<div/>').attr('id', 'lookup-expl-lower-part')
+                               .append($('<div/>').addClass('lookup-expl-space-row-big'))
+                               .append(explRow3)
+                               .append($('<div/>').addClass('lookup-expl-space-row-small'))
+                               .append(explRow4)
+                               .append($('<div/>').addClass('lookup-expl-space-row-small'))
+                               .append(explRow5);
     var expls = $('<div/>').attr('id', 'lookup-expls')
-                           .append(explRow1)
-                           .append($('<div/>').addClass('lookup-expl-space-row-small'))
-                           .append(explRow2)
-                           .append($('<div/>').addClass('lookup-expl-space-row-big'))
-                           .append(explRow3)
-                           .append($('<div/>').addClass('lookup-expl-space-row-big'))
-                           .append(explRow4);
+                           .append(explPart1)
+                           .append(explPart2);
 
     dict.append(keywords)
         .append(enter)

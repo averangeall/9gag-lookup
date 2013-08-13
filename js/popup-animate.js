@@ -75,5 +75,7 @@ function prepareExplContent() {
 }
 
 function prepareExplNew() {
+    $('#lookup-expl-upper-part').slideUp(200);
+    $('#lookup-dict .lookup-pre-input').slideUp(200);
 }
 
