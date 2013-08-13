@@ -180,7 +180,8 @@ function makeNewExplSpace() {
     var input = $('<textarea/>').attr('id', 'lookup-expl-new-input')
                                 .attr('type', 'text')
                                 .attr('placeholder', '您可以加上您的解釋!!!')
-                                .addClass('span4')
+                                .attr('cols', 20)
+                                .attr('rows', 5)
                                 .keyup(function() {
                                     var val = $('#lookup-expl-new-input').val();
                                     if($.trim(val) == '')
@@ -198,7 +199,7 @@ function makeNewExplSpace() {
                               putLoading();
                               var args = {
                                   expl_str: input.val(),
-                                  word_id: wordId
+                                  word_id: curWordId
                               };
                               reliableGet(makeExtraUrl('explain', 'provide', args), function(res) {
                                   removeLoading();

@@ -23,7 +23,8 @@ function buildDict(dst) {
     var explRow3 = $('<div/>').addClass('lookup-expl-button-row')
                               .append($('<a/>').css('opacity', 0).attr('id', 'lookup-expl-provide'));
     var explRow4 = $('<div/>').append($('<div/>').attr('id', 'lookup-expl-new-input-contain'));
-    var explRow5 = $('<div/>').append($('<div/>').attr('id', 'lookup-expl-new-submit-contain'));
+    var explRow5 = $('<div/>').addClass('lookup-expl-button-row')
+                              .append($('<div/>').attr('id', 'lookup-expl-new-submit-contain'));
     var explPart1 = $('<div/>').attr('id', 'lookup-expl-upper-part')
                                .append(explRow1)
                                .append($('<div/>').addClass('lookup-expl-space-row-small'))
