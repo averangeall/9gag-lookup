@@ -166,7 +166,7 @@ function putExplMood(dst, id, words, on) {
 function putExplProvide(dst) {
     var button = $('<a/>').attr('id', 'lookup-expl-provide')
                           .attr('href', 'javascript: void(0);')
-                          .addClass('btnn btnn-large btnn-primary')
+                          .addClass('btnn btnn-large btnn-warning')
                           .html('提供新的解釋給大家看')
                           .css('opacity', 0)
                           .click(function() {

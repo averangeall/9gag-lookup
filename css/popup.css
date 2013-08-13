@@ -284,6 +284,19 @@ a.lookup-close-btn:hover {
 .btnn.btnn-inverse.active {
   background-color: #2c3e50;
 }
+.btnn.btnn-warning {
+  background-color: #f1c40f;
+}
+.btnn.btnn-warning:hover,
+.btnn.btnn-warning:focus,
+.btnn-group:focus .btnn.btnn-warning.dropdown-toggle {
+  background-color: #f5d313;
+}
+.btnn.btnn-warning:active,
+.btnn-group.open .btnn.btnn-warning.dropdown-toggle,
+.btnn.btnn-warning.active {
+  background-color: #cda70d;
+}
 
 .fui-arrow-right,
 .fui-arrow-left,
