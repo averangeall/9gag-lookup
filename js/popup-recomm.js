@@ -1,5 +1,5 @@
 function removeAllRecomms() {
-    $('#lookup-recomms').empty();
+    $('#lookup-recomms-contain').empty();
 }
 
 function putSingleRecomm(recomm, color, fade) {
@@ -9,14 +9,16 @@ function putSingleRecomm(recomm, color, fade) {
                           .addClass(color)
                           .attr('data-id', recomm.id)
                           .click(function() {
-                              $('#lookup-recomms .btnn-inverse').removeClass('btnn-inverse').addClass('btnn-primary');
-                              $(this).removeClass('btnn-primary').addClass('btnn-inverse');
+                              $('#lookup-recomms-contain .btnn-inverse').removeClass('btnn-inverse')
+                                                                        .addClass('btnn-primary');
+                              $(this).removeClass('btnn-primary')
+                                     .addClass('btnn-inverse');
                               curWordId = recomm.id;
                               prepareExplContent();
                               loadExpls(curGagId, recomm);
                           });
-    $('#lookup-recomms').append(button)
-                        .append(' ');
+    $('#lookup-recomms-contain').append(button)
+                                .append(' ');
     if(fade) {
         button.css('opacity', 0)
               .animate({opacity: 1}, 200);
@@ -33,7 +35,7 @@ function filterRecomm(first) {
         $('.lookup-please-input').removeClass('lookup-please-input').addClass('lookup-more-input');
     }
 
-    var query = getInputQuery();
+    var query = getQueryVal();
     var chosen = false;
     var color;
     $.each(allGagInfo[curGagId].recomms, function(i, recomm) {
@@ -52,7 +54,7 @@ function filterRecomm(first) {
 }
 
 function putAllRecomms() {
-    if($('#lookup-recomms').length == 0)
+    if($('#lookup-recomms-contain').length == 0)
         return;
     reliableGet(makeExtraUrl('recomm', 'get', {}), function(res) {
         if(!(curGagId in allGagInfo))

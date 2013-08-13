@@ -57,10 +57,10 @@ function putExplContent(idx) {
         if(expls.length > idx) {
             curExplId = expls[idx].id;
             putSingleExpl(expls[idx]);
-            putExplMood($('#lookup-expl-like'), '這個解釋好', expls[idx].liked);
-            putExplMood($('#lookup-expl-hate'), '這個解釋爛', expls[idx].hated);
+            putExplMood($('#lookup-expl-like-contain'), 'lookup-expl-like', '這個解釋好', expls[idx].liked);
+            putExplMood($('#lookup-expl-hate-contain'), 'lookup-expl-hate', '這個解釋爛', expls[idx].hated);
             if(expls[idx].hated)
-                putExplProvide($('#lookup-expl-provide'));
+                putExplProvide($('#lookup-expl-provide-contain'));
         }
     }
 }
@@ -74,7 +74,9 @@ function setExplMood(which, value) {
 
 function clickLike(toggle) {
     if(toggle == 'on') {
-        $('#lookup-expl-provide').animate({opacity: 0}, 200);
+        $('#lookup-expl-provide').animate({opacity: 0}, 200, function() {
+            $('#lookup-expl-provide').hide();
+        });
         reliableGet(makeExtraUrl('explain', 'like', {expl_id: curExplId}), function() { });
         setExplMood('liked', true);
     } else if(toggle == 'off') {
@@ -85,7 +87,7 @@ function clickLike(toggle) {
 
 function clickHate(toggle) {
     if(toggle == 'on') {
-        putExplProvide($('#lookup-expl-provide'));
+        putExplProvide($('#lookup-expl-provide-contain'));
         reliableGet(makeExtraUrl('explain', 'hate', {expl_id: curExplId}), function() { });
         setExplMood('hated', true);
     } else if(toggle == 'off') {
@@ -128,52 +130,57 @@ function clickExplNav(evt) {
     if(idx < 0)
         return;
     else if(idx == 0)
-        $('#lookup-expl-prev').removeClass('lookup-expl-nav-active');
+        $('#lookup-expl-prev').removeClass('lookup-expl-nav-active').attr('disabled', '');
     else
-        $('#lookup-expl-prev').addClass('lookup-expl-nav-active');
+        $('#lookup-expl-prev').addClass('lookup-expl-nav-active').removeAttr('disabled');
 
     putExplContent(idx);
 }
 
-function putExplNav(button, arrow) {
-    button.attr('href', 'javascript: void(0);')
-          .addClass('btnn btnn-large')
-          .addClass(arrow)
-          .click(clickExplNav);
+function putExplNav(dst, id, arrow, enabled) {
+    var button = $('<a/>').attr('id', id)
+                          .attr('href', 'javascript: void(0);')
+                          .addClass('btnn btnn-large')
+                          .addClass(arrow)
+                          .click(clickExplNav);
+    if(enabled)
+        button.addClass('lookup-expl-nav-active');
+    else
+        button.attr('disabled', '');
+    dst.empty().append(button);
 }
 
-function putExplMood(button, words, on) {
-    if(button.html() == '') {
-        button.attr('href', 'javascript: void(0);')
-              .addClass('btnn btnn-large')
-              .html(words)
-              .click(clickMood);
-        button.animate({opacity: 1}, 200);
-    }
+function putExplMood(dst, id, words, on) {
+    var button = $('<a/>').attr('id', id)
+                          .attr('href', 'javascript: void(0);')
+                          .addClass('btnn btnn-large')
+                          .html(words)
+                          .click(clickMood);
     if(on)
         button.addClass('lookup-mood-on');
     else
         button.removeClass('lookup-mood-on');
+    dst.empty().append(button);
 }
 
-function putExplProvide(button) {
-    if(button.html() == '') {
-        button.attr('href', 'javascript: void(0);')
-              .addClass('btnn btnn-large btnn-primary')
-              .html('提供新的解釋給大家看')
-              .click(function() {
-                  prepareExplNew();
-                  makeNewExplSpace();
-              });
-    }
+function putExplProvide(dst) {
+    var button = $('<a/>').attr('id', 'lookup-expl-provide')
+                          .attr('href', 'javascript: void(0);')
+                          .addClass('btnn btnn-large btnn-primary')
+                          .html('提供新的解釋給大家看')
+                          .css('opacity', 0)
+                          .click(function() {
+                              prepareExplNew();
+                              makeNewExplSpace();
+                          });
+    dst.empty().append(button);
     button.animate({opacity: 1}, 200);
 }
 
 function putExplStuff() {
     putExplContent(0);
-    putExplNav($('#lookup-expl-prev'), 'fui-arrow-left', clickExplNav);
-    putExplNav($('#lookup-expl-next'), 'fui-arrow-right', clickExplNav);
-    $('#lookup-expl-next').addClass('lookup-expl-nav-active')
+    putExplNav($('#lookup-expl-prev-contain'), 'lookup-expl-prev', 'fui-arrow-left', false);
+    putExplNav($('#lookup-expl-next-contain'), 'lookup-expl-next', 'fui-arrow-right', true);
 }
 
 function makeNewExplSpace() {
@@ -194,20 +201,17 @@ function makeNewExplSpace() {
                           .attr('href', 'javascript: void(0);')
                           .attr('class', 'btnn btnn-large')
                           .click(function() {
-                              if(submit.hasClass('btn-default'))
+                              var val = $('#lookup-expl-new-input').val();
+                              if($.trim(val) == '')
                                   return;
-                              putLoading();
                               var args = {
                                   expl_str: input.val(),
                                   word_id: curWordId
                               };
                               reliableGet(makeExtraUrl('explain', 'provide', args), function(res) {
-                                  removeLoading();
                                   if(res.status == 'OKAY') {
-                                      putExplContent(res.respond);
+                                      putExplStuff();
                                   }
-                                  input.val('');
-                                  storeExplCache(res.respond);
                               });
                           });
     $('#lookup-expl-new-input-contain').append(input);

@@ -2,50 +2,54 @@ function buildDict(dst) {
     var dict = $('<div/>').attr('id', 'lookup-dict');
     dst.append(dict);
 
-    var recomms = $('<p/>').attr('id', 'lookup-recomms');
-    var keywords = $('<div/>').append($('<span/>').addClass('lookup-heading-left lookup-pre-recomms lookup-has-recomms'))
-                              .append(recomms);
+    var preRecomms = $('<span/>').attr('id', 'lookup-pre-recomms')
+                                 .addClass('lookup-heading-left lookup-has-recomms');
+    var recommsContain = $('<p/>').attr('id', 'lookup-recomms-contain');
 
-    var input = $('<input/>').attr('id', 'lookup-input')
-                             .attr('type', 'text')
-                             .attr('placeholder', '請在這裡輸入');
-    var enter = $('<div/>').append($('<span/>').addClass('lookup-heading-left lookup-pre-input lookup-more-input'))
-                           .append(input);
+    var preQuery = $('<span/>').attr('id', 'lookup-pre-query')
+                               .addClass('lookup-heading-left lookup-more-input');
+    var queryContain = $('<div/>').attr('id', 'lookup-query-contain');
 
-    var explRow1 = $('<div/>').attr('id', 'lookup-expl-content-row')
-                              .append($('<div/>').addClass('lookup-expl-nav-button').append($('<a/>').attr('id', 'lookup-expl-prev')))
-                              .append($('<span/>').attr('id', 'lookup-expl-content'))
-                              .append($('<div/>').addClass('lookup-expl-nav-button').append($('<a/>').attr('id', 'lookup-expl-next')));
-    var explRow2 = $('<div/>').addClass('lookup-expl-button-row')
-                              .append($('<a/>').css('opacity', 0).attr('id', 'lookup-expl-like'))
-                              .append(' ')
-                              .append($('<a/>').css('opacity', 0).attr('id', 'lookup-expl-hate'));
-    var explRow3 = $('<div/>').addClass('lookup-expl-button-row')
-                              .append($('<a/>').css('opacity', 0).attr('id', 'lookup-expl-provide'));
-    var explRow4 = $('<div/>').append($('<div/>').attr('id', 'lookup-expl-new-input-contain'));
-    var explRow5 = $('<div/>').addClass('lookup-expl-button-row')
-                              .append($('<div/>').attr('id', 'lookup-expl-new-submit-contain'));
-    var explPart1 = $('<div/>').attr('id', 'lookup-expl-upper-part')
-                               .append(explRow1)
-                               .append($('<div/>').addClass('lookup-expl-space-row-small'))
-                               .append(explRow2);
-    var explPart2 = $('<div/>').attr('id', 'lookup-expl-lower-part')
-                               .append($('<div/>').addClass('lookup-expl-space-row-big'))
-                               .append(explRow3)
-                               .append($('<div/>').addClass('lookup-expl-space-row-small'))
-                               .append(explRow4)
-                               .append($('<div/>').addClass('lookup-expl-space-row-small'))
-                               .append(explRow5);
-    var expls = $('<div/>').attr('id', 'lookup-expls')
-                           .append(explPart1)
-                           .append(explPart2);
+    var explPrevContain = $('<div/>').attr('id', 'lookup-expl-prev-contain')
+                                     .addClass('lookup-expl-nav-button')
+    var explNextContain = $('<div/>').attr('id', 'lookup-expl-next-contain')
+                                     .addClass('lookup-expl-nav-button')
+    var explContent = $('<span/>').attr('id', 'lookup-expl-content');
+    var explContentRow = $('<div/>').attr('id', 'lookup-expl-content-row')
+                                    .append(explPrevContain)
+                                    .append(explContent)
+                                    .append(explNextContain);
 
-    dict.append(keywords)
-        .append(enter)
-        .append(expls);
+    var explLikeContain = $('<span/>').attr('id', 'lookup-expl-like-contain');
+    var explHateContain = $('<span/>').attr('id', 'lookup-expl-hate-contain');
+    var explMoodRow = $('<div/>').attr('id', 'lookup-expl-mood-row')
+                                 .addClass('lookup-expl-button-row')
+                                 .append(explLikeContain)
+                                 .append(' ')
+                                 .append(explHateContain);
+
+    var explProvideContain = $('<div/>').attr('id', 'lookup-expl-provide-contain');
+    var explProvideRow = $('<div/>').addClass('lookup-expl-button-row')
+                                    .append(explProvideContain);
+
+    var explNewInputRow = $('<div/>').attr('id', 'lookup-expl-new-input-contain');
+
+    var explNewSubmitContain = $('<div/>').attr('id', 'lookup-expl-new-submit-contain');
+    var explNewSubmitRow = $('<div/>').addClass('lookup-expl-button-row')
+                                      .append(explNewSubmitContain);
+
+    dict.append(preRecomms)
+        .append(recommsContain)
+        .append(preQuery)
+        .append(queryContain)
+        .append(explContentRow)
+        .append(explMoodRow)
+        .append(explProvideRow)
+        .append(explNewInputRow)
+        .append(explNewSubmitRow);
 
     putAllRecomms();
-    setInputListener();
+    putQueryInput();
 }
 
 function buildNotify(dst) {

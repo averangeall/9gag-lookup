@@ -1,23 +1,25 @@
-function getInputQuery() {
-    var query = $('#lookup-input').val();
+function getQueryVal() {
+    var query = $('#lookup-query').val();
     query = $.trim(query.toLowerCase());
     var chars = query.match(/[\w.'" ]/g);
     query = (chars == null) ? '' : chars.join('');
     return query;
 }
 
-function focusInput() {
-    $('#lookup-input').focus();
+function focusQuery() {
+    $('#lookup-query').focus();
 }
 
-function setInputListener() {
-    if($('#lookup-input').length == 0)
-        return;
-    $('#lookup-input').keyup(function(evt) {
-        if(evt.which == 13)
-            $('#lookup-recomms .btnn-inverse').click();
-        else
-            filterRecomm(false);
-    });
+function putQueryInput() {
+    var query = $('<input/>').attr('id', 'lookup-query')
+                             .attr('type', 'text')
+                             .attr('placeholder', '請在這裡輸入')
+                             .keyup(function(evt) {
+                                 if(evt.which == 13)
+                                     $('#lookup-recomms-contain .btnn-inverse').click();
+                                 else
+                                     filterRecomm(false);
+                             });
+    $('#lookup-query-contain').append(query);
 }
 

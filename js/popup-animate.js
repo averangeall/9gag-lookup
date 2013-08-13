@@ -16,7 +16,7 @@ function setGrowBig(main) {
             $('#lookup-content').css('display', 'none');
             $('#lookup-header').fadeIn(200);
             $('#lookup-content').fadeIn(200);
-            focusInput();
+            focusQuery();
         });
     });
 }
@@ -46,28 +46,28 @@ function prepareExplContent() {
     if($('.lookup-has-explains').length > 0)
         putExplStuff();
 
-    if($('#lookup-input').hasClass('lookup-input-invisible'))
+    if($('#lookup-query').hasClass('lookup-invisible'))
         return;
 
-    $('#lookup-input').addClass('lookup-input-invisible');
+    $('#lookup-query').addClass('lookup-invisible');
     setTimeout(function() {
-        $('#lookup-input').fadeOut(200);
+        $('#lookup-query').fadeOut(200);
     }, 0);
     setTimeout(function() {
-        $('#lookup-dict .lookup-pre-input').animate({opacity: 0}, 200);
+        $('#lookup-pre-query').animate({opacity: 0}, 200);
     }, 200);
     setTimeout(function() {
-        $('#lookup-dict .lookup-pre-recomms').animate({opacity: 0}, 200);
+        $('#lookup-pre-recomms').animate({opacity: 0}, 200);
     }, 400);
     setTimeout(function() {
-        $('#lookup-dict .lookup-pre-recomms').removeClass('lookup-has-recomms lookup-no-recomms')
-                                             .addClass('lookup-from-dict')
-                                             .animate({opacity: 1}, 200);
+        $('#lookup-pre-recomms').removeClass('lookup-has-recomms lookup-no-recomms')
+                                .addClass('lookup-from-dict')
+                                .animate({opacity: 1}, 200);
     }, 600);
     setTimeout(function() {
-        $('#lookup-dict .lookup-pre-input').removeClass('lookup-more-input lookup-please-input')
-                                           .addClass('lookup-has-explains')
-                                           .animate({opacity: 1}, 200);
+        $('#lookup-pre-query').removeClass('lookup-more-input lookup-please-input')
+                              .addClass('lookup-has-explains')
+                              .animate({opacity: 1}, 200);
     }, 800);
     setTimeout(function() {
         putExplStuff();
@@ -75,7 +75,8 @@ function prepareExplContent() {
 }
 
 function prepareExplNew() {
-    $('#lookup-expl-upper-part').slideUp(200);
-    $('#lookup-dict .lookup-pre-input').slideUp(200);
+    $('#lookup-pre-query').slideUp(200);
+    $('#lookup-expl-content-row').slideUp(200);
+    $('#lookup-expl-mood-row').slideUp(200);
 }
 
