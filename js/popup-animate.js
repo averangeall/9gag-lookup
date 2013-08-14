@@ -73,8 +73,7 @@ function prepareExplContent(wordStr) {
 }
 
 function prepareExplNew() {
-    $('#lookup-pre-query').slideUp(200);
-    $('#lookup-expl-content-row').slideUp(200);
-    $('#lookup-expl-mood-row').slideUp(200);
+    $('#lookup-expl-content-row').slideUp();
+    $('#lookup-expl-mood-row').slideUp();
 }
 
