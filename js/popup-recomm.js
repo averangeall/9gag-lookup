@@ -19,10 +19,6 @@ function putSingleRecomm(recomm, color, fade) {
                           });
     $('#lookup-recomms-contain').append(button)
                                 .append(' ');
-    if(fade) {
-        button.css('opacity', 0)
-              .animate({opacity: 1}, 200);
-    }
 }
 
 function filterRecomm(first) {

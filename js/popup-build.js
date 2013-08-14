@@ -126,8 +126,7 @@ function buildContent(dst) {
 
 function buildLogo(dst) {
     var logo = $('<a/>').attr('id', 'lookup-logo')
-                        .addClass('lookup-anchor lookup-heading-left')
-                        .html('9GAG<br/>字典');
+                        .addClass('lookup-anchor lookup-heading-left fui-search');
     dst.append(logo);
 }
 
@@ -142,7 +141,7 @@ function buildMain(dst, which) {
         buildContent(main);
     } else if(which == 'small') {
         main.addClass('lookup-small-main')
-            .css('height', '110px');
+            .css('height', '83px');
         buildLogo(main);
         setGrowBig(main);
     }

@@ -28,8 +28,8 @@ function setShrinkSmall(close) {
         $('#lookup-content').fadeOut(200);
         var main = $('.lookup-big-main');
         main.animate({
-            width: '130px',
-            height: '110px',
+            width: '91px',
+            height: '83px',
             top: pointOffset(60.0, 117.0) + 'px',
         }, 200, function() {
             main.empty();

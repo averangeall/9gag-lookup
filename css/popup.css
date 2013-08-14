@@ -3,10 +3,10 @@ body {
 }
 
 #lookup-header {
-    height: 50px;
+    height: 38px;
     background-color: #1ABC9C;
-    -webkit-border-top-left-radius: 25px;
-    -webkit-border-top-right-radius: 25px;
+    -webkit-border-top-left-radius: 3px;
+    -webkit-border-top-right-radius: 3px;
 }
 
 #lookup-contain-main {
@@ -26,14 +26,14 @@ body {
     bottom: 64px;
     width: 400px;
     background-color: LightGray;
-    border-radius: 25px;
+    border-radius: 3px;
 }
 
 .lookup-small-main {
     position: fixed;
-    width: 130px;
+    width: 91px;
     background-color: LightGray;
-    border-radius: 25px;
+    border-radius: 3px;
     cursor: pointer;
 }
 
@@ -48,8 +48,8 @@ body {
 }
 
 #lookup-nav-bar {
-    padding: 10px 20px 0 0;
-    font-size: 26px;
+    padding: 5px 20px 0 0;
+    font-size: 22px;
     float: right;
 }
 
@@ -87,6 +87,7 @@ a.lookup-close-btn:hover {
 
 #lookup-logo {
     padding-left: 20px;
+    font-size: 40px;
 }
 
 .lookup-grey-word {
@@ -96,7 +97,7 @@ a.lookup-close-btn:hover {
 .lookup-heading-left {
     display: inline-block;
     padding: 20px 0 10px;
-    font-size: 30px;
+    font-size: 20px;
 }
 
 .lookup-heading-center {
@@ -123,7 +124,6 @@ a.lookup-close-btn:hover {
 }
 .lookup-no-recomms:after {
     content: "這一篇好像還沒有關鍵字耶";
-    font-size: 20px;
 }
 .lookup-from-dict:after {
     content: "我們從 9GAG 字典裡查到";
@@ -298,6 +298,7 @@ a.lookup-close-btn:hover {
   background-color: #cda70d;
 }
 
+.fui-search,
 .fui-arrow-right,
 .fui-arrow-left,
 .fui-cross {
@@ -309,6 +310,9 @@ a.lookup-close-btn:hover {
   font-variant: normal;
   text-transform: none;
   -webkit-font-smoothing: antialiased;
+}
+.fui-search:before {
+  content: "\e01c";
 }
 .fui-arrow-right:before {
   content: "\e02c";
