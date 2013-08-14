@@ -42,36 +42,32 @@ function setShrinkSmall(close) {
     });
 }
 
-function prepareExplContent() {
+function autoType(input, text, totalTime, callback) {
+    var timerId = setInterval(function() {
+        if(text == input.val()) {
+            clearInterval(timerId);
+            callback();
+            return;
+        }
+        if(text.match('^' + input.val()) != null || input.val() == ' ') {
+            input.val(text.substr(0, input.val().length + 1));
+        } else {
+            input.val(input.val().substr(0, input.val().length - 1));
+            if(input.val() == '')
+                input.val(' ');
+        }
+    }, 50);
+}
+
+function prepareExplContent(wordStr) {
     if($('.lookup-has-explains').length > 0)
         putExplStuff();
 
-    if($('#lookup-query').hasClass('lookup-invisible'))
-        return;
-
-    $('#lookup-query').addClass('lookup-invisible');
-    setTimeout(function() {
-        $('#lookup-query').fadeOut(200);
-    }, 0);
-    setTimeout(function() {
-        $('#lookup-pre-query').animate({opacity: 0}, 200);
-    }, 200);
-    setTimeout(function() {
-        $('#lookup-pre-recomms').animate({opacity: 0}, 200);
-    }, 400);
-    setTimeout(function() {
-        $('#lookup-pre-recomms').removeClass('lookup-has-recomms lookup-no-recomms')
-                                .addClass('lookup-from-dict')
-                                .animate({opacity: 1}, 200);
-    }, 600);
-    setTimeout(function() {
-        $('#lookup-pre-query').removeClass('lookup-more-input lookup-please-input')
-                              .addClass('lookup-has-explains')
-                              .animate({opacity: 1}, 200);
-    }, 800);
-    setTimeout(function() {
-        putExplStuff();
-    }, 1000);
+    autoType($('#lookup-query'), wordStr, 200, function() {
+        $('#lookup-recomms-row').slideUp(1000, function() {
+            putExplStuff();
+        });
+    });
 }
 
 function prepareExplNew() {

@@ -2,13 +2,19 @@ function buildDict(dst) {
     var dict = $('<div/>').attr('id', 'lookup-dict');
     dst.append(dict);
 
+    var preQuery = $('<span/>').attr('id', 'lookup-pre-query')
+                               .addClass('lookup-heading-left');
+    var queryContain = $('<div/>').attr('id', 'lookup-query-contain');
+    var queryRow = $('<div/>').attr('id', 'lookup-query-row')
+                              .append(preQuery)
+                              .append(queryContain);
+
     var preRecomms = $('<span/>').attr('id', 'lookup-pre-recomms')
                                  .addClass('lookup-heading-left lookup-has-recomms');
     var recommsContain = $('<p/>').attr('id', 'lookup-recomms-contain');
-
-    var preQuery = $('<span/>').attr('id', 'lookup-pre-query')
-                               .addClass('lookup-heading-left lookup-more-input');
-    var queryContain = $('<div/>').attr('id', 'lookup-query-contain');
+    var recommsRow = $('<div/>').attr('id', 'lookup-recomms-row')
+                                .append(preRecomms)
+                                .append(recommsContain);
 
     var explPrevContain = $('<div/>').attr('id', 'lookup-expl-prev-contain')
                                      .addClass('lookup-expl-nav-button')
@@ -38,10 +44,8 @@ function buildDict(dst) {
     var explNewSubmitRow = $('<div/>').addClass('lookup-expl-button-row')
                                       .append(explNewSubmitContain);
 
-    dict.append(preRecomms)
-        .append(recommsContain)
-        .append(preQuery)
-        .append(queryContain)
+    dict.append(queryRow)
+        .append(recommsRow)
         .append(explContentRow)
         .append(explMoodRow)
         .append(explProvideRow)

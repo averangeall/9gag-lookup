@@ -96,7 +96,7 @@ a.lookup-close-btn:hover {
 
 .lookup-heading-left {
     display: inline-block;
-    padding: 20px 0 10px;
+    padding-top: 20px;
     font-size: 20px;
 }
 
@@ -108,7 +108,7 @@ a.lookup-close-btn:hover {
 }
 
 #lookup-recomms-contain {
-    line-height: 60px;
+    line-height: 52px;
 }
 
 #lookup-avatar {
@@ -129,14 +129,12 @@ a.lookup-close-btn:hover {
     content: "我們從 9GAG 字典裡查到";
 }
 
-.lookup-more-input:after {
-    content: "或是您想查什麼關鍵字呢";
+#lookup-pre-query:after {
+    content: "您想查什麼關鍵字呢";
 }
-.lookup-please-input:after {
-    content: "請幫這篇增加關鍵字 好嗎";
-}
-.lookup-has-explains:after {
-    content: "有這個解釋";
+
+#lookup-query-row {
+    margin-bottom: 20px;
 }
 
 .lookup-expl-text-big {

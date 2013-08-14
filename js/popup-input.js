@@ -15,10 +15,12 @@ function putQueryInput() {
                              .attr('type', 'text')
                              .attr('placeholder', '請在這裡輸入')
                              .keyup(function(evt) {
-                                 if(evt.which == 13)
-                                     $('#lookup-recomms-contain .btnn-inverse').click();
-                                 else
+                                 if(evt.which != 13)
                                      filterRecomm(false);
+                                 else {
+                                     $('#lookup-recomms-contain .btnn-inverse').click();
+                                     query.blur();
+                                 }
                              });
     $('#lookup-query-contain').append(query);
 }

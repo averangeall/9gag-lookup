@@ -14,11 +14,15 @@ function putSingleRecomm(recomm, color, fade) {
                               $(this).removeClass('btnn-primary')
                                      .addClass('btnn-inverse');
                               curWordId = recomm.id;
-                              prepareExplContent();
+                              prepareExplContent($(this).html());
                               loadExpls(curGagId, recomm);
                           });
     $('#lookup-recomms-contain').append(button)
                                 .append(' ');
+    if(fade) {
+        button.css('opacity', 0)
+              .animate({opacity: 1}, 200);
+    }
 }
 
 function filterRecomm(first) {
