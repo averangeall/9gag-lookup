@@ -16,6 +16,11 @@ function buildDict(dst) {
                                 .append(preRecomms)
                                 .append(recommsContain);
 
+    var preExpl = $('<span/>').attr('id', 'lookup-pre-expl')
+                              .addClass('lookup-heading-left');
+    var preExplRow = $('<div/>').attr('id', 'lookup-pre-expl-row')
+                                .append(preExpl);
+
     var explPrevContain = $('<div/>').attr('id', 'lookup-expl-prev-contain')
                                      .addClass('lookup-expl-nav-button')
     var explNextContain = $('<div/>').attr('id', 'lookup-expl-next-contain')
@@ -46,6 +51,7 @@ function buildDict(dst) {
 
     dict.append(queryRow)
         .append(recommsRow)
+        .append(preExplRow)
         .append(explContentRow)
         .append(explMoodRow)
         .append(explProvideRow)

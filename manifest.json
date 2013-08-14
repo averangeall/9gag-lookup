@@ -33,7 +33,7 @@
             "js/popup-gagid.js",
             "js/popup-recomm.js",
             "js/popup-expl.js",
-            "js/popup-input.js",
+            "js/popup-query.js",
             "js/popup-animate.js",
             "js/popup-build.js",
             "js/popup-scroll.js",

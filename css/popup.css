@@ -125,16 +125,13 @@ a.lookup-close-btn:hover {
 .lookup-no-recomms:after {
     content: "這一篇好像還沒有關鍵字耶";
 }
-.lookup-from-dict:after {
-    content: "我們從 9GAG 字典裡查到";
-}
 
 #lookup-pre-query:after {
     content: "您想查什麼關鍵字呢";
 }
 
-#lookup-query-row {
-    margin-bottom: 20px;
+.lookup-in-dict:after {
+    content: "我們從 9GAG 字典裡查到";
 }
 
 .lookup-expl-text-big {
@@ -144,6 +141,10 @@ a.lookup-close-btn:hover {
 .lookup-expl-text-small {
     text-align: center;
     font-size: 20px;
+}
+
+#lookup-expl-content-row {
+    padding-top: 20px;
 }
 
 #lookup-expl-content {

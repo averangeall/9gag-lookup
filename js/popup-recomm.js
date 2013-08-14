@@ -38,16 +38,19 @@ function filterRecomm(first) {
     var query = getQueryVal();
     var chosen = false;
     var color;
+    var exact = false;
     $.each(allGagInfo[curGagId].recomms, function(i, recomm) {
         color = 'btnn-primary';
         if(!chosen && query != '' && recomm.content.match('^' + query)) {
             color = 'btnn-inverse';
             chosen = true;
         }
+        if(recomm.content == query)
+            exact = true;
         putSingleRecomm(recomm, color, first);
     });
 
-    if(query != '') {
+    if(query != '' && !exact) {
         color = chosen ? 'btnn-primary' : 'btnn-inverse';
         putSingleRecomm({content: query}, color, first);
     }
