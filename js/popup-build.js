@@ -39,6 +39,10 @@ function buildDict(dst) {
                                  .append(' ')
                                  .append(explHateContain);
 
+    var explContentMoodRow = $('<div/>').attr('id', 'lookup-expl-content-mood-row')
+                                        .append(explContentRow)
+                                        .append(explMoodRow);
+
     var explProvideContain = $('<div/>').attr('id', 'lookup-expl-provide-contain');
     var explProvideRow = $('<div/>').addClass('lookup-expl-button-row')
                                     .append(explProvideContain);
@@ -49,14 +53,16 @@ function buildDict(dst) {
     var explNewSubmitRow = $('<div/>').addClass('lookup-expl-button-row')
                                       .append(explNewSubmitContain);
 
+    var explNewRow = $('<div/>').attr('id', 'lookup-expl-new-row')
+                                .append(explNewInputRow)
+                                .append(explNewSubmitRow);
+
     dict.append(queryRow)
         .append(recommsRow)
         .append(preExplRow)
-        .append(explContentRow)
-        .append(explMoodRow)
+        .append(explContentMoodRow)
         .append(explProvideRow)
-        .append(explNewInputRow)
-        .append(explNewSubmitRow);
+        .append(explNewRow);
 
     putAllRecomms();
     putQueryInput();

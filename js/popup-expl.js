@@ -21,7 +21,7 @@ function putSingleExpl(expl) {
     
     if(expl.type == 'text') {
         var text = $('<div/>').html(expl.content);
-        if(expl.content.length < 10)
+        if(expl.content.length <= 6)
             text.addClass('lookup-expl-text-big');
         else
             text.addClass('lookup-expl-text-small');
@@ -163,59 +163,10 @@ function putExplMood(dst, id, words, on) {
     dst.empty().append(button);
 }
 
-function putExplProvide(dst) {
-    var button = $('<a/>').attr('id', 'lookup-expl-provide')
-                          .attr('href', 'javascript: void(0);')
-                          .addClass('btnn btnn-large btnn-warning')
-                          .html('提供新的解釋給大家看')
-                          .css('opacity', 0)
-                          .click(function() {
-                              prepareExplNew();
-                              makeNewExplSpace();
-                          });
-    dst.empty().append(button);
-    button.animate({opacity: 1}, 200);
-}
-
 function putExplStuff() {
     putExplContent(0);
     putExplNav($('#lookup-expl-prev-contain'), 'lookup-expl-prev', 'fui-arrow-left', false);
     putExplNav($('#lookup-expl-next-contain'), 'lookup-expl-next', 'fui-arrow-right', true);
-}
-
-function makeNewExplSpace() {
-    var input = $('<textarea/>').attr('id', 'lookup-expl-new-input')
-                                .attr('type', 'text')
-                                .attr('placeholder', '您可以加上您的解釋!!!')
-                                .attr('cols', 20)
-                                .attr('rows', 5)
-                                .keyup(function() {
-                                    var val = $('#lookup-expl-new-input').val();
-                                    if($.trim(val) == '')
-                                        submit.removeClass('btnn-primary');
-                                    else
-                                        submit.addClass('btnn-primary');
-                                });
-    var submit = $('<a/>').attr('id', 'lookup-expl-new-submit')
-                          .html('送出吧')
-                          .attr('href', 'javascript: void(0);')
-                          .attr('class', 'btnn btnn-large')
-                          .click(function() {
-                              var val = $('#lookup-expl-new-input').val();
-                              if($.trim(val) == '')
-                                  return;
-                              var args = {
-                                  expl_str: input.val(),
-                                  word_id: curWordId
-                              };
-                              reliableGet(makeExtraUrl('explain', 'provide', args), function(res) {
-                                  if(res.status == 'OKAY') {
-                                      putExplStuff();
-                                  }
-                              });
-                          });
-    $('#lookup-expl-new-input-contain').append(input);
-    $('#lookup-expl-new-submit-contain').append(submit);
 }
 
 function loadExpls(gagId, recomm) {

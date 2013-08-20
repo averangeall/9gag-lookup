@@ -72,8 +72,3 @@ function prepareExplContent(wordStr) {
     });
 }
 
-function prepareExplNew() {
-    $('#lookup-expl-content-row').slideUp();
-    $('#lookup-expl-mood-row').slideUp();
-}
-
