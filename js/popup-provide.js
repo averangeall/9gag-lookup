@@ -2,16 +2,18 @@ function putExplProvide(dst) {
     var button = $('<a/>').attr('id', 'lookup-expl-provide')
                           .attr('href', 'javascript: void(0);')
                           .addClass('btnn btnn-large btnn-warning')
-                          .html('提供新的解釋給大家看')
-                          .css('opacity', 0);
+                          .html('提供新的解釋給大家看');
     button.click(function() {
         makeNewExplSpace();
         $('#lookup-expl-content-mood-row').slideUp(function() {
             $('#lookup-expl-new-row').fadeIn();
         });
     });
-    dst.empty().append(button);
-    button.animate({opacity: 1}, 200);
+
+    dst.empty()
+       .hide()
+       .append(button)
+       .fadeIn();
 }
 
 function makeNewInput() {
@@ -43,12 +45,13 @@ function makeNewSubmit() {
         if($.trim(val) == '')
             return;
         var args = {
-            expl_str: input.val(),
+            expl_str: $.trim(val),
             word_id: curWordId
         };
         reliableGet(makeExtraUrl('explain', 'provide', args), function(res) {
             if(res.status == 'OKAY') {
                 putExplStuff();
+                $('#lookup-expl-content-mood-row').slideDown();
             }
         });
         $('#lookup-expl-new-row').fadeOut();

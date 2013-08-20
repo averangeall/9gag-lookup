@@ -62,12 +62,14 @@ function autoType(input, text, totalTime, callback) {
 function prepareExplContent(wordStr) {
     autoType($('#lookup-query'), wordStr, 200, function() {
         $('#lookup-recomms-row').slideUp(function() {
-            var preExpl = $('#lookup-pre-expl')
-            preExpl.css('opacity', 0)
-                   .addClass('lookup-in-dict')
-            preExpl.animate({opacity: 1}, 200, function() {
-                putExplStuff();
-            });
+            var preExpl = $('#lookup-pre-expl');
+            if(!preExpl.hasClass('lookup-in-dict')) {
+                putExplBothNavs();
+                putExplContent(0);
+                preExpl.hide()
+                       .addClass('lookup-in-dict')
+                       .fadeIn();
+            }
         });
     });
 }

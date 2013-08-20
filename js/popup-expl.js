@@ -1,8 +1,3 @@
-function resetExplSpace() {
-    $('#lookup-expl-content').empty();
-    $('#lookup-expl-provide').animate({opacity: 0}, 200);
-}
-
 function getCurExplIdx() {
     var expls = allGagInfo[curGagId].explains[curWordId];
     var idx = -1;
@@ -16,8 +11,10 @@ function getCurExplIdx() {
 }
 
 function putSingleExpl(expl) {
-    var whole = $('<div/>').attr('id', 'expl-' + expl.id);
-    var explPart = $('<div/>').attr('class', 'expl-part');
+    var explContent = $('#lookup-expl-content');
+
+    explContent.empty()
+               .hide();
     
     if(expl.type == 'text') {
         var text = $('<div/>').html(expl.content);
@@ -25,33 +22,29 @@ function putSingleExpl(expl) {
             text.addClass('lookup-expl-text-big');
         else
             text.addClass('lookup-expl-text-small');
-        explPart.append(text);
+        explContent.append(text);
     } else if(expl.type == 'image') {
         var image = $('<img/>').attr('src', expl.content)
                                .attr('alt', '圖片壞掉了 : (')
                                .addClass('lookup-expl-image');
-        explPart.append($('<div/>').append(image));
+        explContent.append($('<div/>').append(image));
     } else if(expl.type == 'video') {
         if(expl.source == 'YouTube') {
             var mo = expl.content.match(/https?:\/\/www\.youtube\.com\/watch\?v=(.+)/);
             if(mo == null)
                 return;
             var videoId = mo[1];
-            console.log(videoId);
-            var divYoutube = $('<div/>').attr('id', 'youtube-' + videoId);
-            explPart.append(divYoutube);
-            setTimeout(function() {
-                swfobject.embedSWF("https://www.youtube.com/v/" + videoId,
-                                   'youtube-' + videoId, "249", "180", "8", null, null, null, null);
-            }, 500);
+            var image = $('<img/>').attr('id', 'youtube-thumbnail-' + videoId)
+                                   .attr('src', 'http://img.youtube.com/vi/' + videoId + '/mqdefault.jpg')
+                                   .addClass('lookup-expl-image');
+            explContent.append(image);
         }
     }
-    whole.append(explPart);
-    $('#lookup-expl-content').append(whole);
+
+    explContent.fadeIn();
 }
 
 function putExplContent(idx) {
-    resetExplSpace();
     if(curWordId != undefined && curWordId in allGagInfo[curGagId].explains) {
         var expls = allGagInfo[curGagId].explains[curWordId];
         if(expls.length > idx) {
@@ -61,6 +54,8 @@ function putExplContent(idx) {
             putExplMood($('#lookup-expl-hate-contain'), 'lookup-expl-hate', '這個解釋爛', expls[idx].hated);
             if(expls[idx].hated)
                 putExplProvide($('#lookup-expl-provide-contain'));
+            else
+                $('#lookup-expl-provide-contain').hide();
         }
     }
 }
@@ -74,9 +69,7 @@ function setExplMood(which, value) {
 
 function clickLike(toggle) {
     if(toggle == 'on') {
-        $('#lookup-expl-provide').animate({opacity: 0}, 200, function() {
-            $('#lookup-expl-provide').hide();
-        });
+        $('#lookup-expl-provide-contain').fadeOut();
         reliableGet(makeExtraUrl('explain', 'like', {expl_id: curExplId}), function() { });
         setExplMood('liked', true);
     } else if(toggle == 'off') {
@@ -91,7 +84,7 @@ function clickHate(toggle) {
         reliableGet(makeExtraUrl('explain', 'hate', {expl_id: curExplId}), function() { });
         setExplMood('hated', true);
     } else if(toggle == 'off') {
-        $('#lookup-expl-provide').animate({opacity: 0}, 200);
+        $('#lookup-expl-provide-contain').fadeOut();
         reliableGet(makeExtraUrl('explain', 'neutral', {expl_id: curExplId}), function() { });
         setExplMood('hated', false);
     }
@@ -147,7 +140,11 @@ function putExplNav(dst, id, arrow, enabled) {
         button.addClass('lookup-expl-nav-active');
     else
         button.attr('disabled', '');
-    dst.empty().append(button);
+
+    dst.empty()
+       .hide()
+       .append(button)
+       .fadeIn();
 }
 
 function putExplMood(dst, id, words, on) {
@@ -160,11 +157,14 @@ function putExplMood(dst, id, words, on) {
         button.addClass('lookup-mood-on');
     else
         button.removeClass('lookup-mood-on');
-    dst.empty().append(button);
+
+    dst.empty()
+       .hide()
+       .append(button)
+       .fadeIn();
 }
 
-function putExplStuff() {
-    putExplContent(0);
+function putExplBothNavs() {
     putExplNav($('#lookup-expl-prev-contain'), 'lookup-expl-prev', 'fui-arrow-left', false);
     putExplNav($('#lookup-expl-next-contain'), 'lookup-expl-next', 'fui-arrow-right', true);
 }
@@ -184,10 +184,9 @@ function loadExpls(gagId, recomm) {
             var wordId = res.respond.word_id;
             allGagInfo[gagId].explains[wordId] = res.respond.expls;
             curWordId = wordId;
-            if($('.lookup-has-explains').length > 0)
-                putExplStuff();
+            if($('.lookup-in-dict').length > 0)
+                putExplContent(0);
         }
     });
 }
-
 
