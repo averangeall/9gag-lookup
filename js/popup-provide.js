@@ -50,7 +50,7 @@ function makeNewSubmit() {
         };
         reliableGet(makeExtraUrl('explain', 'provide', args), function(res) {
             if(res.status == 'OKAY') {
-                putExplStuff();
+                loadExpls(curGagId, {id: curWordId});
                 $('#lookup-expl-content-mood-row').slideDown();
             }
         });
