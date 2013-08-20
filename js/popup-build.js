@@ -157,7 +157,7 @@ function buildMain(dst, which) {
         buildContent(main);
     } else if(which == 'small') {
         main.addClass('lookup-small-main')
-            .css('height', '83px');
+            .css('height', '82px');
         buildLogo(main);
         setGrowBig(main);
     }

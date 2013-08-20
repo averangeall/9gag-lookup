@@ -6,6 +6,10 @@ function setGrowBig(main) {
         main.animate({
             width: '400px',
             top: topOffset() + 'px',
+            borderTopLeftRadius: '3px',
+            borderTopRightRadius: '3px',
+            borderBottomLeftRadius: '3px',
+            borderBottomRightRadius: '3px',
             bottom: '64px',
         }, 200, function() {
             main.empty();
@@ -29,7 +33,11 @@ function setShrinkSmall(close) {
         var main = $('.lookup-big-main');
         main.animate({
             width: '91px',
-            height: '83px',
+            height: '82px',
+            borderTopLeftRadius: '50%',
+            borderTopRightRadius: '50%',
+            borderBottomLeftRadius: '50%',
+            borderBottomRightRadius: '50%',
             top: pointOffset(60.0, 117.0) + 'px',
         }, 200, function() {
             main.empty();

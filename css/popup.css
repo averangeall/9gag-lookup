@@ -33,7 +33,7 @@ body {
     position: fixed;
     width: 91px;
     background-color: LightGray;
-    border-radius: 3px;
+    border-radius: 50%;
     cursor: pointer;
 }
 
@@ -86,7 +86,7 @@ a.lookup-close-btn:hover {
 }
 
 #lookup-logo {
-    padding-left: 20px;
+    padding-left: 25px;
     font-size: 40px;
 }
 
