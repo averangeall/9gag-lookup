@@ -172,3 +172,22 @@ function buildTriangle(dst) {
     contain.append(triangle);
 }
 
+function buildMask(dst) {
+    var contain = $('<div/>').attr('id', 'lookup-contain-mask');
+    dst.append(contain);
+
+    var mask = $('<div/>').attr('id', 'lookup-mask');
+    contain.append(mask);
+}
+
+function buildCover(dst) {
+    var contain = $('<div/>').attr('id', 'lookup-contain-cover');
+    dst.append(contain);
+
+    var cover = $('<div/>').attr('id', 'lookup-cover');
+    contain.append(cover);
+
+    var img = $('<img/>').attr('src', 'http://cdn.sheknows.com/articles/2012/10/isolated-cat.jpg');
+    cover.append(img);
+}
+
