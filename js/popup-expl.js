@@ -24,7 +24,7 @@ function putSingleExpl(expl) {
             text.addClass('lookup-expl-text-small');
         explContent.append(text);
     } else if(expl.type == 'image') {
-        var thumb = $('<img/>').addClass('lookup-expl-thumb')
+        var thumb = $('<img/>').addClass('lookup-expl-image-thumb')
                                .attr('src', expl.content)
                                .attr('alt', '圖片壞掉了 : (');
         thumb.click(function() {
@@ -39,8 +39,10 @@ function putSingleExpl(expl) {
             if(mo == null)
                 return;
             var videoId = mo[1];
-            var thumb = $('<img/>').addClass('lookup-expl-thumb')
-                                   .attr('src', 'http://img.youtube.com/vi/' + videoId + '/mqdefault.jpg');
+            var thumb = $('<div/>').addClass('lookup-expl-youtube-thumb')
+                                   .css('background-image', 'url(http://img.youtube.com/vi/' + videoId + '/mqdefault.jpg)');
+            var play = $('<a/>').addClass('lookup-expl-youtube-play');
+            thumb.append(play);
             thumb.click(function() {
                 var video = $('<div/>').attr('id', 'youtube-video');
                 showMaskCover(video);
