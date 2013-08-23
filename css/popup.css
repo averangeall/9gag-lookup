@@ -23,6 +23,7 @@ body {
     width: 100%;
     z-index: 3;
     text-align: center;
+    cursor: pointer;
 }
 
 .lookup-big-main {
@@ -52,7 +53,7 @@ body {
     border-right: 30px solid LightGray;
 }
 
-#lookup-mask {
+#lookup-mask.lookup-activate {
     position: absolute;
     top: 0;
     right: 0;
@@ -61,6 +62,7 @@ body {
     opacity: .6;
     background: black;
     z-index: 2;
+    cursor: pointer;
 }
 
 #lookup-header {
@@ -219,12 +221,18 @@ a.lookup-close-btn:hover {
     color: white;
 }
 
-.lookup-expl-image {
-    max-width: 100%;
+.lookup-expl-thumb {
+    max-width: 90%;
     max-height: 170px;
     display: block;
     margin-left: auto;
     margin-right: auto;
+    cursor: pointer;
+}
+
+.lookup-expl-image {
+    max-width: 90%;
+    max-height: 90%;
 }
 
 /* copied from flat-ui */

@@ -186,8 +186,5 @@ function buildCover(dst) {
 
     var cover = $('<div/>').attr('id', 'lookup-cover');
     contain.append(cover);
-
-    var img = $('<img/>').attr('src', 'http://cdn.sheknows.com/articles/2012/10/isolated-cat.jpg');
-    cover.append(img);
 }
 

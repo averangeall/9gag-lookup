@@ -24,20 +24,24 @@ function putSingleExpl(expl) {
             text.addClass('lookup-expl-text-small');
         explContent.append(text);
     } else if(expl.type == 'image') {
-        var image = $('<img/>').attr('src', expl.content)
-                               .attr('alt', '圖片壞掉了 : (')
-                               .addClass('lookup-expl-image');
-        explContent.append($('<div/>').append(image));
+        var thumb = $('<img/>').addClass('lookup-expl-thumb')
+                               .attr('src', expl.content)
+                               .attr('alt', '圖片壞掉了 : (');
+        thumb.click(function() {
+            var image = $('<img/>').addClass('lookup-expl-image')
+                                   .attr('src', expl.content);
+            showMaskCover(image);
+        });
+        explContent.append($('<div/>').append(thumb));
     } else if(expl.type == 'video') {
         if(expl.source == 'YouTube') {
             var mo = expl.content.match(/https?:\/\/www\.youtube\.com\/watch\?v=(.+)/);
             if(mo == null)
                 return;
             var videoId = mo[1];
-            var image = $('<img/>').attr('id', 'youtube-thumbnail-' + videoId)
-                                   .attr('src', 'http://img.youtube.com/vi/' + videoId + '/mqdefault.jpg')
-                                   .addClass('lookup-expl-image');
-            explContent.append(image);
+            var thumb = $('<img/>').addClass('lookup-expl-thumb')
+                                   .attr('src', 'http://img.youtube.com/vi/' + videoId + '/mqdefault.jpg');
+            explContent.append(thumb);
         }
     }
 
