@@ -43,6 +43,7 @@ function updateScroll() {
         if($('#lookup-dict').length != 0) {
             $('#lookup-content').empty();
             buildDict($('#lookup-content'));
+            hideMaskCover();
         }
     }
 }
