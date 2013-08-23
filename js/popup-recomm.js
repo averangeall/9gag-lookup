@@ -2,7 +2,7 @@ function removeAllRecomms() {
     $('#lookup-recomms-contain').empty();
 }
 
-function putSingleRecomm(recomm, color, fade) {
+function putSingleRecomm(recomm, color) {
     var button = $('<a/>').html(recomm.content)
                           .attr('href', 'javascript: void(0);')
                           .addClass('btnn btnn-large')
@@ -17,23 +17,19 @@ function putSingleRecomm(recomm, color, fade) {
                               prepareExplContent($(this).html());
                               loadExpls(curGagId, recomm);
                           });
-    if(fade) {
-        button.hide()
-              .fadeIn();
-    }
     $('#lookup-recomms-contain').append(button)
                                 .append(' ');
 }
 
 function filterRecomm(first) {
     removeAllRecomms();
-    if(allGagInfo[curGagId].recomms == 0) {
+    if(allGagInfo[curGagId].recomms == 0)
         $('.lookup-has-recomms').removeClass('lookup-has-recomms').addClass('lookup-no-recomms');
-        $('.lookup-more-input').removeClass('lookup-more-input').addClass('lookup-please-input');
-    } else {
+    else
         $('.lookup-no-recomms').removeClass('lookup-no-recomms').addClass('lookup-has-recomms');
-        $('.lookup-please-input').removeClass('lookup-please-input').addClass('lookup-more-input');
-    }
+
+    if(first)
+        $('#lookup-recomms-contain').hide();
 
     var query = getQueryVal();
     var chosen = false;
@@ -47,13 +43,16 @@ function filterRecomm(first) {
         }
         if(recomm.content == query)
             exact = true;
-        putSingleRecomm(recomm, color, first);
+        putSingleRecomm(recomm, color);
     });
 
     if(query != '' && !exact) {
         color = chosen ? 'btnn-primary' : 'btnn-inverse';
-        putSingleRecomm({content: query}, color, first);
+        putSingleRecomm({content: query}, color);
     }
+
+    if(first)
+        $('#lookup-recomms-contain').fadeIn();
 }
 
 function putAllRecomms() {
