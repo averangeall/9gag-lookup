@@ -144,7 +144,7 @@ function clickExplNav(evt) {
 function putExplNav(dst, id, arrow, enabled) {
     var button = $('<a/>').attr('id', id)
                           .attr('href', 'javascript: void(0);')
-                          .addClass('btnn btnn-large')
+                          .addClass('btnn btnn-large lookup-expl-nav-button')
                           .addClass(arrow)
                           .click(clickExplNav);
     if(enabled)

@@ -184,9 +184,16 @@ a.lookup-close-btn:hover {
     margin-bottom: 40px;
 }
 
-.lookup-expl-nav-button {
+.lookup-expl-nav-contain {
     display: inline-block;
     vertical-align: top;
+}
+.lookup-expl-nav-button {
+    background-color: #34495e ! important;
+}
+.lookup-expl-nav-button[disabled] {
+    background-color: gray ! important;
+    cursor: default;
 }
 .lookup-expl-nav-active:hover {
     background-color: #415b76 ! important;

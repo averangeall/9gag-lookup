@@ -22,9 +22,9 @@ function buildDict(dst) {
                                 .append(preExpl);
 
     var explPrevContain = $('<div/>').attr('id', 'lookup-expl-prev-contain')
-                                     .addClass('lookup-expl-nav-button')
+                                     .addClass('lookup-expl-nav-contain')
     var explNextContain = $('<div/>').attr('id', 'lookup-expl-next-contain')
-                                     .addClass('lookup-expl-nav-button')
+                                     .addClass('lookup-expl-nav-contain')
     var explContent = $('<span/>').attr('id', 'lookup-expl-content');
     var explContentRow = $('<div/>').attr('id', 'lookup-expl-content-row')
                                     .append(explPrevContain)
