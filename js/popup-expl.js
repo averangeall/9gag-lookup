@@ -41,6 +41,11 @@ function putSingleExpl(expl) {
             var videoId = mo[1];
             var thumb = $('<img/>').addClass('lookup-expl-thumb')
                                    .attr('src', 'http://img.youtube.com/vi/' + videoId + '/mqdefault.jpg');
+            thumb.click(function() {
+                var video = $('<div/>').attr('id', 'youtube-video');
+                showMaskCover(video);
+                putYoutube(videoId);
+            });
             explContent.append(thumb);
         }
     }
