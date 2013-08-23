@@ -1,7 +1,7 @@
 function getQueryVal() {
     var query = $('#lookup-query').val();
     query = $.trim(query.toLowerCase());
-    var chars = query.match(/[\w.'" ]/g);
+    var chars = query.match(/[\w.'"\- ]/g);
     query = (chars == null) ? '' : chars.join('');
     return query;
 }

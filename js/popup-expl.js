@@ -11,10 +11,10 @@ function getCurExplIdx() {
 }
 
 function putSingleExpl(expl) {
-    var explContent = $('#lookup-expl-content');
+    var content = $('#lookup-expl-content');
 
-    explContent.empty()
-               .hide();
+    content.empty()
+           .hide();
     
     if(expl.type == 'text') {
         var text = $('<div/>').html(expl.content);
@@ -22,7 +22,7 @@ function putSingleExpl(expl) {
             text.addClass('lookup-expl-text-big');
         else
             text.addClass('lookup-expl-text-small');
-        explContent.append(text);
+        content.append(text);
     } else if(expl.type == 'image') {
         var thumb = $('<img/>').addClass('lookup-expl-image-thumb')
                                .attr('src', expl.content)
@@ -32,7 +32,7 @@ function putSingleExpl(expl) {
                                    .attr('src', expl.content);
             showMaskCover(image);
         });
-        explContent.append($('<div/>').append(thumb));
+        content.append($('<div/>').append(thumb));
     } else if(expl.type == 'video') {
         if(expl.source == 'YouTube') {
             var mo = expl.content.match(/https?:\/\/www\.youtube\.com\/watch\?v=(.+)/);
@@ -48,21 +48,41 @@ function putSingleExpl(expl) {
                 showMaskCover(video);
                 putYoutube(videoId);
             });
-            explContent.append(thumb);
+            content.append(thumb);
         }
     }
 
-    explContent.fadeIn();
+    content.fadeIn();
+}
+
+function putExplLoading() {
+    $('#lookup-expl-like-contain').empty();
+    $('#lookup-expl-hate-contain').empty();
+    var content = $('#lookup-expl-content')
+
+    content.empty()
+           .hide();
+
+    var loading = $('<div/>').addClass('lookup-loading');
+
+    content.append(loading)
+           .fadeIn();
 }
 
 function putExplContent(idx) {
-    if(curWordId != undefined && curWordId in allGagInfo[curGagId].explains) {
+    if(curWordId == undefined || !(curWordId in allGagInfo[curGagId].explains))
+        putExplLoading();
+    else {
         var expls = allGagInfo[curGagId].explains[curWordId];
-        if(expls.length > idx) {
+        if(expls.length <= idx)
+            putExplLoading();
+        else {
             curExplId = expls[idx].id;
             putSingleExpl(expls[idx]);
             putExplMood($('#lookup-expl-like-contain'), 'lookup-expl-like', '這個解釋好', expls[idx].liked);
             putExplMood($('#lookup-expl-hate-contain'), 'lookup-expl-hate', '這個解釋爛', expls[idx].hated);
+            $('#lookup-expl-next').removeAttr('disabled')
+                                  .addClass('lookup-expl-nav-active');
             if(expls[idx].hated)
                 putExplProvide($('#lookup-expl-provide-contain'));
             else
@@ -144,13 +164,10 @@ function clickExplNav(evt) {
 function putExplNav(dst, id, arrow, enabled) {
     var button = $('<a/>').attr('id', id)
                           .attr('href', 'javascript: void(0);')
+                          .attr('disabled', '')
                           .addClass('btnn btnn-large lookup-expl-nav-button')
                           .addClass(arrow)
                           .click(clickExplNav);
-    if(enabled)
-        button.addClass('lookup-expl-nav-active');
-    else
-        button.attr('disabled', '');
 
     dst.empty()
        .hide()
@@ -176,8 +193,8 @@ function putExplMood(dst, id, words, on) {
 }
 
 function putExplBothNavs() {
-    putExplNav($('#lookup-expl-prev-contain'), 'lookup-expl-prev', 'fui-arrow-left', false);
-    putExplNav($('#lookup-expl-next-contain'), 'lookup-expl-next', 'fui-arrow-right', true);
+    putExplNav($('#lookup-expl-prev-contain'), 'lookup-expl-prev', 'fui-arrow-left');
+    putExplNav($('#lookup-expl-next-contain'), 'lookup-expl-next', 'fui-arrow-right');
 }
 
 function loadExpls(gagId, recomm) {

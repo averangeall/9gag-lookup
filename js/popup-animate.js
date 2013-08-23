@@ -73,11 +73,11 @@ function prepareExplContent(wordStr) {
             var preExpl = $('#lookup-pre-expl');
             if(!preExpl.hasClass('lookup-in-dict')) {
                 putExplBothNavs();
-                putExplContent(0);
                 preExpl.hide()
                        .addClass('lookup-in-dict')
                        .fadeIn();
             }
+            putExplContent(0);
         });
     });
 }
