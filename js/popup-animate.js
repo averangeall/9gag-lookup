@@ -1,7 +1,7 @@
 function setGrowBig(main) {
     main.click(function() {
         main.unbind('click');
-        $('#lookup-logo').fadeOut(200);
+        $('#lookup-logo').fadeOut();
         main.css('height', '');
         main.animate({
             width: '400px',
@@ -11,15 +11,15 @@ function setGrowBig(main) {
             borderBottomLeftRadius: '3px',
             borderBottomRightRadius: '3px',
             bottom: '64px',
-        }, 200, function() {
+        }, function() {
             main.empty();
             main.removeClass('lookup-small-main').addClass('lookup-big-main');
             buildHeader(main);
             buildContent(main);
             $('#lookup-header').css('display', 'none');
             $('#lookup-content').css('display', 'none');
-            $('#lookup-header').fadeIn(200);
-            $('#lookup-content').fadeIn(200);
+            $('#lookup-header').fadeIn();
+            $('#lookup-content').fadeIn();
             focusQuery();
         });
     });
@@ -28,8 +28,8 @@ function setGrowBig(main) {
 function setShrinkSmall(close) {
     close.click(function() {
         close.unbind('click');
-        $('#lookup-header').fadeOut(200);
-        $('#lookup-content').fadeOut(200);
+        $('#lookup-header').fadeOut();
+        $('#lookup-content').fadeOut();
         var main = $('.lookup-big-main');
         main.animate({
             width: '91px',
@@ -39,18 +39,18 @@ function setShrinkSmall(close) {
             borderBottomLeftRadius: '50%',
             borderBottomRightRadius: '50%',
             top: pointOffset(60.0, 117.0) + 'px',
-        }, 200, function() {
+        }, function() {
             main.empty();
             main.removeClass('lookup-big-main').addClass('lookup-small-main');
             buildLogo(main);
             $('#lookup-logo').css('display', 'none');
-            $('#lookup-logo').fadeIn(200);
+            $('#lookup-logo').fadeIn();
             setGrowBig(main);
         });
     });
 }
 
-function autoType(input, text, totalTime, callback) {
+function autoType(input, text, callback) {
     var timerId = setInterval(function() {
         if(text == input.val()) {
             clearInterval(timerId);
@@ -68,7 +68,7 @@ function autoType(input, text, totalTime, callback) {
 }
 
 function prepareExplContent(wordStr) {
-    autoType($('#lookup-query'), wordStr, 200, function() {
+    autoType($('#lookup-query'), wordStr, function() {
         $('#lookup-recomms-row').slideUp(function() {
             var preExpl = $('#lookup-pre-expl');
             if(!preExpl.hasClass('lookup-in-dict')) {

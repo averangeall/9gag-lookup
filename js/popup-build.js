@@ -80,11 +80,26 @@ function buildPersonal(dst) {
     var personal = $('<div/>');
     dst.append(personal);
 
-    var avatarFname = 'images/mario-big-man.png';
-    var avatar = $('<div/>').attr('id', 'lookup-avatar')
-                            .css('background-image', 'url(' + chrome.extension.getURL(avatarFname) + ')');
-    personal.append(avatar);
-    personal.append($('<span/>').addClass('lookup-heading-center').html('林蔭寶'));
+    var avatar = $('<div/>').attr('id', 'lookup-user-avatar');
+    var name = $('<div/>').attr('id', 'lookup-user-name-contain');
+    var rename = $('<div/>').attr('id', 'lookup-user-rename-contain');
+    var coin = $('<div/>').attr('id', 'lookup-user-coin-contain');
+    var score = $('<div/>').attr('id', 'lookup-user-score-contain');
+    var buy = $('<div/>').attr('id', 'lookup-buy-contain');
+    var treasures = $('<div/>').attr('id', 'lookup-treasures-contain');
+
+    personal.append(avatar)
+            .append(name)
+            .append(rename)
+            .append(coin)
+            .append(score)
+            .append(buy)
+            .append(treasures);
+
+    putAvatar();
+    putUserInfo();
+    putBuyButton();
+
     return personal;
 }
 
@@ -96,12 +111,11 @@ function buildNavBtn(dst, name, chosen, builder) {
                            $('.lookup-nav-chosen').removeClass('lookup-nav-chosen');
                            $(this).addClass('lookup-nav-chosen');
                            var content = $('#lookup-content');
-                           content.fadeOut(200);
-                           setTimeout(function() {
+                           content.fadeOut(function() {
                                content.empty();
                                builder(content);
-                               content.fadeIn(200);
-                            }, 200);
+                               content.fadeIn();
+                           });
                        });
     if(chosen)
         nav.addClass('lookup-nav-chosen');

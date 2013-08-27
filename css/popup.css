@@ -126,21 +126,45 @@ a.lookup-close-btn:hover {
 }
 
 .lookup-heading-center {
-    display: block;
     text-align: center;
     padding: 20px 0 10px;
     font-size: 30px;
+}
+
+#lookup-user-coin-contain {
+    padding-top: 15px;
+}
+
+#lookup-user-rename-contain {
+    text-align: right;
+}
+
+#lookup-buy-contain {
+    text-align: center;
+    padding-top: 20px;
+}
+
+#lookup-user-name-show {
+    text-align: center;
+    padding-bottom: 10px;
+    font-size: 30px;
+}
+
+#lookup-user-coin, #lookup-user-score {
+    text-align: center;
+    padding-bottom: 10px;
+    font-size: 20px;
 }
 
 #lookup-recomms-contain {
     line-height: 52px;
 }
 
-#lookup-avatar {
-    padding: 20px 0 20px;
+#lookup-user-avatar {
+    padding: 20px 0 15px;
     width: 100%;
     height: 90px;
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
     background-position: center center;
 }
 

@@ -32,6 +32,7 @@
             "js/popup-common.js",
             "js/popup-gagid.js",
             "js/popup-recomm.js",
+            "js/popup-personal.js",
             "js/popup-expl.js",
             "js/popup-youtube.js",
             "js/popup-mask-cover.js",
