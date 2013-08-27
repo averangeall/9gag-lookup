@@ -144,10 +144,15 @@ a.lookup-close-btn:hover {
     padding-top: 20px;
 }
 
-#lookup-user-name-show {
+#lookup-user-name-contain {
     text-align: center;
     padding-bottom: 10px;
     font-size: 30px;
+    height: 46px;
+}
+
+#lookup-user-name-input {
+    margin: auto;
 }
 
 #lookup-user-coin, #lookup-user-score {
@@ -422,7 +427,8 @@ a.lookup-close-btn:hover {
   content: "\e00b";
 }
 
-#lookup-query {
+#lookup-query,
+#lookup-user-name-input {
   border: 2px solid #bdc3c7 ! important;
   color: #34495e;
   font-family: "Lato", sans-serif;
@@ -438,11 +444,13 @@ a.lookup-close-btn:hover {
 }
 #lookup-expl-new-input.placeholder,
 #lookup-query.placeholder,
+#lookup-user-name-input.placeholder,
 .uneditable-input.placeholder {
   color: #b2bcc5;
 }
 #lookup-expl-new-input:focus,
 #lookup-query:focus,
+#lookup-user-name-input:focus,
 .uneditable-input:focus {
   border-color: #1abc9c ! important;
   -webkit-box-shadow: none;

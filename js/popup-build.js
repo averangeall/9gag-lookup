@@ -98,7 +98,6 @@ function buildPersonal(dst) {
 
     putAvatar();
     putUserInfo();
-    putBuyButton();
 
     return personal;
 }
