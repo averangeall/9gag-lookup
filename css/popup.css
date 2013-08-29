@@ -142,6 +142,7 @@ a.lookup-close-btn:hover {
 #lookup-buy-contain {
     text-align: center;
     padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 #lookup-user-name-contain {
@@ -171,6 +172,29 @@ a.lookup-close-btn:hover {
     height: 90px;
     background-repeat: no-repeat;
     background-position: center center;
+}
+
+.lookup-treasure-desc {
+    font-size: 18px;
+}
+
+.lookup-treasure-cell {
+    display: inline-block;
+    width: 118px;
+    height: 112px;
+    padding-top: 14px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.lookup-treasure-link {
+    opacity: 1;
+    -webkit-transition: 0.25s;
+}
+
+.lookup-treasure-link:hover {
+    opacity: .7;
+    -webkit-transition: 0.25s;
 }
 
 .lookup-has-recomms:after {

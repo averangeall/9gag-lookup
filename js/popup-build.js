@@ -81,16 +81,20 @@ function buildPersonal(dst) {
     dst.append(personal);
 
     var avatar = $('<div/>').attr('id', 'lookup-user-avatar');
+
     var name = $('<div/>').attr('id', 'lookup-user-name-contain');
     var rename = $('<div/>').attr('id', 'lookup-user-rename-contain');
+    var nameRow = $('<div/>').attr('id', 'lookup-user-name-row')
+                             .append(name)
+                             .append(rename);
+
     var coin = $('<div/>').attr('id', 'lookup-user-coin-contain');
     var score = $('<div/>').attr('id', 'lookup-user-score-contain');
     var buy = $('<div/>').attr('id', 'lookup-buy-contain');
     var treasures = $('<div/>').attr('id', 'lookup-treasures-contain');
 
     personal.append(avatar)
-            .append(name)
-            .append(rename)
+            .append(nameRow)
             .append(coin)
             .append(score)
             .append(buy)
