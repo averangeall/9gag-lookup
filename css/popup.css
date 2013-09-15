@@ -197,6 +197,11 @@ a.lookup-close-btn:hover {
     -webkit-transition: 0.25s;
 }
 
+#lookup-treasures-action-contain {
+    margin-top: 30px;
+    text-align: center;
+}
+
 .lookup-has-recomms:after {
     content: "關於這篇有這些關鍵字喔";
 }
