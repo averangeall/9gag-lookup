@@ -59,10 +59,17 @@ function putUserInfo() {
         var nameInput = $('<input/>').attr('id', 'lookup-user-name-input')
                                      .attr('type', 'text')
                                      .hide();
+        var coinNum = $('<span/>').attr('id', 'lookup-user-coin-num')
+                                  .html(res.respond.coin);
+        var scoreNum = $('<span/>').attr('id', 'lookup-user-score-num')
+                                   .html(res.respond.score);
         var coin = $('<div/>').attr('id', 'lookup-user-coin')
-                              .html('$' + res.respond.coin + ' 塊硬幣');
+                              .append('$')
+                              .append(coinNum)
+                              .append(' 塊硬幣');
         var score = $('<div/>').attr('id', 'lookup-user-score')
-                               .html(res.respond.score + ' 點經驗值');
+                               .append(scoreNum)
+                               .append(' 點經驗值');
 
         nameInput.keyup(function(evt) {
             if(evt.which == 13)
@@ -86,6 +93,37 @@ function putUserInfo() {
     });
 }
 
+function changeTreasureImage(item) {
+    var images = $('.lookup-treasure-image[data-item-id=' + item.id + ']');
+    var image = $(images[0]);
+    var url = baseUrl + makeExtraUrl('image', 'treasure', {treasure: item.id, enabled: item.enabled});
+    image.fadeOut(function() {
+        image.attr('src', url)
+             .fadeIn();
+    });
+}
+
+function changeAvatarImage(item) {
+    var image = $('#lookup-user-avatar');
+    var url = baseUrl + makeExtraUrl('image', 'avatar', {treasure: item.id});
+    image.fadeOut(function() {
+        image.css('background-image', 'url(' + url + ')')
+             .fadeIn();
+    });
+}
+
+function changeCoinNum() {
+    var coinNum = $('#lookup-user-coin-num');
+    var timerId = setInterval(function() {
+        var cur = parseInt(coinNum.html());
+        if(cur <= userInfo.coin) {
+            clearInterval(timerId);
+            return;
+        }
+        coinNum.html(cur - 1);
+    }, 20);
+}
+
 function putTreasureButtons(item) {
     var okay = $('<a/>').attr('id', 'lookup-treasure-okay')
                         .attr('href', 'javascript: void(0);')
@@ -95,13 +133,44 @@ function putTreasureButtons(item) {
                           .attr('href', 'javascript: void(0);')
                           .addClass('btnn btnn-large');
 
+    cancel.click(function() {
+        $('#lookup-treasures-action-contain').fadeOut();
+    });
+
     if(item.enabled) {
         okay.html('使用')
             .addClass('btnn-primary');
+
+        okay.click(function() {
+            reliableGet(makeExtraUrl('treasure', 'use', {treasure: curTreasure}), function(res) {
+                if(res.status != 'OKAY')
+                    return;
+                changeAvatarImage(item);
+            });
+        });
     } else {
         okay.html('購買');
-        if(item.price <= userInfo.coin)
+        if(item.price > userInfo.coin) {
+            okay.addClass('btnn-default')
+                .attr('disabled', 'true');
+        } else {
             okay.addClass('btnn-primary');
+
+            okay.click(function() {
+                if(item.enabled)
+                    return;
+                reliableGet(makeExtraUrl('treasure', 'buy', {treasure: curTreasure}), function(res) {
+                    if(res.status != 'OKAY')
+                        return;
+                    item.enabled = true;
+                    changeTreasureImage(item);
+                    changeAvatarImage(item);
+                    userInfo.coin -= item.price;
+                    changeCoinNum();
+                    okay.html('使用');
+                });
+            });
+        }
     }
 
     $('#lookup-treasures-action-contain').empty()
@@ -132,7 +201,8 @@ function genTreasure(item) {
     var link = $('<a/>').addClass('lookup-treasure-link')
                         .attr('href', 'javascript: void(0);');
     var url = baseUrl + makeExtraUrl('image', 'treasure', {treasure: item.id, enabled: item.enabled});
-    var image = $('<img/>').attr('src', url);
+    var image = $('<img/>').attr('src', url)
+                           .addClass('lookup-treasure-image');
     link.append(image);
 
     var name = $('<div/>').addClass('lookup-treasure-desc')
@@ -192,6 +262,7 @@ function putBuyButton() {
         } else if(button.hasClass('btnn-inverse')) {
             button.removeClass('btnn-inverse')
                   .addClass('btnn-primary');
+            $('#lookup-treasures-action-contain').fadeOut();
             $('#lookup-treasures-browse-contain').fadeOut(function() {
                 $('#lookup-user-name-row').slideDown();
                 $('#lookup-user-score-contain').slideDown();

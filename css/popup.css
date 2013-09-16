@@ -202,6 +202,14 @@ a.lookup-close-btn:hover {
     text-align: center;
 }
 
+#lookup-treasure-cancel {
+    color: #34495E;
+}
+
+#lookup-treasure-okay.btnn-default {
+    color: #34495E;
+}
+
 .lookup-has-recomms:after {
     content: "關於這篇有這些關鍵字喔";
 }
