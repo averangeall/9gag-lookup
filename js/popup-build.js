@@ -72,7 +72,17 @@ function buildNotify(dst) {
     var notify = $('<div/>');
     dst.append(notify);
 
-    notify.append($('<span/>').addClass('lookup-heading-left').html('通知通知'));
+    var noNotifi = $('<div/>').attr('id', 'lookup-no-notifi')
+                              .addClass('lookup-heading-left lookup-high-line');
+    var explain = $('<div/>').attr('id', 'lookup-notifi-explain')
+                             .addClass('lookup-heading-left lookup-high-line');
+
+    notify.append(noNotifi)
+          .append(explain);
+
+    prepareNotifiExplain();
+    putAllNotifis();
+
     return notify;
 }
 

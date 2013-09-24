@@ -66,7 +66,7 @@ function putUserInfo() {
         var coin = $('<div/>').attr('id', 'lookup-user-coin')
                               .append('$')
                               .append(coinNum)
-                              .append(' 塊硬幣');
+                              .append(' 塊金幣');
         var score = $('<div/>').attr('id', 'lookup-user-score')
                                .append(scoreNum)
                                .append(' 點經驗值');

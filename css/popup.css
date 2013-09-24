@@ -131,6 +131,10 @@ a.lookup-close-btn:hover {
     font-size: 30px;
 }
 
+.lookup-high-line {
+    line-height: 44px;
+}
+
 #lookup-user-coin-contain {
     padding-top: 15px;
 }
