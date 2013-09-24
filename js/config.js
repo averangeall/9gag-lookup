@@ -1,3 +1,1 @@
-var baseUrls = ['http://disa.csie.org:5566',
-                //'http://nine-gag-wrapper.herokuapp.com',
-               ];
+var baseUrl = 'http://disa.csie.org:5566';

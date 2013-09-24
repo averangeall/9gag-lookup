@@ -1,46 +1,524 @@
 body {
-    background-color: white;
-    min-width: 357px;
-    overflow-x: hidden;
+    color: #34495E;
 }
 
-#header, #footer {
-    height: 15px;
+#lookup-contain-main {
+    float: left;
+    padding: 20px 0 0 630px;
+    width: 700px;
+}
+
+#lookup-contain-triangle {
+    float: left;
+    padding: 20px 0 0 610px;
+}
+
+#lookup-contain-mask {
+    float: left;
+}
+
+#lookup-contain-cover {
+    position: fixed;
+    top: 100px;
+    width: 100%;
+    z-index: 3;
+    text-align: center;
+    cursor: pointer;
+}
+
+.lookup-big-main {
+    position: fixed;
+    top: 64px;
+    bottom: 64px;
+    width: 400px;
+    background-color: LightGray;
+    border-radius: 3px;
+}
+
+.lookup-small-main {
+    position: fixed;
+    width: 91px;
+    background-color: LightGray;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#lookup-triangle {
+    position: fixed;
+    top: 300px;
+    width: 0;
+    height: 0;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent; 
+    border-right: 30px solid LightGray;
+}
+
+#lookup-mask.lookup-activate {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: .6;
+    background: black;
+    z-index: 2;
+    cursor: pointer;
+}
+
+#lookup-header {
+    height: 38px;
     background-color: #1ABC9C;
+    -webkit-border-top-left-radius: 3px;
+    -webkit-border-top-right-radius: 3px;
 }
 
-div.blank {
-    height: 20px;
+#lookup-nav-bar {
+    padding: 5px 20px 0 0;
+    font-size: 22px;
+    float: right;
 }
 
-span.space {
+#lookup-content {
+    padding: 0 20px;
+}
+
+a.lookup-anchor {
+    color: #34495E;
+}
+a.lookup-anchor:hover {
+    color: black;
+}
+
+a.lookup-nav-btn {
+    color: #0E6C59;
+}
+a.lookup-nav-btn:hover {
+    color: #3e897a;
+}
+
+a.lookup-nav-chosen {
+    color: #05211b;
+}
+a.lookup-nav-chosen:hover {
+    color: #255249;
+}
+
+a.lookup-close-btn {
+    color: #094b3e;
+}
+a.lookup-close-btn:hover {
+    color: #052b23;
+}
+
+#lookup-logo {
+    padding-left: 25px;
+    font-size: 40px;
+}
+
+.lookup-grey-word {
+    color: LightGray;
+}
+
+.lookup-heading-left {
     display: inline-block;
-    width: 10px;
+    padding-top: 20px;
+    font-size: 20px;
 }
 
-#recomm-words p {
-    line-height: 49px;
+.lookup-heading-center {
+    text-align: center;
+    padding: 20px 0 10px;
+    font-size: 30px;
 }
 
-.hline {
-    width: 70%;
-    height: 30px;
-    background-image: url(../images/hline-slice.png);
-    background-repeat: repeat-x;
+.lookup-high-line {
+    line-height: 44px;
 }
 
-div[id|=moods] {
-    min-height: 56px;
+#lookup-user-coin-contain {
+    padding-top: 15px;
+}
+
+#lookup-user-rename-contain {
     text-align: right;
-    margin-right: 10px;
 }
 
-div.expl-recomm {
-    text-align: left;
-    margin-left: 30px;
+#lookup-buy-contain {
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
-div.expl-recomm span {
-    font-size: x-large;
+#lookup-user-name-contain {
+    text-align: center;
+    padding-bottom: 10px;
+    font-size: 30px;
+    height: 46px;
 }
 
+#lookup-user-name-input {
+    margin: auto;
+}
+
+#lookup-user-coin, #lookup-user-score {
+    text-align: center;
+    padding-bottom: 10px;
+    font-size: 20px;
+}
+
+#lookup-recomms-contain {
+    line-height: 52px;
+}
+
+#lookup-user-avatar {
+    padding: 20px 0 15px;
+    width: 100%;
+    height: 90px;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.lookup-treasure-desc {
+    font-size: 18px;
+}
+
+.lookup-treasure-cell {
+    display: inline-block;
+    width: 118px;
+    height: 112px;
+    padding-top: 14px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.lookup-treasure-link {
+    opacity: 1;
+    -webkit-transition: 0.25s;
+}
+
+.lookup-treasure-link:hover {
+    opacity: .7;
+    -webkit-transition: 0.25s;
+}
+
+#lookup-treasures-action-contain {
+    margin-top: 30px;
+    text-align: center;
+}
+
+#lookup-treasure-cancel {
+    color: #34495E;
+}
+
+#lookup-treasure-okay.btnn-default {
+    color: #34495E;
+}
+
+.lookup-has-recomms:after {
+    content: "關於這篇有這些關鍵字喔";
+}
+.lookup-no-recomms:after {
+    content: "這一篇好像還沒有關鍵字耶";
+}
+
+#lookup-pre-query:after {
+    content: "您想查什麼關鍵字呢";
+}
+
+.lookup-in-dict:after {
+    content: "我們從 9GAG 字典裡查到";
+}
+
+.lookup-expl-text-big {
+    text-align: center;
+    font-size: 40px;
+}
+.lookup-expl-text-small {
+    text-align: center;
+    font-size: 20px;
+}
+
+#lookup-expl-content-row {
+    padding-top: 20px;
+}
+
+#lookup-expl-content {
+    display: inline-block;
+    width: 249px;
+    min-height: 61px;
+}
+
+.lookup-expl-button-row {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.lookup-expl-nav-contain {
+    display: inline-block;
+    vertical-align: top;
+}
+.lookup-expl-nav-button {
+    background-color: #34495e ! important;
+}
+.lookup-expl-nav-button[disabled] {
+    background-color: gray ! important;
+    cursor: default;
+}
+.lookup-expl-nav-active:hover {
+    background-color: #415b76 ! important;
+}
+.lookup-expl-nav-active:active {
+    background-color: #2c3e50 ! important;
+}
+
+.lookup-loading {
+    background-image: url('chrome-extension://__MSG_@@extension_id__/images/loading.gif');
+    background-repeat: no-repeat;
+    height: 200px;
+    width: 200px;
+    background-position: -40px -125px;
+}
+
+#lookup-expl-new-input {
+    width: 80%;
+    height: 200px;
+}
+
+#lookup-expl-like, #lookup-expl-hate {
+    color: #34495e;
+}
+
+#lookup-expl-like:hover, #lookup-expl-like.lookup-mood-on {
+    background-color: #2ecc71;
+    color: white;
+}
+#lookup-expl-hate:hover, #lookup-expl-hate.lookup-mood-on {
+    background-color: #e74c3c;
+    color: white;
+}
+#lookup-expl-like:active {
+    background-color: #27ad60;
+    color: white;
+}
+#lookup-expl-hate:active {
+    background-color: #c44133;
+    color: white;
+}
+
+.lookup-expl-image-thumb {
+    max-width: 90%;
+    max-height: 170px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+}
+
+.lookup-expl-youtube-thumb {
+    width: 223px;
+    height: 126px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+}
+
+.lookup-expl-youtube-play {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: url('chrome-extension://__MSG_@@extension_id__/images/youtube-play-normal.png');
+}
+.lookup-expl-youtube-play:hover {
+    background: url('chrome-extension://__MSG_@@extension_id__/images/youtube-play-hover.png');
+}
+
+.lookup-expl-image {
+    max-width: 90%;
+    max-height: 90%;
+}
+
+/* copied from flat-ui */
+
+@font-face {
+  font-family: 'Flat-UI-Icons';
+  src: url('chrome-extension://__MSG_@@extension_id__/fonts/Flat-UI-Icons.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.btnn {
+  border: none;
+  background: #bdc3c7;
+  color: #ffffff;
+  padding: 9px 12px 10px;
+  line-height: 22px;
+  text-decoration: none;
+  text-shadow: none;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+  -webkit-backface-visibility: hidden;
+  font-size: 14px;
+}
+
+.btnn:hover,
+.btnn:focus,
+.btnn-group:focus .btnn.dropdown-toggle {
+  background-color: #cacfd2;
+  color: #ffffff;
+  outline: none;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+  -webkit-backface-visibility: hidden;
+}
+.btnn:active,
+.btnn-group.open .btnn.dropdown-toggle,
+.btnn.active {
+  background-color: #a1a6a9;
+  color: rgba(255, 255, 255, 0.75);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.btnn.btnn-large {
+  font-size: 16.996px;
+  /* 17px */
+
+  line-height: 20px;
+  padding: 12px 18px 13px;
+}
+
+.btnn.btnn-primary {
+  background-color: #1abc9c;
+}
+.btnn.btnn-primary:hover,
+.btnn.btnn-primary:focus,
+.btnn-group:focus .btnn.btnn-primary.dropdown-toggle {
+  background-color: #48c9b0;
+}
+.btnn.btnn-primary:active,
+.btnn-group.open .btnn.btnn-primary.dropdown-toggle,
+.btnn.btnn-primary.active {
+  background-color: #16a085;
+}
+
+.btnn.btnn-inverse {
+  background-color: #34495e;
+}
+.btnn.btnn-inverse:hover,
+.btnn.btnn-inverse:focus,
+.btnn-group:focus .btnn.btnn-inverse.dropdown-toggle {
+  background-color: #415b76;
+}
+.btnn.btnn-inverse:active,
+.btnn-group.open .btnn.btnn-inverse.dropdown-toggle,
+.btnn.btnn-inverse.active {
+  background-color: #2c3e50;
+}
+.btnn.btnn-warning {
+  background-color: #f1c40f;
+}
+.btnn.btnn-warning:hover,
+.btnn.btnn-warning:focus,
+.btnn-group:focus .btnn.btnn-warning.dropdown-toggle {
+  background-color: #f5d313;
+}
+.btnn.btnn-warning:active,
+.btnn-group.open .btnn.btnn-warning.dropdown-toggle,
+.btnn.btnn-warning.active {
+  background-color: #cda70d;
+}
+
+.fui-search,
+.fui-arrow-right,
+.fui-arrow-left,
+.fui-cross {
+  display: inline-block;
+  font-family: 'Flat-UI-Icons';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+}
+.fui-search:before {
+  content: "\e01c";
+}
+.fui-arrow-right:before {
+  content: "\e02c";
+}
+.fui-arrow-left:before {
+  content: "\e02d";
+}
+.fui-cross:before {
+  content: "\e00b";
+}
+
+#lookup-query,
+#lookup-user-name-input {
+  border: 2px solid #bdc3c7 ! important;
+  color: #34495e;
+  font-family: "Lato", sans-serif;
+  font-size: 14px ! important;
+  padding: 8px 5px;
+  height: 21px ! important;
+  width: 260px ! important;
+  text-indent: 6px;
+  border-radius: 6px ! important;
+  -webkit-box-shadow: none;
+  -webkit-transition: border .25s linear, color .25s linear ! important;
+  -webkit-backface-visibility: hidden ! important;
+}
+#lookup-expl-new-input.placeholder,
+#lookup-query.placeholder,
+#lookup-user-name-input.placeholder,
+.uneditable-input.placeholder {
+  color: #b2bcc5;
+}
+#lookup-expl-new-input:focus,
+#lookup-query:focus,
+#lookup-user-name-input:focus,
+.uneditable-input:focus {
+  border-color: #1abc9c ! important;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+#lookup-expl-new-input {
+  border: 2px solid #bdc3c7 ! important;
+  color: #34495e;
+  font-family: "Lato", sans-serif;
+  font-size: 14px ! important;
+  padding: 8px 5px;
+  height: 109px ! important;
+  width: 337px ! important;
+  text-indent: 6px;
+  border-radius: 6px ! important;
+  -webkit-box-shadow: none;
+  -webkit-transition: border .25s linear, color .25s linear ! important;
+  -webkit-backface-visibility: hidden ! important;
+}
+
+.btnn[disabled] {
+  background-color: #bdc3c7;
+  color: rgba(255, 255, 255, 0.75);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  opacity: 0.7;
+  filter: alpha(opacity=70);
+}
