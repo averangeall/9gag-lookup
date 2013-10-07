@@ -72,8 +72,12 @@ body {
     -webkit-border-top-right-radius: 3px;
 }
 
-.lookup-notifi-block {
+#lookup-all-notifis {
     margin-top: 18px;
+}
+
+.lookup-notifi-block {
+    margin-top: 8px;
     width: 361px;
     height: 82px;
     cursor: pointer;
@@ -99,8 +103,9 @@ body {
 }
 
 .lookup-notifi-big-line {
-    padding-top: 14px;
+    padding-top: 4px;
     font-size: 20px;
+    color: black;
 }
 
 .lookup-notifi-small-line {

@@ -6,12 +6,12 @@ function putAllNotifis(notifis) {
         var icon = (notifi.coin_delta > 0) ? 'lookup-notifi-coin-icon' : 'lookup-notifi-brick-icon';
         var big = $('<div/>').addClass('lookup-notifi-line lookup-notifi-big-line');
         var small = $('<div/>').addClass('lookup-notifi-line lookup-notifi-small-line');
-        if(notifi.coin_delta > 0) {
-            big.html('你賺到了 $1 枚硬幣!!!');
-            small.html('因為您和別人撞到了一個關鍵字 "Hello"');
-        } else {
-            big.html('你賺到了 $1 枚硬幣!!!');
-            small.html('因為您和別人撞到了一個關鍵字 "Hello"');
+        if(notifi.type == 'you-agree-keyword') {
+            big.html('你賺到了 $' + notifi.coin_delta + ' 枚硬幣!!!');
+            small.html('因為您和別人撞到了<br/>同一個關鍵字 "' + notifi.word + '"');
+        } else if(notifi.type == 'someone-agree-keyword') {
+            big.html('你賺到了 $' + notifi.coin_delta + ' 枚硬幣!!!');
+            small.html('因為別人和您撞到了<br/>同一個關鍵字 "' + notifi.word + '"');
         }
         block.addClass(background)
              .addClass(icon)
