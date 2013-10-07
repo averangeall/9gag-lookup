@@ -68,22 +68,24 @@ function buildDict(dst) {
     putQueryInput();
 }
 
-function buildNotify(dst) {
-    var notify = $('<div/>');
-    dst.append(notify);
+function buildNotifi(dst) {
+    var notifi = $('<div/>');
+    dst.append(notifi);
 
+    var allNotifis = $('<div/>').attr('id', 'lookup-all-notifis');
     var noNotifi = $('<div/>').attr('id', 'lookup-no-notifi')
                               .addClass('lookup-heading-left lookup-high-line');
     var explain = $('<div/>').attr('id', 'lookup-notifi-explain')
                              .addClass('lookup-heading-left lookup-high-line');
 
-    notify.append(noNotifi)
+    notifi.append(allNotifis)
+          .append(noNotifi)
           .append(explain);
 
     prepareNotifiExplain();
-    putAllNotifis();
+    putNotifis();
 
-    return notify;
+    return notifi;
 }
 
 function buildPersonal(dst) {
@@ -150,7 +152,7 @@ function buildNavBar(dst) {
 
     buildNavBtn(navs, '字典', true, buildDict);
     navs.append(' ');
-    buildNavBtn(navs, '通知', false, buildNotify);
+    buildNavBtn(navs, '通知', false, buildNotifi);
     navs.append(' ');
     buildNavBtn(navs, '個人', false, buildPersonal);
     navs.append(' ');

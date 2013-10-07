@@ -1,3 +1,26 @@
+function putAllNotifis(notifis) {
+    var allNotifis = $('#lookup-all-notifis');
+    $.each(notifis, function(i, notifi) {
+        var block = $('<div/>').addClass('lookup-notifi-block');
+        var background = notifi.received ? 'lookup-notifi-received' : 'lookup-notifi-fresh';
+        var icon = (notifi.coin_delta > 0) ? 'lookup-notifi-coin-icon' : 'lookup-notifi-brick-icon';
+        var big = $('<div/>').addClass('lookup-notifi-line lookup-notifi-big-line');
+        var small = $('<div/>').addClass('lookup-notifi-line lookup-notifi-small-line');
+        if(notifi.coin_delta > 0) {
+            big.html('你賺到了 $1 枚硬幣!!!');
+            small.html('因為您和別人撞到了一個關鍵字 "Hello"');
+        } else {
+            big.html('你賺到了 $1 枚硬幣!!!');
+            small.html('因為您和別人撞到了一個關鍵字 "Hello"');
+        }
+        block.addClass(background)
+             .addClass(icon)
+             .append(big)
+             .append(small);
+        allNotifis.append(block);
+    });
+}
+
 function putNoNotifi() {
     var noNotifi = $('#lookup-no-notifi');
 
@@ -46,13 +69,16 @@ function prepareNotifiExplain() {
            .append(line9);
 }
 
-function putAllNotifis() {
+function putNotifis() {
     reliableGet(makeExtraUrl('notifi', 'get', {}), function(res) {
         if(res.status != 'OKAY')
             return;
 
         var notifis = res.respond.notifis;
-        
-        putNoNotifi();
+
+        if(notifis.length == 0)
+            putNoNotifi();
+        else
+            putAllNotifis(notifis);
     });
 }

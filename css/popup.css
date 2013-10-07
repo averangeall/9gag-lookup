@@ -72,6 +72,53 @@ body {
     -webkit-border-top-right-radius: 3px;
 }
 
+.lookup-notifi-block {
+    margin-top: 18px;
+    width: 361px;
+    height: 82px;
+    cursor: pointer;
+    border-radius: 3px;
+    -webkit-transition: 0.25s;
+}
+
+.lookup-notifi-block.lookup-notifi-received {
+    background-color: white;
+}
+
+.lookup-notifi-block.lookup-notifi-fresh {
+    background-color: #AAAAAA;
+}
+
+.lookup-notifi-block:hover {
+    background-color: #DDDDDD;
+    -webkit-transition: 0.25s;
+}
+
+.lookup-notifi-line {
+    margin-left: 78px;
+}
+
+.lookup-notifi-big-line {
+    padding-top: 14px;
+    font-size: 20px;
+}
+
+.lookup-notifi-small-line {
+    font-size: 14px;
+}
+
+.lookup-notifi-block.lookup-notifi-coin-icon {
+    background-image: url('chrome-extension://__MSG_@@extension_id__/images/coin.png');
+    background-repeat: no-repeat;
+    background-position: 15px;
+}
+
+.lookup-notifi-block.lookup-notifi-brick-icon {
+    background-image: url('chrome-extension://__MSG_@@extension_id__/images/brick.png');
+    background-repeat: no-repeat;
+    background-position: 15px;
+}
+
 #lookup-nav-bar {
     padding: 5px 20px 0 0;
     font-size: 22px;
