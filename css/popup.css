@@ -82,7 +82,7 @@ body {
     height: 82px;
     cursor: pointer;
     border-radius: 3px;
-    -webkit-transition: 0.25s;
+    position: relative;
 }
 
 .lookup-notifi-block.lookup-notifi-received {
@@ -95,7 +95,14 @@ body {
 
 .lookup-notifi-block:hover {
     background-color: #DDDDDD;
-    -webkit-transition: 0.25s;
+}
+
+.lookup-notifi-block .lookup-notifi-tail {
+    display: none;
+}
+
+.lookup-notifi-block:hover .lookup-notifi-tail {
+    display: block;
 }
 
 .lookup-notifi-line {
@@ -122,6 +129,20 @@ body {
     background-image: url('chrome-extension://__MSG_@@extension_id__/images/brick.png');
     background-repeat: no-repeat;
     background-position: 15px;
+}
+
+.lookup-notifi-tail {
+    position: absolute;
+    top: 38px;
+    left: 280px;
+}
+
+.lookup-notifi-go-gag {
+    color: #34495e ! important;
+}
+
+.lookup-notifi-go-gag:after {
+    content: "去看看";
 }
 
 #lookup-nav-bar {

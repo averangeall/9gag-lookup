@@ -4,6 +4,7 @@ function putAllNotifis(notifis) {
         var block = $('<div/>').addClass('lookup-notifi-block');
         var background = notifi.received ? 'lookup-notifi-received' : 'lookup-notifi-fresh';
         var icon = (notifi.coin_delta > 0) ? 'lookup-notifi-coin-icon' : 'lookup-notifi-brick-icon';
+
         var big = $('<div/>').addClass('lookup-notifi-line lookup-notifi-big-line');
         var small = $('<div/>').addClass('lookup-notifi-line lookup-notifi-small-line');
         if(notifi.type == 'you-agree-keyword') {
@@ -13,10 +14,23 @@ function putAllNotifis(notifis) {
             big.html('你賺到了 $' + notifi.coin_delta + ' 枚硬幣!!!');
             small.html('因為別人和您撞到了<br/>同一個關鍵字 "' + notifi.word + '"');
         }
+
+        var tail = $('<div/>').addClass('lookup-notifi-tail');
+        var goGag = $('<a/>').addClass('lookup-notifi-go-gag')
+                             .addClass('btnn')
+                             .attr('href', 'javascript: void(0);');
+        if(notifi.gag_id != null) {
+            var gagId = notifi.gag_id;
+            goGag.attr('href', 'http://9gag.com/gag/' + gagId)
+                 .attr('target', '_blank');
+            tail.append(goGag);
+        }
+
         block.addClass(background)
              .addClass(icon)
              .append(big)
-             .append(small);
+             .append(small)
+             .append(tail);
         allNotifis.append(block);
     });
 }
