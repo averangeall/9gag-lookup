@@ -31,6 +31,16 @@ function putAllNotifis(notifis) {
              .append(big)
              .append(small)
              .append(tail);
+
+        block.click(function(evt) {
+            var target = $(evt.target);
+            if(target.is('a') || block.hasClass('lookup-notifi-received'))
+                return;
+            console.log('enable');
+            block.removeClass('lookup-notifi-fresh')
+                 .addClass('lookup-notifi-received');
+        });
+
         allNotifis.append(block);
     });
 }
