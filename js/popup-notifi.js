@@ -1,48 +1,69 @@
+function genNotifiMsg(notifi) {
+    var big = $('<div/>').addClass('lookup-notifi-line lookup-notifi-big-line');
+    var small = $('<div/>').addClass('lookup-notifi-line lookup-notifi-small-line');
+    if(notifi.type == 'you-agree-keyword') {
+        big.html('你賺到了 $' + notifi.coin_delta + ' 枚硬幣!!!');
+        small.html('因為您和別人撞到了<br/>同一個關鍵字 "' + notifi.word + '"');
+    } else if(notifi.type == 'someone-agree-keyword') {
+        big.html('你賺到了 $' + notifi.coin_delta + ' 枚硬幣!!!');
+        small.html('因為別人和您撞到了<br/>同一個關鍵字 "' + notifi.word + '"');
+    }
+
+    var msg = $('<div/>').append(big)
+                         .append(small);
+    return msg;
+}
+
+function genNotifiTail(notifi) {
+    var tail = $('<div/>').addClass('lookup-notifi-tail');
+    var goGag = $('<a/>').addClass('lookup-notifi-go-gag')
+                         .addClass('btnn')
+                         .attr('href', 'javascript: void(0);');
+    if(notifi.gag_id != null) {
+        var gagId = notifi.gag_id;
+        goGag.attr('href', 'http://9gag.com/gag/' + gagId)
+             .attr('target', '_blank');
+        tail.append(goGag);
+    }
+
+    return tail;
+}
+
+function genNotifiBlock(notifi) {
+    var block = $('<div/>').addClass('lookup-notifi-block');
+
+    var background = notifi.received ? 'lookup-notifi-received' : 'lookup-notifi-fresh';
+    var icon = (notifi.coin_delta > 0) ? 'lookup-notifi-coin-icon' : 'lookup-notifi-brick-icon';
+    var msg = genNotifiMsg(notifi);
+    var tail = genNotifiTail(notifi);
+
+    block.attr('data-notifi-id', notifi.id)
+         .addClass(background)
+         .addClass(icon)
+         .append(msg)
+         .append(tail);
+
+    block.click(function(evt) {
+        var target = $(evt.target);
+        if(target.is('a') || block.hasClass('lookup-notifi-received'))
+            return;
+        console.log('enable');
+        block.removeClass('lookup-notifi-fresh')
+             .addClass('lookup-notifi-received');
+        reliableGet(makeExtraUrl('notifi', 'enable', {notifi_id: notifi.id}), function(res) { });
+    });
+
+    return block;
+}
+
 function putAllNotifis(notifis) {
     var allNotifis = $('#lookup-all-notifis');
+    allNotifis.hide();
     $.each(notifis, function(i, notifi) {
-        var block = $('<div/>').addClass('lookup-notifi-block');
-        var background = notifi.received ? 'lookup-notifi-received' : 'lookup-notifi-fresh';
-        var icon = (notifi.coin_delta > 0) ? 'lookup-notifi-coin-icon' : 'lookup-notifi-brick-icon';
-
-        var big = $('<div/>').addClass('lookup-notifi-line lookup-notifi-big-line');
-        var small = $('<div/>').addClass('lookup-notifi-line lookup-notifi-small-line');
-        if(notifi.type == 'you-agree-keyword') {
-            big.html('你賺到了 $' + notifi.coin_delta + ' 枚硬幣!!!');
-            small.html('因為您和別人撞到了<br/>同一個關鍵字 "' + notifi.word + '"');
-        } else if(notifi.type == 'someone-agree-keyword') {
-            big.html('你賺到了 $' + notifi.coin_delta + ' 枚硬幣!!!');
-            small.html('因為別人和您撞到了<br/>同一個關鍵字 "' + notifi.word + '"');
-        }
-
-        var tail = $('<div/>').addClass('lookup-notifi-tail');
-        var goGag = $('<a/>').addClass('lookup-notifi-go-gag')
-                             .addClass('btnn')
-                             .attr('href', 'javascript: void(0);');
-        if(notifi.gag_id != null) {
-            var gagId = notifi.gag_id;
-            goGag.attr('href', 'http://9gag.com/gag/' + gagId)
-                 .attr('target', '_blank');
-            tail.append(goGag);
-        }
-
-        block.addClass(background)
-             .addClass(icon)
-             .append(big)
-             .append(small)
-             .append(tail);
-
-        block.click(function(evt) {
-            var target = $(evt.target);
-            if(target.is('a') || block.hasClass('lookup-notifi-received'))
-                return;
-            console.log('enable');
-            block.removeClass('lookup-notifi-fresh')
-                 .addClass('lookup-notifi-received');
-        });
-
+        var block = genNotifiBlock(notifi);
         allNotifis.append(block);
     });
+    allNotifis.fadeIn();
 }
 
 function putNoNotifi() {
