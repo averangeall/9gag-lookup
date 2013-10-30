@@ -362,11 +362,11 @@ a.lookup-close-btn:hover {
     color: #34495e;
 }
 
-#lookup-expl-like:hover, #lookup-expl-like.lookup-mood-on {
+#lookup-expl-like.lookup-mood-on {
     background-color: #2ecc71;
     color: white;
 }
-#lookup-expl-hate:hover, #lookup-expl-hate.lookup-mood-on {
+#lookup-expl-hate.lookup-mood-on {
     background-color: #e74c3c;
     color: white;
 }
