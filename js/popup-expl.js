@@ -58,15 +58,13 @@ function putSingleExpl(expl) {
 function putExplLoading() {
     $('#lookup-expl-like-contain').empty();
     $('#lookup-expl-hate-contain').empty();
-    var content = $('#lookup-expl-content')
+    var content = $('#lookup-expl-content');
+
+    var loading = $('<div/>').addClass('lookup-loading')
+                             .hide();
 
     content.empty()
-           .hide();
-
-    var loading = $('<div/>').addClass('lookup-loading');
-
-    content.append(loading)
-           .fadeIn();
+           .append(loading);
 }
 
 function putExplContent(idx) {
