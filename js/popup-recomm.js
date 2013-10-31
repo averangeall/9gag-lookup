@@ -15,7 +15,7 @@ function putSingleRecomm(recomm, color) {
                                      .addClass('btnn-inverse');
                               curWordId = recomm.id;
                               prepareExplContent($(this).html());
-                              loadExpls(curGagId, recomm);
+                              loadExpls(recomm);
                           });
     $('#lookup-recomms-contain').append(button)
                                 .append(' ');
