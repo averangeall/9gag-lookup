@@ -73,12 +73,14 @@ function buildNotifi(dst) {
     dst.append(notifi);
 
     var allNotifis = $('<div/>').attr('id', 'lookup-all-notifis');
+    var notifiNav = $('<div/>').attr('id', 'lookup-notifi-nav');
     var noNotifi = $('<div/>').attr('id', 'lookup-no-notifi')
                               .addClass('lookup-heading-left lookup-high-line');
     var explain = $('<div/>').attr('id', 'lookup-notifi-explain')
                              .addClass('lookup-heading-left lookup-high-line');
 
     notifi.append(allNotifis)
+          .append(notifiNav)
           .append(noNotifi)
           .append(explain);
 

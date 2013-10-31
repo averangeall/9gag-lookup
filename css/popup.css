@@ -76,6 +76,11 @@ body {
     margin-top: 18px;
 }
 
+#lookup-notifi-nav {
+    text-align: center;
+    padding: 20px;
+}
+
 .lookup-notifi-block {
     margin-top: 8px;
     width: 361px;

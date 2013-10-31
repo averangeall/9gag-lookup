@@ -16,8 +16,7 @@ function genNotifiMsg(notifi) {
 
 function genNotifiTail(notifi) {
     var tail = $('<div/>').addClass('lookup-notifi-tail');
-    var goGag = $('<a/>').addClass('lookup-notifi-go-gag')
-                         .addClass('btnn')
+    var goGag = $('<a/>').addClass('btnn lookup-notifi-go-gag')
                          .attr('href', 'javascript: void(0);');
     if(notifi.gag_id != null) {
         var gagId = notifi.gag_id;
@@ -61,17 +60,56 @@ function notifiStopThreash() {
 }
 
 function putAllNotifis() {
-    var allNotifis = $('#lookup-all-notifis');
-    allNotifis.empty().hide();
+    var allNotifis = $('#lookup-all-notifis').empty()
+                                             .hide();
+    var notifiNav = $('#lookup-notifi-nav').empty()
+                                               .hide();
+
     $.each(notifiInfo, function(i, notifi) {
         if(i < curNotifiStartIdx)
             return true;
         var block = genNotifiBlock(notifi);
         allNotifis.append(block);
-        if($(window).height() - allNotifis.height() <= notifiStopThreash())
+        if($(window).height() - allNotifis.height() <= notifiStopThreash()) {
+            if(numNotifiBlocks == -1)
+                numNotifiBlocks = i - curNotifiStartIdx + 1;
             return false;
+        }
     });
+
+    var prev = $('<a/>').addClass('btnn btnn-large')
+                        .html('上一頁')
+                        .attr('href', 'javascript: void(0);');
+    var next = $('<a/>').addClass('btnn btnn-large')
+                        .html('下一頁')
+                        .attr('href', 'javascript: void(0);');
+    if(curNotifiStartIdx > 0) {
+        prev.addClass('btnn-primary');
+    }
+    if(curNotifiStartIdx + numNotifiBlocks < notifiInfo.length) {
+        next.addClass('btnn-primary');
+    }
+    prev.click(function() {
+        if(!prev.hasClass('btnn-primary'))
+            return;
+        curNotifiStartIdx -= numNotifiBlocks;
+        curNotifiStartIdx = (curNotifiStartIdx < 0) ? 0 : curNotifiStartIdx;
+        putAllNotifis();
+    });
+    next.click(function() {
+        if(!next.hasClass('btnn-primary'))
+            return;
+        curNotifiStartIdx += numNotifiBlocks;
+        putAllNotifis();
+    });
+    if(notifiInfo.length > numNotifiBlocks) {
+        notifiNav.append(prev)
+                 .append(' ')
+                 .append(next);
+    }
+
     allNotifis.fadeIn();
+    notifiNav.fadeIn();
 }
 
 function putNoNotifi() {
@@ -136,10 +174,14 @@ function putNotifis() {
             putNoNotifi();
         else {
             curNotifiStartIdx = 0;
+            numNotifiBlocks = -1;
             putAllNotifis();
         }
 
-        $(window).resize(putAllNotifis);
+        $(window).resize(function() {
+            numNotifiBlocks = -1;
+            putAllNotifis();
+        });
     });
 }
 

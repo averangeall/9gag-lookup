@@ -7,3 +7,4 @@ var userId, userKey, userName;
 var allGagInfo = {};
 var treasureInfo;
 var notifiInfo;
+var numNotifiBlocks;
