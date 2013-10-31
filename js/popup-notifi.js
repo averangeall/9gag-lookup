@@ -56,12 +56,20 @@ function genNotifiBlock(notifi) {
     return block;
 }
 
-function putAllNotifis(notifis) {
+function notifiStopThreash() {
+    return 362;
+}
+
+function putAllNotifis() {
     var allNotifis = $('#lookup-all-notifis');
-    allNotifis.hide();
-    $.each(notifis, function(i, notifi) {
+    allNotifis.empty().hide();
+    $.each(notifiInfo, function(i, notifi) {
+        if(i < curNotifiStartIdx)
+            return true;
         var block = genNotifiBlock(notifi);
         allNotifis.append(block);
+        if($(window).height() - allNotifis.height() <= notifiStopThreash())
+            return false;
     });
     allNotifis.fadeIn();
 }
@@ -86,6 +94,9 @@ function putNoNotifi() {
 
     noNotifi.append(line1)
             .append(line2);
+}
+
+function adjustNotifiHeight() {
 }
 
 function prepareNotifiExplain() {
@@ -119,11 +130,16 @@ function putNotifis() {
         if(res.status != 'OKAY')
             return;
 
-        var notifis = res.respond.notifis;
+        notifiInfo = res.respond.notifis;
 
-        if(notifis.length == 0)
+        if(notifiInfo.length == 0)
             putNoNotifi();
-        else
-            putAllNotifis(notifis);
+        else {
+            curNotifiStartIdx = 0;
+            putAllNotifis();
+        }
+
+        $(window).resize(putAllNotifis);
     });
 }
+
