@@ -82,8 +82,21 @@ function addCachedExpls(extraExpls) {
     }
 }
 
+function refreshExplPrevNav(idx) {
+    var prev = $('#lookup-expl-prev');
+    if(idx == 0) {
+        prev.removeClass('lookup-expl-nav-active')
+            .attr('disabled', '');
+    } else {
+        prev.addClass('lookup-expl-nav-active')
+            .removeAttr('disabled');
+    }
+}
+
 function putExplContent(idx) {
     var expls = getCachedExpls();
+
+    refreshExplPrevNav(idx);
 
     if(expls == null || expls.length <= idx) {
         putExplLoading();
@@ -164,10 +177,7 @@ function clickExplNav(evt) {
         ++ idx;
     idx = (idx < 0) ? 0 : idx;
 
-    if(idx == 0)
-        $('#lookup-expl-prev').removeClass('lookup-expl-nav-active').attr('disabled', '');
-    else
-        $('#lookup-expl-prev').addClass('lookup-expl-nav-active').removeAttr('disabled');
+    refreshExplPrevNav(idx);
 
     var loaded = putExplContent(idx);
     if(!loaded) {
