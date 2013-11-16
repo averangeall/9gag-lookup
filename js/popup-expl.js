@@ -25,8 +25,7 @@ function putSingleExpl(expl) {
         content.append(text);
     } else if(expl.type == 'image') {
         var thumb = $('<img/>').addClass('lookup-expl-image-thumb')
-                               .attr('src', expl.content)
-                               .attr('alt', '圖片壞掉了 : (');
+                               .attr('src', expl.content);
         thumb.click(function() {
             var image = $('<img/>').addClass('lookup-expl-image')
                                    .attr('src', expl.content);
@@ -80,6 +79,12 @@ function addCachedExpls(extraExpls) {
     } else {
         expls[curWordId] = extraExpls;
     }
+
+    $.each(extraExpls, function(i, expl) {
+        if(expl.type == 'image') {
+            var img = $('<img/>').attr('src', expl.content);
+        }
+    });
 }
 
 function refreshExplPrevNav(idx) {
