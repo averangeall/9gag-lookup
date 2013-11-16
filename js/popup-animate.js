@@ -52,13 +52,13 @@ function setShrinkSmall(close) {
 
 function autoType(input, text, callback) {
     var timerId = setInterval(function() {
-        if(text == input.val()) {
+        if(text.match(new RegExp('^' + input.val() + '$', 'i')) != null) {
             clearInterval(timerId);
             callback();
             return;
         }
-        if(text.match('^' + input.val()) != null || input.val() == ' ') {
-            input.val(text.substr(0, input.val().length + 1));
+        if(text.match(new RegExp('^' + input.val(), 'i')) != null || input.val() == ' ') {
+            input.val(input.val() + text.substr(input.val().length, 1));
         } else {
             input.val(input.val().substr(0, input.val().length - 1));
             if(input.val() == '')

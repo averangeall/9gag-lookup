@@ -3,6 +3,7 @@ function getQueryVal() {
     query = $.trim(query.toLowerCase());
     var chars = query.match(/[\w.'"\- ]/g);
     query = (chars == null) ? '' : chars.join('');
+    query = genCapitalRecomm(query);
     return query;
 }
 

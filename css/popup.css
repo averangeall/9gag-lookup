@@ -72,6 +72,13 @@ body {
     -webkit-border-top-right-radius: 3px;
 }
 
+.recomm-fill {
+    opacity: 0;
+}
+.recomm-fill:after {
+    content: "!";
+}
+
 #lookup-all-notifis {
     margin-top: 18px;
 }
