@@ -57,8 +57,10 @@ function autoType(input, text, callback) {
             callback();
             return;
         }
-        if(text.match(new RegExp('^' + input.val(), 'i')) != null || input.val() == ' ') {
+        if(text.match(new RegExp('^' + input.val(), 'i')) != null) {
             input.val(input.val() + text.substr(input.val().length, 1));
+        } else if(input.val() == ' ') {
+            input.val(text.substr(0, 1));
         } else {
             input.val(input.val().substr(0, input.val().length - 1));
             if(input.val() == '')
