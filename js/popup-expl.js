@@ -25,8 +25,7 @@ function putSingleExpl(expl) {
         content.append(text);
     } else if(expl.type == 'image') {
         var thumb = $('<img/>').addClass('lookup-expl-image-thumb')
-                               .attr('src', expl.content)
-                               .attr('alt', '圖片壞掉了 : (');
+                               .attr('src', expl.content);
         thumb.click(function() {
             var image = $('<img/>').addClass('lookup-expl-image')
                                    .attr('src', expl.content);
@@ -58,37 +57,68 @@ function putSingleExpl(expl) {
 function putExplLoading() {
     $('#lookup-expl-like-contain').empty();
     $('#lookup-expl-hate-contain').empty();
-    var content = $('#lookup-expl-content')
-
-    content.empty()
-           .hide();
+    var content = $('#lookup-expl-content');
 
     var loading = $('<div/>').addClass('lookup-loading');
 
-    content.append(loading)
-           .fadeIn();
+    content.empty()
+           .append(loading);
+}
+
+function getCachedExpls() {
+    if(curWordId != undefined && curWordId in allGagInfo[curGagId].explains) {
+        return allGagInfo[curGagId].explains[curWordId];
+    }
+    return null;
+}
+
+function addCachedExpls(extraExpls) {
+    var expls = allGagInfo[curGagId].explains;
+    if(curWordId in expls) {
+        expls[curWordId].push.apply(expls[curWordId], extraExpls);
+    } else {
+        expls[curWordId] = extraExpls;
+    }
+
+    $.each(extraExpls, function(i, expl) {
+        if(expl.type == 'image') {
+            var img = $('<img/>').attr('src', expl.content);
+        }
+    });
+}
+
+function refreshExplPrevNav(idx) {
+    var prev = $('#lookup-expl-prev');
+    if(idx == 0) {
+        prev.removeClass('lookup-expl-nav-active')
+            .attr('disabled', '');
+    } else {
+        prev.addClass('lookup-expl-nav-active')
+            .removeAttr('disabled');
+    }
 }
 
 function putExplContent(idx) {
-    if(curWordId == undefined || !(curWordId in allGagInfo[curGagId].explains))
+    var expls = getCachedExpls();
+
+    refreshExplPrevNav(idx);
+
+    if(expls == null || expls.length <= idx) {
         putExplLoading();
-    else {
-        var expls = allGagInfo[curGagId].explains[curWordId];
-        if(expls.length <= idx)
-            putExplLoading();
-        else {
-            curExplId = expls[idx].id;
-            putSingleExpl(expls[idx]);
-            putExplMood($('#lookup-expl-like-contain'), 'lookup-expl-like', '這個解釋好', expls[idx].liked);
-            putExplMood($('#lookup-expl-hate-contain'), 'lookup-expl-hate', '這個解釋爛', expls[idx].hated);
-            $('#lookup-expl-next').removeAttr('disabled')
-                                  .addClass('lookup-expl-nav-active');
-            if(expls[idx].hated)
-                putExplProvide($('#lookup-expl-provide-contain'));
-            else
-                $('#lookup-expl-provide-contain').hide();
-        }
+        return false;
     }
+
+    curExplId = expls[idx].id;
+    putSingleExpl(expls[idx]);
+    putExplMood($('#lookup-expl-like-contain'), 'lookup-expl-like', '這個解釋好', expls[idx].liked);
+    putExplMood($('#lookup-expl-hate-contain'), 'lookup-expl-hate', '這個解釋爛', expls[idx].hated);
+    $('#lookup-expl-next').removeAttr('disabled')
+                          .addClass('lookup-expl-nav-active');
+    if(expls[idx].hated)
+        putExplProvide($('#lookup-expl-provide-contain'));
+    else
+        $('#lookup-expl-provide-contain').hide();
+    return true;
 }
 
 function setExplMood(which, value) {
@@ -150,15 +180,25 @@ function clickExplNav(evt) {
         -- idx;
     else if(button.attr('id') == 'lookup-expl-next')
         ++ idx;
+    idx = (idx < 0) ? 0 : idx;
 
-    if(idx < 0)
-        return;
-    else if(idx == 0)
-        $('#lookup-expl-prev').removeClass('lookup-expl-nav-active').attr('disabled', '');
-    else
-        $('#lookup-expl-prev').addClass('lookup-expl-nav-active').removeAttr('disabled');
+    refreshExplPrevNav(idx);
 
-    putExplContent(idx);
+    var loaded = putExplContent(idx);
+    if(!loaded) {
+        var exclExplIds = [];
+        $.each(getCachedExpls(), function(i, v) {
+            exclExplIds.push(v.id);
+        });
+        reliableGet(makeExtraUrl('explain', 'query', {word_id: curWordId, excl_expl_ids: exclExplIds.join()}), function(res) {
+            if(res.status != 'OKAY') {
+                return;
+            }
+
+            addCachedExpls(res.respond.expls);
+            putExplContent(idx);
+        });
+    }
 }
 
 function putExplNav(dst, id, arrow, enabled) {
@@ -197,9 +237,9 @@ function putExplBothNavs() {
     putExplNav($('#lookup-expl-next-contain'), 'lookup-expl-next', 'fui-arrow-right');
 }
 
-function loadExpls(gagId, recomm) {
-    if(!('explains' in allGagInfo[gagId]))
-        allGagInfo[gagId].explains = {};
+function loadExpls(recomm) {
+    if(!('explains' in allGagInfo[curGagId]))
+        allGagInfo[curGagId].explains = {};
     var args = {};
     if('id' in recomm)
         args.word_id = recomm.id;
@@ -209,9 +249,8 @@ function loadExpls(gagId, recomm) {
         return;
     reliableGet(makeExtraUrl('explain', 'query', args), function(res) {
         if(res.status == 'OKAY') {
-            var wordId = res.respond.word_id;
-            allGagInfo[gagId].explains[wordId] = res.respond.expls;
-            curWordId = wordId;
+            curWordId = res.respond.word_id;
+            addCachedExpls(res.respond.expls);
             if($('.lookup-in-dict').length > 0)
                 putExplContent(0);
         }

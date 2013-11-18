@@ -1,6 +1,6 @@
 loadUserInfo(function() {
     buildTriangle($('.badge-page'));
-    buildMain($('.badge-page'), 'small');
+    buildMain($('.badge-page'), 'big');
     buildMask($('.badge-page'));
     buildCover($('body'));
 

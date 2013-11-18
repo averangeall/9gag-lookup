@@ -3,7 +3,8 @@ function removeAllRecomms() {
 }
 
 function putSingleRecomm(recomm, color) {
-    var button = $('<a/>').html(recomm.content)
+    var content = genConnectedRecomm(genCapitalRecomm(recomm.content));
+    var button = $('<a/>').html(content)
                           .attr('href', 'javascript: void(0);')
                           .addClass('btnn btnn-large')
                           .addClass(color)
@@ -14,11 +15,25 @@ function putSingleRecomm(recomm, color) {
                               $(this).removeClass('btnn-primary')
                                      .addClass('btnn-inverse');
                               curWordId = recomm.id;
-                              prepareExplContent($(this).html());
-                              loadExpls(curGagId, recomm);
+                              prepareExplContent(genCapitalRecomm(recomm.content));
+                              loadExpls(recomm);
                           });
     $('#lookup-recomms-contain').append(button)
                                 .append(' ');
+}
+
+function genCapitalRecomm(str) {
+    var tokens = str.split(' ');
+    $.each(tokens, function(i, token) {
+        tokens[i] = token.substr(0, 1).toUpperCase() + token.substr(1);
+    });
+    return tokens.join(' ');
+}
+
+function genConnectedRecomm(str) {
+    var tokens = str.split(' ');
+    var fill = $('<span/>').addClass('recomm-fill');
+    return tokens.join(fill[0].outerHTML);
 }
 
 function filterRecomm(first) {
@@ -37,7 +52,7 @@ function filterRecomm(first) {
     var exact = false;
     $.each(allGagInfo[curGagId].recomms, function(i, recomm) {
         color = 'btnn-primary';
-        if(!chosen && query != '' && recomm.content.match('^' + query)) {
+        if(!chosen && query != '' && recomm.content.match(new RegExp('^' + query, 'i'))) {
             color = 'btnn-inverse';
             chosen = true;
         }

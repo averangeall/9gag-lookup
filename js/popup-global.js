@@ -1,6 +1,10 @@
 var curGagId, curWordId, curExplId;
+var curTreasure;
+var curNotifiStartIdx;
+
+var userInfo;
 var userId, userKey, userName;
 var allGagInfo = {};
-var userInfo;
 var treasureInfo;
-var curTreasure;
+var notifiInfo;
+var numNotifiBlocks;

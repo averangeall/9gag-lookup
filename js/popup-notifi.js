@@ -1,3 +1,119 @@
+function genNotifiMsg(notifi) {
+    var big = $('<div/>').addClass('lookup-notifi-line lookup-notifi-big-line');
+    var small = $('<div/>').addClass('lookup-notifi-line lookup-notifi-small-line');
+    if(notifi.type == 'you-agree-keyword') {
+        big.html('你賺到了 $' + notifi.coin_delta + ' 枚硬幣!!!');
+        small.html('因為您和別人撞到了<br/>同一個關鍵字 "' + notifi.word + '"');
+    } else if(notifi.type == 'someone-agree-keyword') {
+        big.html('你賺到了 $' + notifi.coin_delta + ' 枚硬幣!!!');
+        small.html('因為別人和您撞到了<br/>同一個關鍵字 "' + notifi.word + '"');
+    }
+
+    var msg = $('<div/>').addClass('lookup-notifi-msg')
+                         .append(big)
+                         .append(small);
+    return msg;
+}
+
+function genNotifiTail(notifi) {
+    var tail = $('<div/>').addClass('lookup-notifi-tail');
+    var goGag = $('<a/>').addClass('btnn lookup-notifi-go-gag')
+                         .attr('href', 'javascript: void(0);');
+    if(notifi.gag_id != null) {
+        var gagId = notifi.gag_id;
+        goGag.attr('href', 'http://9gag.com/gag/' + gagId)
+             .attr('target', '_blank');
+        tail.append(goGag);
+    }
+
+    return tail;
+}
+
+function genNotifiBlock(notifi) {
+    var block = $('<div/>').addClass('lookup-notifi-block');
+
+    var background = notifi.received ? 'lookup-notifi-received' : 'lookup-notifi-fresh';
+    var icon = (notifi.coin_delta > 0) ? 'lookup-notifi-coin-icon' : 'lookup-notifi-brick-icon';
+    var msg = genNotifiMsg(notifi);
+    var tail = genNotifiTail(notifi);
+
+    block.attr('data-notifi-id', notifi.id)
+         .addClass(background)
+         .addClass(icon)
+         .append(msg)
+         .append(tail);
+
+    block.click(function(evt) {
+        var target = $(evt.target);
+        if(target.is('a') || block.hasClass('lookup-notifi-received'))
+            return;
+        block.hide()
+             .removeClass('lookup-notifi-fresh')
+             .addClass('lookup-notifi-received')
+             .fadeIn();
+        reliableGet(makeExtraUrl('notifi', 'enable', {notifi_id: notifi.id}), function(res) { });
+    });
+
+    return block;
+}
+
+function notifiStopThreash() {
+    return 362;
+}
+
+function putAllNotifis() {
+    var allNotifis = $('#lookup-all-notifis').empty()
+                                             .hide();
+    var notifiNav = $('#lookup-notifi-nav').empty()
+                                               .hide();
+
+    $.each(notifiInfo, function(i, notifi) {
+        if(i < curNotifiStartIdx)
+            return true;
+        var block = genNotifiBlock(notifi);
+        allNotifis.append(block);
+        if($(window).height() - allNotifis.height() <= notifiStopThreash()) {
+            if(numNotifiBlocks == -1)
+                numNotifiBlocks = i - curNotifiStartIdx + 1;
+            return false;
+        }
+    });
+
+    var prev = $('<a/>').addClass('btnn btnn-large')
+                        .html('上一頁')
+                        .attr('href', 'javascript: void(0);');
+    var next = $('<a/>').addClass('btnn btnn-large')
+                        .html('下一頁')
+                        .attr('href', 'javascript: void(0);');
+    if(curNotifiStartIdx > 0) {
+        prev.addClass('btnn-primary');
+    }
+    if(curNotifiStartIdx + numNotifiBlocks < notifiInfo.length) {
+        next.addClass('btnn-primary');
+    }
+    prev.click(function() {
+        if(!prev.hasClass('btnn-primary'))
+            return;
+        curNotifiStartIdx -= numNotifiBlocks;
+        curNotifiStartIdx = (curNotifiStartIdx < 0) ? 0 : curNotifiStartIdx;
+        putAllNotifis();
+    });
+    next.click(function() {
+        if(!next.hasClass('btnn-primary'))
+            return;
+        curNotifiStartIdx += numNotifiBlocks;
+        putAllNotifis();
+    });
+    if(notifiInfo.length > numNotifiBlocks) {
+        notifiNav.append(prev)
+                 .append(' ')
+                 .append(next);
+    }
+
+    allNotifis.fadeIn();
+    notifiNav.fadeIn();
+}
+
 function putNoNotifi() {
     var noNotifi = $('#lookup-no-notifi');
 
@@ -18,6 +134,9 @@ function putNoNotifi() {
 
     noNotifi.append(line1)
             .append(line2);
+}
+
+function adjustNotifiHeight() {
 }
 
 function prepareNotifiExplain() {
@@ -46,13 +165,25 @@ function prepareNotifiExplain() {
            .append(line9);
 }
 
-function putAllNotifis() {
+function putNotifis() {
     reliableGet(makeExtraUrl('notifi', 'get', {}), function(res) {
         if(res.status != 'OKAY')
             return;
 
-        var notifis = res.respond.notifis;
-        
-        putNoNotifi();
+        notifiInfo = res.respond.notifis;
+
+        if(notifiInfo.length == 0)
+            putNoNotifi();
+        else {
+            curNotifiStartIdx = 0;
+            numNotifiBlocks = -1;
+            putAllNotifis();
+        }
+
+        $(window).resize(function() {
+            numNotifiBlocks = -1;
+            putAllNotifis();
+        });
     });
 }
+

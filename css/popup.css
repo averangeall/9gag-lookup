@@ -72,6 +72,105 @@ body {
     -webkit-border-top-right-radius: 3px;
 }
 
+.recomm-fill {
+    opacity: 0;
+}
+.recomm-fill:after {
+    content: "!";
+}
+
+#lookup-all-notifis {
+    margin-top: 18px;
+}
+
+#lookup-notifi-nav {
+    text-align: center;
+    padding: 20px;
+}
+
+.lookup-notifi-block {
+    margin-top: 8px;
+    width: 361px;
+    height: 82px;
+    cursor: pointer;
+    border-radius: 3px;
+    position: relative;
+}
+
+.lookup-notifi-block.lookup-notifi-received {
+    background-color: white;
+}
+
+.lookup-notifi-block.lookup-notifi-fresh {
+    background-color: #AAAAAA;
+}
+
+.lookup-notifi-block:hover {
+    background-color: #DDDDDD;
+}
+
+.lookup-notifi-block .lookup-notifi-tail {
+    display: none;
+}
+
+.lookup-notifi-block.lookup-notifi-received:hover .lookup-notifi-tail {
+    display: block;
+}
+
+.lookup-notifi-line {
+    margin-left: 78px;
+}
+
+.lookup-notifi-big-line {
+    padding-top: 4px;
+    font-size: 20px;
+    color: black;
+}
+
+.lookup-notifi-small-line {
+    font-size: 14px;
+}
+
+.lookup-notifi-block.lookup-notifi-received .lookup-notifi-msg {
+    position: absolute;
+    top: 6px;
+}
+
+.lookup-notifi-block.lookup-notifi-fresh .lookup-notifi-msg {
+    position: absolute;
+    top: 18px;
+}
+
+.lookup-notifi-block.lookup-notifi-fresh .lookup-notifi-small-line {
+    display: none;
+}
+
+.lookup-notifi-block.lookup-notifi-coin-icon {
+    background-image: url('chrome-extension://__MSG_@@extension_id__/images/coin.png');
+    background-repeat: no-repeat;
+    background-position: 15px;
+}
+
+.lookup-notifi-block.lookup-notifi-brick-icon {
+    background-image: url('chrome-extension://__MSG_@@extension_id__/images/brick.png');
+    background-repeat: no-repeat;
+    background-position: 15px;
+}
+
+.lookup-notifi-tail {
+    position: absolute;
+    top: 16px;
+    left: 280px;
+}
+
+.lookup-notifi-go-gag {
+    color: #34495e ! important;
+}
+
+.lookup-notifi-go-gag:after {
+    content: "去看看";
+}
+
 #lookup-nav-bar {
     padding: 5px 20px 0 0;
     font-size: 22px;
@@ -289,11 +388,11 @@ a.lookup-close-btn:hover {
     color: #34495e;
 }
 
-#lookup-expl-like:hover, #lookup-expl-like.lookup-mood-on {
+#lookup-expl-like.lookup-mood-on {
     background-color: #2ecc71;
     color: white;
 }
-#lookup-expl-hate:hover, #lookup-expl-hate.lookup-mood-on {
+#lookup-expl-hate.lookup-mood-on {
     background-color: #e74c3c;
     color: white;
 }
