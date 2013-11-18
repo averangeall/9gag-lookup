@@ -9,7 +9,8 @@ function genNotifiMsg(notifi) {
         small.html('因為別人和您撞到了<br/>同一個關鍵字 "' + notifi.word + '"');
     }
 
-    var msg = $('<div/>').append(big)
+    var msg = $('<div/>').addClass('lookup-notifi-msg')
+                         .append(big)
                          .append(small);
     return msg;
 }
@@ -46,9 +47,10 @@ function genNotifiBlock(notifi) {
         var target = $(evt.target);
         if(target.is('a') || block.hasClass('lookup-notifi-received'))
             return;
-        console.log('enable');
-        block.removeClass('lookup-notifi-fresh')
-             .addClass('lookup-notifi-received');
+        block.hide()
+             .removeClass('lookup-notifi-fresh')
+             .addClass('lookup-notifi-received')
+             .fadeIn();
         reliableGet(makeExtraUrl('notifi', 'enable', {notifi_id: notifi.id}), function(res) { });
     });
 

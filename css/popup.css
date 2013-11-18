@@ -113,7 +113,7 @@ body {
     display: none;
 }
 
-.lookup-notifi-block:hover .lookup-notifi-tail {
+.lookup-notifi-block.lookup-notifi-received:hover .lookup-notifi-tail {
     display: block;
 }
 
@@ -131,6 +131,20 @@ body {
     font-size: 14px;
 }
 
+.lookup-notifi-block.lookup-notifi-received .lookup-notifi-msg {
+    position: absolute;
+    top: 6px;
+}
+
+.lookup-notifi-block.lookup-notifi-fresh .lookup-notifi-msg {
+    position: absolute;
+    top: 18px;
+}
+
+.lookup-notifi-block.lookup-notifi-fresh .lookup-notifi-small-line {
+    display: none;
+}
+
 .lookup-notifi-block.lookup-notifi-coin-icon {
     background-image: url('chrome-extension://__MSG_@@extension_id__/images/coin.png');
     background-repeat: no-repeat;
@@ -145,7 +159,7 @@ body {
 
 .lookup-notifi-tail {
     position: absolute;
-    top: 38px;
+    top: 16px;
     left: 280px;
 }
 
