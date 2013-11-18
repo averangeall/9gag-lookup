@@ -52,15 +52,15 @@ function setShrinkSmall(close) {
 
 function autoType(input, text, callback) {
     var timerId = setInterval(function() {
-        if(text.match(new RegExp('^' + input.val() + '$', 'i')) != null) {
+        if(text.toLowerCase() == input.val().toLowerCase()) {
             clearInterval(timerId);
             callback();
             return;
         }
-        if(text.match(new RegExp('^' + input.val(), 'i')) != null) {
-            input.val(input.val() + text.substr(input.val().length, 1));
-        } else if(input.val() == ' ') {
+        if(input.val().trim().length == 0) {
             input.val(text.substr(0, 1));
+        } else if(text.toLowerCase().indexOf(input.val().toLowerCase()) == 0) {
+            input.val(input.val() + text.substr(input.val().length, 1));
         } else {
             input.val(input.val().substr(0, input.val().length - 1));
             if(input.val() == '')
