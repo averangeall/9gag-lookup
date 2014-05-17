@@ -68,60 +68,6 @@ function buildDict(dst) {
     putQueryInput();
 }
 
-function buildNotifi(dst) {
-    var notifi = $('<div/>');
-    dst.append(notifi);
-
-    var allNotifis = $('<div/>').attr('id', 'lookup-all-notifis');
-    var notifiNav = $('<div/>').attr('id', 'lookup-notifi-nav');
-    var noNotifi = $('<div/>').attr('id', 'lookup-no-notifi')
-                              .addClass('lookup-heading-left lookup-high-line');
-    var explain = $('<div/>').attr('id', 'lookup-notifi-explain')
-                             .addClass('lookup-heading-left lookup-high-line');
-
-    notifi.append(allNotifis)
-          .append(notifiNav)
-          .append(noNotifi)
-          .append(explain);
-
-    prepareNotifiExplain();
-    putNotifis();
-
-    return notifi;
-}
-
-function buildPersonal(dst) {
-    var personal = $('<div/>');
-    dst.append(personal);
-
-    var avatar = $('<div/>').attr('id', 'lookup-user-avatar');
-
-    var name = $('<div/>').attr('id', 'lookup-user-name-contain');
-    var rename = $('<div/>').attr('id', 'lookup-user-rename-contain');
-    var nameRow = $('<div/>').attr('id', 'lookup-user-name-row')
-                             .append(name)
-                             .append(rename);
-
-    var coin = $('<div/>').attr('id', 'lookup-user-coin-contain');
-    var score = $('<div/>').attr('id', 'lookup-user-score-contain');
-    var buy = $('<div/>').attr('id', 'lookup-buy-contain');
-    var treaBrowse = $('<div/>').attr('id', 'lookup-treasures-browse-contain');
-    var treaAction = $('<div/>').attr('id', 'lookup-treasures-action-contain');
-
-    personal.append(avatar)
-            .append(nameRow)
-            .append(coin)
-            .append(score)
-            .append(buy)
-            .append(treaBrowse)
-            .append(treaAction);
-
-    putAvatar();
-    putUserInfo();
-
-    return personal;
-}
-
 function buildNavBtn(dst, name, chosen, builder) {
     var nav = $('<a/>').attr('href', 'javascript: void(0);')
                        .addClass('lookup-nav-btn')
@@ -153,10 +99,6 @@ function buildNavBar(dst) {
     dst.append(navs);
 
     buildNavBtn(navs, '字典', true, buildDict);
-    navs.append(' ');
-    buildNavBtn(navs, '通知', false, buildNotifi);
-    navs.append(' ');
-    buildNavBtn(navs, '個人', false, buildPersonal);
     navs.append(' ');
     buildCloseBtn(navs);
 }

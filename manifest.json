@@ -22,8 +22,6 @@
         ],
         "js": [
             "js/jquery-1.8.2.min.js",
-            "js/bootstrap.min.js",
-            "js/bootstrap-select.js",
             "js/swfobject.js",
             "js/config.js",
             "js/utility.js",
@@ -32,8 +30,6 @@
             "js/popup-common.js",
             "js/popup-gagid.js",
             "js/popup-recomm.js",
-            "js/popup-personal.js",
-            "js/popup-notifi.js",
             "js/popup-expl.js",
             "js/popup-youtube.js",
             "js/popup-mask-cover.js",
@@ -49,7 +45,7 @@
         "storage",
         "tabs",
         "http://9gag.com/",
-        "http://disa.csie.org:5566/",
+        "http://disa.csie.org:9949/",
         "http://nine-gag-wrapper.herokuapp.com/"
     ],
     "web_accessible_resources": [

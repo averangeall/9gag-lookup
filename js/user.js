@@ -20,4 +20,10 @@ function loadUserInfo(success) {
         if(success !== undefined)
             success();
     });
+    //chrome.storage.sync.get(['user_lookup_id', 'user_lookup_key'], function(res) {
+    //    userId = res['user_lookup_id'];
+    //    userKey = res['user_lookup_key'];
+    //    if(success !== undefined)
+    //        success();
+    //});
 }
