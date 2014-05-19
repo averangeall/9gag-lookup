@@ -123,6 +123,9 @@ function buildLogo(dst) {
 
 function buildMain(dst, which) {
     var contain = $('<div/>').attr('id', 'lookup-contain-main');
+    var left = $('#sidebar').offset().left - $('.main-wrap').offset().left + 31;
+    contain.css('padding-left', left + 'px');
+
     dst.append(contain);
 
     var main = $('<div/>');
@@ -141,6 +144,8 @@ function buildMain(dst, which) {
 
 function buildTriangle(dst) {
     var contain = $('<div/>').attr('id', 'lookup-contain-triangle');
+    var left = $('#sidebar').offset().left - $('.main-wrap').offset().left + 11;
+    contain.css('padding-left', left + 'px');
     dst.append(contain);
 
     var triangle = $('<div/>').attr('id', 'lookup-triangle');

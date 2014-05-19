@@ -4,13 +4,13 @@ body {
 
 #lookup-contain-main {
     float: left;
-    padding: 20px 0 0 630px;
+    padding-top: 20px;
     width: 700px;
 }
 
 #lookup-contain-triangle {
     float: left;
-    padding: 20px 0 0 610px;
+    padding-top: 20px;
 }
 
 #lookup-contain-mask {
