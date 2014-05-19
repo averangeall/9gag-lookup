@@ -75,7 +75,8 @@ function getCachedExpls() {
 function addCachedExpls(extraExpls) {
     var expls = allGagInfo[curGagId].explains;
     if(curWordId in expls) {
-        expls[curWordId].push.apply(expls[curWordId], extraExpls);
+        //expls[curWordId].push.apply(expls[curWordId], extraExpls);
+        expls[curWordId] = extraExpls;
     } else {
         expls[curWordId] = extraExpls;
     }

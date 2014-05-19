@@ -17,7 +17,7 @@ function makeExtraUrl(stuff, action, args) {
 
 function reliableGet(extraUrl, success) {
     var url = baseUrl + extraUrl;
-    console.log(url);
+    console.log('get: ' + url);
     $.get(url, success, 'json');
 }
 
